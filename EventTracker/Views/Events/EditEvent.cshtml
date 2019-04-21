@@ -1,0 +1,21 @@
+﻿@model EventTracker.ViewModels.EventViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditEvent</title>
+</head>
+<body>
+    <h1>Edit event</h1>
+    <form method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <input type="submit" name="Update" value="Update" />
+    </form>
+</body>
+</html>
