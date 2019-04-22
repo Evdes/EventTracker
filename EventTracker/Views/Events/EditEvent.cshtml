@@ -13,36 +13,40 @@
 <body>
     <h1>Edit event</h1>
     <form method="post">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description"></textarea>
-        <label asp-for="WantedAmountOfParticipants"></label>
-        <input asp-for="WantedAmountOfParticipants" />
-        <label asp-for="Location.City"></label>
-        <input asp-for="Location.City" />
-        <label asp-for="Location.Province"></label>
-        <input asp-for="Location.Province" />
-        @*<input asp-for="Timeframes" />*@
-        @for (var i = 0; i < Model.Timeframes.Count; i++)
-        {
-            <label asp-for="Timeframes[i].EventDate"></label>
-            <input asp-for="Timeframes[i].EventDate" />
-            <label asp-for="Timeframes[i].Starttime"></label>
-            <input asp-for="Timeframes[i].Starttime" />
-            <label asp-for="Timeframes[i].Endtime"></label>
-            <input asp-for="Timeframes[i].Endtime" />
-        }
-        @*@foreach (var timeframe in Model.Timeframes)
-        {
-            <label asp-for="@timeframe.EventDate.Date"></label>
-            <input asp-for="@timeframe.EventDate.Date" />
-            <label asp-for="@timeframe.Starttime"></label>
-            <input asp-for="@timeframe.Starttime" />
-            <label asp-for="@timeframe.Endtime"></label>
-            <input asp-for="@timeframe.Endtime" />
-        }*@
-        <input type="submit" name="Update" value="Update" />
-    </form>
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+        </div>
+        <div>
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <div>
+            <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
+            <input asp-for="WantedAmountOfParticipants" />
+        </div>
+        <div>
+            <label asp-for="Location.City"></label>
+            <input asp-for="Location.City" />
+            <label asp-for="Location.Province"></label>
+            <input asp-for="Location.Province" />
+        </div>
+        <div>
+            <label asp-for="Timeframes"></label>
+            @for (var i = 0; i < Model.Timeframes.Count; i++)
+            {
+                <div>
+                    <label asp-for="Timeframes[i].EventDate"></label>
+                    <input asp-for="Timeframes[i].EventDate" />
+                    <label asp-for="Timeframes[i].Starttime"></label>
+                    <input asp-for="Timeframes[i].Starttime" />
+                    <label asp-for="Timeframes[i].Endtime"></label>
+                    <input asp-for="Timeframes[i].Endtime" />
+                </div>
+            }
+        </div>
+          
+            <input type="submit" name="Update" value="Update" />
+</form>
 </body>
 </html>

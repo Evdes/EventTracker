@@ -16,16 +16,27 @@
         Add new event
     </h1>
     <form method="post">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description"></textarea>
-        <label asp-for="Location.City"></label>
-        <input asp-for="Location.City" />
-        <label asp-for="Location.Province"></label>
-        <input asp-for="Location.Province" />
-        <label asp-for="WantedAmountOfParticipants"></label>
-        <input asp-for="WantedAmountOfParticipants" />
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+        </div>
+        <div>
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <div>
+            <label asp-for="Location.City"></label>
+            <input asp-for="Location.City" />
+        </div>
+        <div>
+            <label asp-for="Location.Province"></label>
+            <input asp-for="Location.Province" />
+        </div>
+        <div>
+            <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
+            <input asp-for="WantedAmountOfParticipants" />
+        </div>
+        <a asp-action="AllUpcomingEvents">Cancel</a>
         <input type="submit" name="Add" value="Add" />
     </form>
 </body>
