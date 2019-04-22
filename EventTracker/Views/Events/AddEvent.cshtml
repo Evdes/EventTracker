@@ -1,4 +1,4 @@
-﻿@model EventTracker.ViewModels.EventViewModel
+﻿@model EventTracker.Models.Event
 
 @{
     Layout = null;
@@ -18,6 +18,14 @@
     <form method="post">
         <label asp-for="Name"></label>
         <input asp-for="Name" />
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <label asp-for="Location.City"></label>
+        <input asp-for="Location.City" />
+        <label asp-for="Location.Province"></label>
+        <input asp-for="Location.Province" />
+        <label asp-for="WantedAmountOfParticipants"></label>
+        <input asp-for="WantedAmountOfParticipants" />
         <input type="submit" name="Add" value="Add" />
     </form>
 </body>

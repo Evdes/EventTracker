@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventTracker.ViewModels
+namespace EventTracker.BLL.Models
 {
-    public class EventViewModel
+    public class Participant
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

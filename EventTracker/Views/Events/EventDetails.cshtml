@@ -13,8 +13,32 @@
 <body>
     <h1>This is the event details page</h1>
     <div>
-        <p>@Model.Id</p>
+        <label asp-for="Name"></label>
         <p>@Model.Name</p>
+        <label asp-for="Description"></label>
+        <p>@Model.Description</p>
+        <label asp-for="Location.City"></label>
+        <p>@Model.Location.City</p>
+        <label asp-for="Location.Province"></label>
+        <p>@Model.Location.Province</p>
+        <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
+        <p>@Model.WantedAmountOfParticipants</p>
+        @foreach (var timeframe in @Model.Timeframes)
+        {
+            <label>Date</label>
+            <p>@timeframe.EventDate</p>
+            <label>Start time</label>
+            <p>@timeframe.Starttime</p>
+            <label>End time</label>
+            <p>@timeframe.Endtime</p>
+        }
+        @foreach (var participant in @Model.Participants)
+        {
+            <label>Name</label>
+            <p>@participant.Name</p>
+        }
+
+        <a asp-action="AllUpcomingEvents">Back to overview</a>
     </div>
 </body>
 </html>
