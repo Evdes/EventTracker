@@ -33,8 +33,8 @@ namespace EventTracker.Services
                     Participants = new List<Participant>
                     {
                         new Participant { Name = "Participant1" }
-                    }
-
+                    },
+                    IsCancelled=true
                 },
                 new Event { Id = 2,
                     Name = "Event2",
@@ -81,18 +81,17 @@ namespace EventTracker.Services
             _events.Remove(eventToDelete);
         }
 
-        public Event EditEvent(Event updatedEvent)
+        public Event EditEvent(Event postedEvent, Event eventToUpdate)
         {
-            var eventToEdit = GetEvent(updatedEvent.Id);
-            eventToEdit.Name = updatedEvent.Name;
-            eventToEdit.Description = updatedEvent.Description;
-            eventToEdit.WantedAmountOfParticipants = updatedEvent.WantedAmountOfParticipants;
-            eventToEdit.Location.City = updatedEvent.Location.City;
-            eventToEdit.Location.Province = updatedEvent.Location.Province;
-            eventToEdit.Timeframes.Clear();
-            foreach(var timeframe in updatedEvent.Timeframes)
+            eventToUpdate.Name = postedEvent.Name;
+            eventToUpdate.Description = postedEvent.Description;
+            eventToUpdate.WantedAmountOfParticipants = postedEvent.WantedAmountOfParticipants;
+            eventToUpdate.Location.City = postedEvent.Location.City;
+            eventToUpdate.Location.Province = postedEvent.Location.Province;
+            eventToUpdate.Timeframes.Clear();
+            foreach (var timeframe in postedEvent.Timeframes)
             {
-                eventToEdit.Timeframes.Add(
+                eventToUpdate.Timeframes.Add(
                     new TimeFrame
                     {
                         EventDate = timeframe.EventDate,
@@ -100,7 +99,7 @@ namespace EventTracker.Services
                         Endtime = timeframe.Endtime
                     });
             }
-            return eventToEdit;
+            return eventToUpdate;
         }
 
         public IEnumerable<Event> GetAllUpcomingEvents()

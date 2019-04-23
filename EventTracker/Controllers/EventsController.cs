@@ -13,17 +13,58 @@ namespace EventTracker.Controllers
             _events = eventMockRepo;
         }
 
+        [HttpGet]
         public IActionResult AllUpcomingEvents()
         {
             var allUpcomingEvents = _events.GetAllUpcomingEvents();
             return View(allUpcomingEvents);
         }
 
-        public IActionResult EventDetails(int id)
+        [HttpPost]
+        public IActionResult AllUpcomingEvents(int? id)
         {
-            var requestedEvent = _events.GetEvent(id);
-            return View(requestedEvent);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ToggleCancel(id.Value);
+                var allUpcomingEvents = _events.GetAllUpcomingEvents();
+                return RedirectToAction(nameof(AllUpcomingEvents), allUpcomingEvents);
+            }
         }
+
+        [HttpGet]
+        public IActionResult EventDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var requestedEvent = _events.GetEvent(id.Value);
+                return View(requestedEvent);
+            }
+        }
+
+        [HttpPost]
+        [ActionName("EventDetails")]
+        public IActionResult EventDetailsPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ToggleCancel(id.Value);
+                var requestedEvent = _events.GetEvent(id.Value);
+                return RedirectToAction(nameof(EventDetails), requestedEvent);
+            }
+        }
+
 
         [HttpGet]
         public IActionResult AddEvent()
@@ -35,14 +76,22 @@ namespace EventTracker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddEvent(Event newEvent)
         {
-            newEvent = _events.AddEvent(newEvent);
-            return RedirectToAction(nameof(EventDetails), new { id = newEvent.Id });
+            if (ModelState.IsValid)
+            {
+                newEvent = _events.AddEvent(newEvent);
+                return RedirectToAction(nameof(EventDetails), new { id = newEvent.Id });
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpGet]
         public IActionResult DeleteEvent(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -64,7 +113,7 @@ namespace EventTracker.Controllers
         [HttpGet]
         public IActionResult EditEvent(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -76,10 +125,31 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditEvent(Event updatedEvent)
+        public IActionResult EditEvent(int? id, Event postedEvent)
         {
-            updatedEvent = _events.EditEvent(updatedEvent);
-            return RedirectToAction(nameof(EventDetails), new { id = updatedEvent.Id });
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var eventToUpdate = _events.GetEvent(id.Value);
+                    eventToUpdate = _events.EditEvent(postedEvent, eventToUpdate);
+                    return RedirectToAction(nameof(EventDetails), new { id = eventToUpdate.Id });
+                }
+            }
+            else
+            {
+                return View(postedEvent);
+            }
+            
+        }
+        private void ToggleCancel(int id)
+        {
+            var eventToToggle = _events.GetEvent(id);
+            eventToToggle.IsCancelled = !eventToToggle.IsCancelled;
         }
     }
 }

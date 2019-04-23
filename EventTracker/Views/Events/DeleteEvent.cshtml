@@ -1,52 +1,49 @@
-﻿@model EventTracker.Models.Event
+﻿@model Event
 @{
-    Layout = null;
+    ViewBag.Title = "Delete an event";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>DeleteEvent</title>
-</head>
-<body>
-    <h1>Are you sure you want to delete this?</h1>
+<h2>Are you sure you want to delete this?</h2>
+<div>
     <div>
-        <div>@Model.Name</div>
-        <div>@Model.Description</div>
-        <div>
-            <label asp-for="Location">Location: </label>
-            <span>@Model.Location.City (@Model.Location.Province)</span>
-        </div>
-        <label asp-for="WantedAmountOfParticipants">Required amount of participants : @Model.WantedAmountOfParticipants</label>
-        <div>
-            <label asp-for="Timeframes"></label>
-            @foreach (var timeframe in @Model.Timeframes)
-            {
-                <div>
-                    Date: <span>@timeframe.EventDate.Date</span>
-                    (Start: <span>@timeframe.Starttime</span>h / End: <span>@timeframe.Endtime</span>h)
-                </div>
-            }
-        </div>
-
-        <div>
-            <label asp-for="Participants"></label>
-            @foreach (var participant in @Model.Participants)
-            {
-                <div>
-                    @participant.Name
-                </div>
-            }
-        </div>
-
-        
-        <form method="post">
-            <a asp-action="AllUpcomingEvents">Cancel</a>
-            <input type="submit" name="Delete" value="Delete" />
-        </form>
+        @if (Model.IsCancelled)
+        {
+            <h3>Model.Name (Cancelled)</h3>
+        }
+        else
+        {
+            <h3>Model.Name</h3>
+        }
     </div>
-       
-</body>
-</html>
+    <div>@Model.Description</div>
+    <div>
+        <label asp-for="Location">Location: </label>
+        <span>@Model.Location.City (@Model.Location.Province)</span>
+    </div>
+    <label asp-for="WantedAmountOfParticipants">Required amount of participants : @Model.WantedAmountOfParticipants</label>
+    <div>
+        <label asp-for="Timeframes"></label>
+        @foreach (var timeframe in @Model.Timeframes)
+        {
+            <div>
+                Date: <span>@timeframe.EventDate.Value.Date</span>
+                (Start: <span>@timeframe.Starttime</span>h / End: <span>@timeframe.Endtime</span>h)
+            </div>
+        }
+    </div>
+
+    <div>
+        <label asp-for="Participants"></label>
+        @foreach (var participant in @Model.Participants)
+        {
+            <div>
+                @participant.Name
+            </div>
+        }
+    </div>
+
+
+    <form method="post">
+        <a asp-action="AllUpcomingEvents">Cancel</a>
+        <input type="submit" name="Delete" value="Delete" />
+    </form>
+</div>

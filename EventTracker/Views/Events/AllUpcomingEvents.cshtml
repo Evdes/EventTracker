@@ -1,34 +1,42 @@
-﻿@model IEnumerable<EventTracker.Models.Event>
+﻿@model IEnumerable<Event>
 @{
-    Layout = null;
+    ViewBag.Title = "View all upcoming events";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AllUpcomingEvents</title>
-</head>
-<body>
-    <h1>All upcoming events</h1>
-    <a asp-action="AddEvent">Add new event</a>
-    <div>
-        @foreach (var e in Model)
-        {
-            <div>
+<h2>All upcoming events</h2>
+<a asp-action="AddEvent">Add new event</a>
+<div>
+    @foreach (var e in Model)
+    {
+        <div>
+            @if (e.IsCancelled)
+            {
+                <h3>@e.Name (Cancelled)</h3>
+            }
+            else
+            {
                 <h3>@e.Name</h3>
-                <div>@e.Description</div>
-                <div>Required amount of participants: @e.WantedAmountOfParticipants</div>
-                <div> @e.Location.City (@e.Location.Province)</div>
-                <div>
-                    <a asp-action="EventDetails" asp-route-id="@e.Id">Details</a>
+            }
+            <div>@e.Description</div>
+            <div>Required amount of participants: @e.WantedAmountOfParticipants</div>
+            <div> @e.Location.City (@e.Location.Province)</div>
+            <div>
+                <a asp-action="EventDetails" asp-route-id="@e.Id">Details</a>
+                @if (e.IsCancelled)
+                {
+                    <form method="post">
+                        <input asp-route-id="@e.Id" type="submit" name="Undo Cancellation" value="Undo Cancellation" />
+                    </form>
+                }
+                else
+                {
+                    <form method="post">
+                        <input asp-route-id="@e.Id" type="submit" name="Cancel" value="Cancel" />
+                    </form>
                     <a asp-action="EditEvent" asp-route-id="@e.Id">Edit</a>
                     <a asp-action="DeleteEvent" asp-route-id="@e.Id">Delete</a>
-                </div>
+                }
             </div>
-        }
-    </div>
 
-</body>
-</html>
+        </div>
+    }
+</div>
