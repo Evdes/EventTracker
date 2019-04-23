@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using EventTracker.BLL.Models;
-using EventTracker.Models;
+using EventTracker.BLL.Models.Events;
 
-
-namespace EventTracker.Services
+namespace EventTracker.BLL.Services.Repos
 {
     public class EventMockRepo : IEventRepo
     {
@@ -107,9 +104,9 @@ namespace EventTracker.Services
             return _events;
         }
 
-        public Event GetEvent(int id)
+        public Event GetEvent(int? id)
         {
-            return _events.FirstOrDefault(e => e.Id == id);
+            return _events.FirstOrDefault(e => e.Id == id.Value);
         }
     }
 }

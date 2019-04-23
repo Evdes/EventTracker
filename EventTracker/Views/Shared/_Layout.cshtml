@@ -8,6 +8,10 @@
 <body>
     <nav>
         <h1>Event Tracker</h1>
+        <ul>
+            <li><a asp-controller="Events" asp-action="AllUpcomingEvents">Upcoming Events</a></li>
+            <li><a asp-controller="UserProfiles" asp-action="AllUserProfiles">User Profiles</a></li>
+        </ul>
     </nav>
     <div>
         @RenderBody()

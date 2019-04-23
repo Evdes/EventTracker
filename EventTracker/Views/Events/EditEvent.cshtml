@@ -31,19 +31,20 @@
         <label asp-for="Timeframes"></label>
         @for (var i = 0; i < Model.Timeframes.Count; i++)
         {
-    <div>
-        <label asp-for="Timeframes[i].EventDate"></label>
-        <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
-        <span asp-validation-for="Timeframes[i].EventDate"></span>
-        <label asp-for="Timeframes[i].Starttime"></label>
-        <input asp-for="Timeframes[i].Starttime" min="0" max="24" />
-        <span asp-validation-for="Timeframes[i].Starttime"></span>
-        <label asp-for="Timeframes[i].Endtime"></label>
-        <input asp-for="Timeframes[i].Endtime" min="0" max="24" />
-        <span asp-validation-for="Timeframes[i].Endtime"></span>
-    </div>
+            <div>
+                <label asp-for="Timeframes[i].EventDate"></label>
+                <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
+                <span asp-validation-for="Timeframes[i].EventDate"></span>
+                <label asp-for="Timeframes[i].Starttime"></label>
+                <input asp-for="Timeframes[i].Starttime" min="0" max="24" />
+                <span asp-validation-for="Timeframes[i].Starttime"></span>
+                <label asp-for="Timeframes[i].Endtime"></label>
+                <input asp-for="Timeframes[i].Endtime" min="0" max="24" />
+                <span asp-validation-for="Timeframes[i].Endtime"></span>
+            </div>
         }
     </div>
 
+    <a asp-action="AllUpcomingEvents">Cancel</a>
     <input type="submit" name="Update" value="Update" />
 </form>

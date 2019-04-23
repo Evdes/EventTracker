@@ -1,0 +1,24 @@
+﻿@model IEnumerable<UserProfile>
+@{
+    ViewBag.Title = "Userprofiles";
+}
+
+<h2>This is the Userprofiles overview </h2>
+
+<div>
+    @foreach (var userprofile in Model)
+    {
+        <div>@userprofile.FirstName</div>
+        <div>@userprofile.LastName</div>
+        <div>@userprofile.Email</div>
+        <div>
+            UserRole: 
+            <span>@userprofile.UserRole</span>
+        </div>
+        <div>
+            <a asp-action="EditUserProfile" asp-route-id="@userprofile.Id">Edit</a>
+            <a asp-action="DeleteUserProfile" asp-route-id="@userprofile.Id">Delete</a>
+        </div>
+    }
+</div>
+

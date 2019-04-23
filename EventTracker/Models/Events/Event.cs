@@ -1,8 +1,7 @@
-﻿using EventTracker.BLL.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventTracker.Models
+namespace EventTracker.BLL.Models.Events
 {
     public class Event
     {

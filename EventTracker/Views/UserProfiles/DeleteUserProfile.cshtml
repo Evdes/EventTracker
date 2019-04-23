@@ -1,0 +1,18 @@
+﻿@model UserProfile
+@{
+    ViewBag.Title = "Delete Userprofile";
+}
+
+<h1>Delete Userprofile</h1>
+<div>
+    <div>@Model.FirstName</div>
+    <div>@Model.LastName</div>
+    <div>@Model.Email</div>
+    <div>
+        <a asp-action="AllUserProfiles">Cancel</a>
+        <form method="post">
+            <input type="submit" name="Delete" value="Delete" />
+        </form>
+    </div>
+</div>
+

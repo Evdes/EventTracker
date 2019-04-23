@@ -1,8 +1,8 @@
-﻿using EventTracker.Models;
-using EventTracker.Services;
+﻿using EventTracker.BLL.Models.Events;
+using EventTracker.BLL.Services.Repos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EventTracker.Controllers
+namespace EventTracker.BLL.Controllers
 {
     public class EventsController : Controller
     {
@@ -21,6 +21,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AllUpcomingEvents(int? id)
         {
             if (id == null)
@@ -50,6 +51,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("EventDetails")]
         public IActionResult EventDetailsPost(int? id)
         {
@@ -104,10 +106,18 @@ namespace EventTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteEvent(Event eventToDelete)
+        [ActionName("DeleteEvent")]
+        public IActionResult DeleteEventPost(int? id)
         {
-            _events.DeleteEvent(_events.GetEvent(eventToDelete.Id));
-            return RedirectToAction(nameof(AllUpcomingEvents));
+            if(id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _events.DeleteEvent(_events.GetEvent(id.Value));
+                return RedirectToAction(nameof(AllUpcomingEvents));
+            }
         }
 
         [HttpGet]
@@ -125,6 +135,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditEvent(int? id, Event postedEvent)
         {
             if (ModelState.IsValid)

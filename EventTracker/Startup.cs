@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventTracker.Services;
+﻿using EventTracker.BLL.Services;
+using EventTracker.BLL.Services.Repos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +15,7 @@ namespace EventTracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEventRepo, EventMockRepo>();
+            services.AddSingleton<IUserProfileRepo, UserProfileMockRepo>();
             services.AddMvc();
         }
 
