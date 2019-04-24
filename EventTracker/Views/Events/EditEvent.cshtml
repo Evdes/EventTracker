@@ -4,29 +4,7 @@
 }
 <h2>Edit event</h2>
 <form method="post">
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description"></textarea>
-        <span asp-validation-for="Description"></span>
-    </div>
-    <div>
-        <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
-        <input asp-for="WantedAmountOfParticipants" />
-        <span asp-validation-for="WantedAmountOfParticipants"></span>
-    </div>
-    <div>
-        <label asp-for="Location.City"></label>
-        <input asp-for="Location.City" />
-        <span asp-validation-for="Location.City"></span>
-        <label asp-for="Location.Province"></label>
-        <input asp-for="Location.Province" />
-        <span asp-validation-for="Location.Province"></span>
-    </div>
+    <partial name="Partials/_EventBasicInputDetails" model="Model" />
     <div>
         <label asp-for="Timeframes"></label>
         @for (var i = 0; i < Model.Timeframes.Count; i++)
@@ -45,6 +23,9 @@
         }
     </div>
 
-    <a asp-action="AllUpcomingEvents">Cancel</a>
-    <input type="submit" name="Update" value="Update" />
+    <div>
+        <a asp-action="AllUpcomingEvents">Back to overview</a> 
+        <a asp-action="EventDetails" asp-route-id="@Model.Id">Back to details</a>
+        <input type="submit" name="Update" value="Update" />
+    </div>
 </form>

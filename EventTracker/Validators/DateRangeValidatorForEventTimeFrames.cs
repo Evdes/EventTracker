@@ -14,6 +14,7 @@ namespace EventTracker.BLL.Validators
                   DateTime.Today.ToShortDateString(), 
                   DateTime.MaxValue.ToShortDateString())
         {
+            ErrorMessage = "Date cannot be situated in the past";
         }
     }
 }

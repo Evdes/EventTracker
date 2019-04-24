@@ -4,20 +4,16 @@
 }
 
 <h2>This is the Userprofiles overview </h2>
+<a asp-action="AddUserProfile">Add New User</a>
+
 
 <div>
-    @foreach (var userprofile in Model)
+    @foreach(var userProfile in Model)
     {
-        <div>@userprofile.FirstName</div>
-        <div>@userprofile.LastName</div>
-        <div>@userprofile.Email</div>
+        <partial name="Partials/_UserProfileDetails" model="@userProfile" />
         <div>
-            UserRole: 
-            <span>@userprofile.UserRole</span>
-        </div>
-        <div>
-            <a asp-action="EditUserProfile" asp-route-id="@userprofile.Id">Edit</a>
-            <a asp-action="DeleteUserProfile" asp-route-id="@userprofile.Id">Delete</a>
+            <a asp-action="EditUserProfile" asp-route-id="@userProfile.Id">Edit</a>
+            <a asp-action="DeleteUserProfile" asp-route-id="@userProfile.Id">Delete</a>
         </div>
     }
 </div>

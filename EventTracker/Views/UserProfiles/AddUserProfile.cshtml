@@ -1,0 +1,20 @@
+﻿@model UserProfile
+
+@{
+    ViewBag.Title = "Add a user";
+}
+
+<h2>Add a User</h2>
+
+<div>
+    <form method="post">
+        <partial name="Partials/_UserProfilesInputDetails" model="Model" />
+        <input type="submit" name="AddUser" value="Add new user" />
+    </form>
+</div>
+
+    
+
+
+
+

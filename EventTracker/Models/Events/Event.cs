@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.BLL.Models.Events
@@ -10,6 +11,7 @@ namespace EventTracker.BLL.Models.Events
             Timeframes = new List<TimeFrame>();
             Participants = new List<Participant>();
         }
+
         public int Id { get; set; }
 
         [Required]

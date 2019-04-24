@@ -23,8 +23,8 @@ namespace EventTracker.BLL.Services.Repos
                     WantedAmountOfParticipants = 1,
                     Timeframes = new List<TimeFrame>
                     {
-                        new TimeFrame { EventDate = new DateTime(2001, 1, 1), Starttime = 11, Endtime = 21 },
-                        new TimeFrame { EventDate = new DateTime(2001, 1, 2), Starttime = 11, Endtime = 21 }
+                        new TimeFrame { EventDate = new DateTime(2021, 1, 1), Starttime = 11, Endtime = 21 },
+                        new TimeFrame { EventDate = new DateTime(2021, 1, 2), Starttime = 11, Endtime = 21 }
                     },
                     Location = new Location {City="City1", Province="Province1"},
                     Participants = new List<Participant>
@@ -38,8 +38,8 @@ namespace EventTracker.BLL.Services.Repos
                     Description = "Description2",
                     WantedAmountOfParticipants = 2,
                     Timeframes = new List<TimeFrame> {
-                        new TimeFrame { EventDate = new DateTime(2002, 2, 1), Starttime = 12, Endtime = 22 },
-                        new TimeFrame { EventDate = new DateTime(2002, 2, 2), Starttime = 12, Endtime = 22 }
+                        new TimeFrame { EventDate = new DateTime(2022, 2, 1), Starttime = 12, Endtime = 22 },
+                        new TimeFrame { EventDate = new DateTime(2022, 2, 2), Starttime = 12, Endtime = 22 }
                     },
                     Location = new Location {City="City2", Province="Province2"},
                     Participants = new List<Participant>
@@ -53,7 +53,7 @@ namespace EventTracker.BLL.Services.Repos
                     Description = "Description3",
                     WantedAmountOfParticipants = 3,
                     Timeframes = new List<TimeFrame>
-                        { new TimeFrame { EventDate = new DateTime(2002, 2, 1), Starttime = 12, Endtime = 22}
+                        { new TimeFrame { EventDate = new DateTime(2023, 2, 1), Starttime = 12, Endtime = 22}
                     },
                     Location = new Location {City="City3", Province="Province3"},
                     Participants = new List<Participant>

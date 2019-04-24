@@ -7,32 +7,10 @@
     Add new event
 </h2>
 <form method="post">
+    <partial name="Partials/_EventBasicInputDetails" model="Model" />
     <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
+        <a asp-action="AllUpcomingEvents">Cancel</a>
+        <input type="submit" name="Add" value="Add" />
     </div>
-    <div>
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description"></textarea>
-        <span asp-validation-for="Description"></span>
-    </div>
-    <div>
-        <label asp-for="Location.City"></label>
-        <input asp-for="Location.City" />
-        <span asp-validation-for="Location.City"></span>
-    </div>
-    <div>
-        <label asp-for="Location.Province"></label>
-        <input asp-for="Location.Province" />
-        <span asp-validation-for="Location.Province"></span>
-    </div>
-    <div>
-        <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
-        <input asp-for="WantedAmountOfParticipants" min="1" value="1"/>
-        <span asp-validation-for="WantedAmountOfParticipants"></span>
-    </div>
-    <a asp-action="AllUpcomingEvents">Cancel</a>
-    <input type="submit" name="Add" value="Add" />
 </form>
 

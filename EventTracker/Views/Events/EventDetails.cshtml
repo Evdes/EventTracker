@@ -4,61 +4,18 @@
 
 <h2>This is the event details page</h2>
 <div>
-    <div>
-        @if (Model.IsCancelled)
-        {
-            <h3>@Model.Name (Cancelled)</h3>
-        }
-        else
-        {
-            <h3>@Model.Name</h3>
-        }
-    </div>
-    <div>@Model.Description</div>
-    <div>
-        <label asp-for="Location">Location: </label>
-        <span>@Model.Location.City (@Model.Location.Province)</span>
-    </div>
-    <label asp-for="WantedAmountOfParticipants">Required amount of participants : @Model.WantedAmountOfParticipants</label>
-    <div>
-        <label asp-for="Timeframes"></label>
-        @foreach (var timeframe in @Model.Timeframes)
-        {
-            <div>
-                Date: <span>@timeframe.EventDate.Value.Date</span>
-                (Start: <span>@timeframe.Starttime</span>h / End: <span>@timeframe.Endtime</span>h)
-            </div>
-        }
-    </div>
-
-    <div>
-        <label asp-for="Participants"></label>
-        @if (Model.Participants.Count == 0)
-        {
-            <div>There are currently no participants for this event</div>
-        }
-        else
-        {
-            @foreach (var participant in @Model.Participants)
-            {
-                <div>
-                    @participant.Name
-                </div>
-            }
-        }
-
-    </div>
+    <partial name="Partials/_EventFullDetails" model="Model" />
     <div>
         @if (Model.IsCancelled)
         {
             <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" name="Undo Cancellation" value="Undo Cancellation" />
+                <input asp-route-id="@Model.Id" type="submit" name="UndoCancellation" value="Undo Cancellation" />
             </form>
         }
         else
         {
             <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" name="Cancel" value="Cancel" />
+                <input asp-route-id="@Model.Id" type="submit" name="CancelEvent" value="Cancel Event" />
             </form>
             <a asp-action="EditEvent" asp-route-id="@Model.Id">Edit</a>
             <a asp-action="DeleteEvent" asp-route-id="@Model.Id">Delete</a>

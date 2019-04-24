@@ -9,5 +9,6 @@ namespace EventTracker.BLL.Services.Repos
         UserProfile GetUserProfile(int? id);
         void DeleteUserProfile(UserProfile userProfileToDelete);
         UserProfile UpdateUserProfile(UserProfile userToUpdate, UserProfile postedUserProfile);
+        UserProfile AddUserProfile(UserProfile userProfileToAdd);
     }
 }

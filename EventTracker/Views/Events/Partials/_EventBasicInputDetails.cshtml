@@ -1,0 +1,29 @@
+﻿@model Event
+
+<section>
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Location.City"></label>
+        <input asp-for="Location.City" />
+        <span asp-validation-for="Location.City"></span>
+    </div>
+    <div>
+        <label asp-for="Location.Province"></label>
+        <input asp-for="Location.Province" />
+        <span asp-validation-for="Location.Province"></span>
+    </div>
+    <div>
+        <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
+        <input asp-for="WantedAmountOfParticipants" min="1" value="1" />
+        <span asp-validation-for="WantedAmountOfParticipants"></span>
+    </div>
+</section>

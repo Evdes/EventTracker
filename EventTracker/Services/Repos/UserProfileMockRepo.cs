@@ -63,5 +63,12 @@ namespace EventTracker.BLL.Services.Repos
             userToUpdate.UserRole = postedUserProfile.UserRole;
             return userToUpdate;
         }
+
+        public UserProfile AddUserProfile(UserProfile userProfileToAdd)
+        {
+            userProfileToAdd.Id = _userProfiles.Max(u => u.Id) + 1;
+            _userProfiles.Add(userProfileToAdd);
+            return userProfileToAdd;
+        }
     }
 }

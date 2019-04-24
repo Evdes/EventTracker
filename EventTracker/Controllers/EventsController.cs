@@ -31,8 +31,7 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 ToggleCancel(id.Value);
-                var allUpcomingEvents = _events.GetAllUpcomingEvents();
-                return RedirectToAction(nameof(AllUpcomingEvents), allUpcomingEvents);
+                return RedirectToAction(nameof(AllUpcomingEvents));
             }
         }
 
@@ -63,7 +62,7 @@ namespace EventTracker.BLL.Controllers
             {
                 ToggleCancel(id.Value);
                 var requestedEvent = _events.GetEvent(id.Value);
-                return RedirectToAction(nameof(EventDetails), requestedEvent);
+                return RedirectToAction(nameof(EventDetails), new { id = requestedEvent.Id });
             }
         }
 
@@ -100,7 +99,14 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 var eventToDelete = _events.GetEvent(id.Value);
-                return View(eventToDelete);
+                if (eventToDelete.IsCancelled)
+                {
+                    return RedirectToAction(nameof(EventDetails), new { id = id.Value });
+                }
+                else
+                {
+                    return View(eventToDelete);
+                }
             }
         }
 
@@ -130,23 +136,30 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 var eventToEdit = _events.GetEvent(id.Value);
-                return View(eventToEdit);
+                if (eventToEdit.IsCancelled)
+                {
+                    return RedirectToAction(nameof(EventDetails), new { id = eventToEdit.Id });
+                }
+                else
+                {
+                    return View(eventToEdit);
+                }
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditEvent(int? id, Event postedEvent)
+        public IActionResult EditEvent(Event postedEvent)
         {
             if (ModelState.IsValid)
             {
-                if (id == null)
+                if (postedEvent == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    var eventToUpdate = _events.GetEvent(id.Value);
+                    var eventToUpdate = _events.GetEvent(postedEvent.Id);
                     eventToUpdate = _events.EditEvent(postedEvent, eventToUpdate);
                     return RedirectToAction(nameof(EventDetails), new { id = eventToUpdate.Id });
                 }
@@ -155,8 +168,8 @@ namespace EventTracker.BLL.Controllers
             {
                 return View(postedEvent);
             }
-            
         }
+
         private void ToggleCancel(int id)
         {
             var eventToToggle = _events.GetEvent(id);

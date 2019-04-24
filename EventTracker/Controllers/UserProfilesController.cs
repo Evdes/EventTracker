@@ -21,6 +21,28 @@ namespace EventTracker.BLL.Controllers
         }
 
         [HttpGet]
+        public IActionResult AddUserProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddUserProfile(UserProfile userProfileToAdd)
+        {
+            if(ModelState.IsValid)
+            {
+                _userProfiles.AddUserProfile(userProfileToAdd);
+                return RedirectToAction(nameof(AllUserProfiles));
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+
+        [HttpGet]
         public IActionResult DeleteUserProfile(int? id)
         {
             if(id == null)
