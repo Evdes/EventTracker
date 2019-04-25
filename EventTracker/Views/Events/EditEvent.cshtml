@@ -9,7 +9,7 @@
         <label asp-for="Timeframes"></label>
         @for (var i = 0; i < Model.Timeframes.Count; i++)
         {
-            <div id="Timeframe_@i">
+            <div id="Timeframe_@i" class="timeframes">
                 <label asp-for="Timeframes[i].EventDate"></label>
                 <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
                 <span asp-validation-for="Timeframes[i].EventDate"></span>
@@ -19,9 +19,8 @@
                 <label asp-for="Timeframes[i].Endtime"></label>
                 <input asp-for="Timeframes[i].Endtime" min="0" max="24" />
                 <span asp-validation-for="Timeframes[i].Endtime"></span>
-                <button type="button" class="DeleteTimeframeButton" id="DeleteTimeframeButton @i" data-id="@i">Delete Timeframe</button>
+                <button type="button" class="DeleteTimeframeButton" data-id="@i">Delete Timeframe</button>
             </div>
-            
         }
     </div>
 

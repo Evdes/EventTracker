@@ -11,16 +11,19 @@
     <div>
         @for (var i = 0; i < Model.Timeframes.Count; i++)
         {
-            <div class="timeframes" id="TimeframesToAdd">
-                <label asp-for="Timeframes[i].EventDate"></label>
-                <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
-                <span asp-validation-for="Timeframes[i].EventDate"></span>
-                <label asp-for="Timeframes[i].Starttime"></label>
-                <input asp-for="Timeframes[i].Starttime" min="0" max="24" />
-                <span asp-validation-for="Timeframes[i].Starttime"></span>
-                <label asp-for="Timeframes[i].Endtime"></label>
-                <input asp-for="Timeframes[i].Endtime" min="0" max="24" />
-                <span asp-validation-for="Timeframes[i].Endtime"></span>
+            <div id="TimeFramesToAdd">
+                <div class="timeframes" id="Timeframe_@i">
+                    <label asp-for="Timeframes[i].EventDate"></label>
+                    <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
+                    <span asp-validation-for="Timeframes[i].EventDate"></span>
+                    <label asp-for="Timeframes[i].Starttime"></label>
+                    <input asp-for="Timeframes[i].Starttime" min="0" max="24" />
+                    <span asp-validation-for="Timeframes[i].Starttime"></span>
+                    <label asp-for="Timeframes[i].Endtime"></label>
+                    <input asp-for="Timeframes[i].Endtime" min="0" max="24" />
+                    <span asp-validation-for="Timeframes[i].Endtime"></span>
+                    <button type="button" class="DeleteTimeframeButton" data-id="@i">Delete Timeframe</button>
+                </div>
             </div>
         }
     </div>
