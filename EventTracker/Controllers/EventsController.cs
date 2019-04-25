@@ -1,6 +1,7 @@
 ﻿using EventTracker.BLL.Models.Events;
 using EventTracker.BLL.Services.Repos;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace EventTracker.BLL.Controllers
 {
@@ -70,7 +71,9 @@ namespace EventTracker.BLL.Controllers
         [HttpGet]
         public IActionResult AddEvent()
         {
-            return View();
+            var eventToAdd = new Event();
+            eventToAdd.Timeframes.Add(new TimeFrame { EventDate = DateTime.Today, Starttime = 0, Endtime = 0 });
+            return View(eventToAdd);
         }
 
         [HttpPost]
@@ -84,7 +87,7 @@ namespace EventTracker.BLL.Controllers
             }
             else
             {
-                return View();
+                return View(newEvent);
             }
             
         }

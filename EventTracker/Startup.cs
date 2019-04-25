@@ -28,6 +28,7 @@ namespace EventTracker
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc(ConfigureRoutes);
             
             
