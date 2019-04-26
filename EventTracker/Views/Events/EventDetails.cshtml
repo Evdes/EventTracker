@@ -1,25 +1,16 @@
 ﻿@model Event
 @{
-    ViewBag.Title = "Event details";}
+    ViewBag.Title = "Event details";
+}
 
-<h2>This is the event details page</h2>
-<div>
-    <partial name="Partials/_EventFullDetails" model="Model" />
-    <div>
-        @if (Model.IsCancelled)
-        {
-            <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" name="UndoCancellation" value="Undo Cancellation" />
-            </form>
-        }
-        else
-        {
-            <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" name="CancelEvent" value="Cancel Event" />
-            </form>
-            <a asp-action="EditEvent" asp-route-id="@Model.Id">Edit</a>
-            <a asp-action="DeleteEvent" asp-route-id="@Model.Id">Delete</a>
-        }
+    <div class="col-10 offset-1">
+        <div class="jumbotron @(Model.IsCancelled ? "cancelled" : null)
+     @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.Participants.Count ? "full" : null)">
+            <div class="container-fluid">
+                <partial name="Partials/_EventFullDetails" model="Model" />
+            </div>
+        </div>
+        <div class="float-right">
+            <a class="btn btn-dark" asp-action="AllUpcomingEvents">Back to overview</a>
+        </div>
     </div>
-    <a asp-action="AllUpcomingEvents">Back to overview</a>
-</div>

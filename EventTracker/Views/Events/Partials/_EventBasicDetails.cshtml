@@ -1,34 +1,26 @@
 ﻿@model Event
 
     <section>
+        @if (@Model.IsCancelled)
+        {
+            <h3>@Model.Name (Cancelled)</h3>
+        }
+        else
+        {
+            <h3>@Model.Name</h3>
+        }
+        <div>@Model.Description</div>
+        <div> @Model.Location.City (@Model.Location.Province)</div>
+        <div>Participants wanted: @Model.WantedAmountOfParticipants</div>
         <div>
-            @if (@Model.IsCancelled)
+            <h5>Event dates:</h5>
+            @foreach (var timeframe in @Model.Timeframes)
             {
-                <h3>@Model.Name (Cancelled)</h3>
+                <div>
+                    <span>@timeframe.EventDate.Value.Date.ToShortDateString()</span>
+                    (<span>@timeframe.Starttime</span>h / <span>@timeframe.Endtime</span>h)
+                </div>
             }
-            else
-            {
-                <h3>@Model.Name</h3>
-            }
-            <div>@Model.Description</div>
-            <div>Required amount of participants: @Model.WantedAmountOfParticipants</div>
-            <div> @Model.Location.City (@Model.Location.Province)</div>
-            <div>
-                <a asp-action="EventDetails" asp-route-id="@Model.Id">Details</a>
-                @if (Model.IsCancelled)
-                {
-                    <form method="post">
-                        <input asp-route-id="@Model.Id" type="submit" name="UndoCancellation" value="Undo Cancellation" />
-                    </form>
-                }
-                else
-                {
-                    <form method="post">
-                        <input asp-route-id="@Model.Id" type="submit" name="CancelEvent" value="Cancel Event" />
-                    </form>
-                    <a asp-action="EditEvent" asp-route-id="@Model.Id">Edit</a>
-                    <a asp-action="DeleteEvent" asp-route-id="@Model.Id">Delete</a>
-                }
-            </div>
         </div>
+        
     </section>

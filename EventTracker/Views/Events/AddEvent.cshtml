@@ -8,10 +8,11 @@
 </h2>
 <form method="post">
     <partial name="Partials/_EventBasicInputDetails" model="Model" />
-    <div>
+
+
+    <div id="TimeFramesToAdd">
         @for (var i = 0; i < Model.Timeframes.Count; i++)
         {
-            <div id="TimeFramesToAdd">
                 <div class="timeframes" id="Timeframe_@i">
                     <label asp-for="Timeframes[i].EventDate"></label>
                     <input asp-for="Timeframes[i].EventDate" min="@DateTime.Today" />
@@ -24,9 +25,9 @@
                     <span asp-validation-for="Timeframes[i].Endtime"></span>
                     <button type="button" class="DeleteTimeframeButton" data-id="@i">Delete Timeframe</button>
                 </div>
-            </div>
         }
     </div>
+
     <a href="#" id="addTimeframe">Add Timeframe</a>
     <div>
         <a asp-action="AllUpcomingEvents">Cancel</a>

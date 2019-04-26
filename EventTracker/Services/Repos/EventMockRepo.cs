@@ -58,9 +58,7 @@ namespace EventTracker.BLL.Services.Repos
                     Location = new Location {City="City3", Province="Province3"},
                     Participants = new List<Participant>
                     {
-                        new Participant { Name = "Participant1" },
-                        new Participant { Name = "Participant2" },
-                        new Participant { Name = "Participant3" }
+                        new Participant { Name = "Participant1" }
                     }
                 }
             };

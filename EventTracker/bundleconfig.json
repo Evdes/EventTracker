@@ -1,12 +1,5 @@
 [
   {
-    "outputFileName": "wwwroot/css/vendor.min.css",
-    "inputFiles": [
-      "node_modules/bootstrap/dist/css/bootstrap.min.css"
-    ],
-    "minify": { "enabled": false }
-  },
-  {
     "outputFileName": "wwwroot/js/vendor.min.js",
     "inputFiles": [
       "node_modules/jquery/dist/jquery.min.js",
@@ -14,12 +7,5 @@
       "node_modules/bootstrap/dist/js/bootstrap.min.js"
     ],
     "minify": { "enabled": false }
-  },
-  {
-    "outputFileName": "wwwroot/js/site.min.js",
-    "inputFiles": [
-      "wwwroot/js/site.js"
-    ],
-    "minify": {"enabled": true}
   }
 ]

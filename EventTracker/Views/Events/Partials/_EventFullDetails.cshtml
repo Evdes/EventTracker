@@ -1,48 +1,30 @@
 ﻿@model Event
 
     <section>
+        <partial name="Partials/_EventBasicDetails" model="@Model" />
         <div>
-            @if (Model.IsCancelled)
-            {
-                <h3>@Model.Name (Cancelled)</h3>
-            }
-            else
-            {
-                <h3>@Model.Name</h3>
-            }
-        </div>
-        <div>@Model.Description</div>
-        <div>
-            <label asp-for="Location">Location: </label>
-            <span>@Model.Location.City (@Model.Location.Province)</span>
-        </div>
-        <label asp-for="WantedAmountOfParticipants">Required amount of participants : @Model.WantedAmountOfParticipants</label>
-        <div>
-            <label asp-for="Timeframes"></label>
-            @foreach (var timeframe in @Model.Timeframes)
-            {
-                <div>
-                    Date: <span>@timeframe.EventDate.Value.Date.ToShortDateString()</span>
-                    (Start: <span>@timeframe.Starttime</span>h / End: <span>@timeframe.Endtime</span>h)
-                </div>
-            }
-        </div>
-
-        <div>
-            <label asp-for="Participants"></label>
-            @if (Model.Participants.Count == 0)
-            {
-                <div>There are currently no participants for this event</div>
-            }
-            else
-            {
-                @foreach (var participant in @Model.Participants)
+            <h5>Participants:</h5>
+            <div>
+                @if (Model.Participants.Count == 0)
                 {
-                    <div>
-                        @participant.Name
-                    </div>
+                    <div>There are currently no participants for this event</div>
                 }
-            }
-
+                else
+                {
+                    <table class="table-borderless">
+                        @foreach (var participant in @Model.Participants)
+                        {
+                            <tr>
+                                <td>@participant.Name</td>
+                                <td>
+                                    <a href="#"><i class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                   
+                }
+            </div>
         </div>
+        <partial name="Partials/_EventActions" model="@Model" />
     </section>

@@ -2,11 +2,21 @@
 @{
     ViewBag.Title = "View all upcoming events";
 }
-<h2>All upcoming events</h2>
-<a asp-action="AddEvent">Add new event</a>
-<div>
+
+<div class="col">
     @foreach(var e in Model)
     {
-        <partial name="Partials/_EventBasicDetails" model="e"/>
+        <div class="jumbotron  col-lg-3 col-md-6 col-sm-10 
+               @(e.IsCancelled ? "cancelled" : null) @(!e.IsCancelled && e.WantedAmountOfParticipants <= e.Participants.Count ? "full" : null)">
+            <div class="container-fluid">
+                <a asp-controller="Events" asp-action="EventDetails" asp-route-id="@e.Id" class="text-decoration-none d-block">
+                    <partial name="Partials/_EventBasicDetails" model="e" />
+                    <partial name="Partials/_EventActions" model="e" />
+                </a>
+            </div>
+        </div>
     }
+</div>
+<div>
+    <a class="round-button btn-primary text-decoration-none" asp-action="AddEvent"><i class="fa fa-plus fa-3x"></i></a>
 </div>
