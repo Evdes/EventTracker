@@ -2,18 +2,20 @@
 
 @{
     ViewBag.Title = "Add a user";
+    ViewBag.Page = "AddUser";
 }
 
-<h2>Add a User</h2>
 
-<div>
-    <form method="post">
-        <partial name="Partials/_UserProfilesInputDetails" model="Model" />
-        <input type="submit" name="AddUser" value="Add new user" />
-    </form>
-</div>
+<form method="post">
+    <div class="jumbotron col-8 offset-sm-2">
+        <div class="container">
+            <h1>Add User</h1>
+            <partial name="Partials/_UserProfileAddEditDetails" model="Model" />
+            <partial name="Partials/_ActionButtons" model="Model" />
+        </div>
+    </div>
+</form>
 
-    
 
 
 

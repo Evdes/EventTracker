@@ -1,0 +1,39 @@
+﻿@model UserProfile
+
+@if (ViewBag.Page == "AllUsers")
+{
+    <div>
+        <a class="btn-action-sm btn-warning" type="button" asp-action="EditUserProfile" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn-action-sm btn-danger" type="button" asp-action="DeleteUserProfile" asp-route-id="@Model.Id">Delete</a>
+    </div>
+}
+
+@if (ViewBag.Page == "DeleteUser")
+{
+    <div class="btn-group">
+        <a class="btn-action-sm btn-outline-secondary" asp-action="AllUserProfiles">Cancel</a>
+        <form method="post">
+            <input class="btn-action-sm btn-danger" type="submit" name="Delete" value="Delete" />
+        </form>
+    </div>
+}
+
+@if (ViewBag.Page == "AddUser")
+{
+    <div class="btn-group">
+        <a class="btn-action-sm btn-outline-secondary" asp-action="AllUserProfiles">Cancel</a>
+        <form method="post">
+            <input class="btn-action-sm btn-primary" type="submit" name="AddUser" value="Add" />
+        </form>
+    </div>
+}
+
+@if (ViewBag.Page == "EditUser")
+{
+    <div class="btn-group">
+        <a class="btn-action-sm btn-outline-secondary" asp-action="AllUserProfiles">Cancel</a>
+        <form method="post">
+            <input class="btn-action-sm btn-warning" type="submit" name="EditUser" value="Edit" />
+        </form>
+    </div>
+}

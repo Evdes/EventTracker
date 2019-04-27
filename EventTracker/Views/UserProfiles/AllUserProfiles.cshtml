@@ -1,20 +1,19 @@
 ﻿@model IEnumerable<UserProfile>
 @{
     ViewBag.Title = "Userprofiles";
+    ViewBag.Page = "AllUsers";
 }
 
-<h2>This is the Userprofiles overview </h2>
-<a asp-action="AddUserProfile">Add New User</a>
 
+    <div class="col">
 
-<div>
-    @foreach(var userProfile in Model)
-    {
-        <partial name="Partials/_UserProfileDetails" model="@userProfile" />
-        <div>
-            <a asp-action="EditUserProfile" asp-route-id="@userProfile.Id">Edit</a>
-            <a asp-action="DeleteUserProfile" asp-route-id="@userProfile.Id">Delete</a>
-        </div>
-    }
-</div>
+        @foreach (var userProfile in Model)
+        {
+            <div class="jumbotron  col-lg-2 col-md-6 col-sm-10">
+                <partial name="Partials/_UserProfileDetails" model="@userProfile" />
+                <partial name="Partials/_ActionButtons" model="@userProfile" />
+            </div>
+        }
+        <a class="round-button btn-primary text-decoration-none" asp-action="AddUserProfile"><i class="fa fa-plus fa-3x"></i></a>
+    </div>
 

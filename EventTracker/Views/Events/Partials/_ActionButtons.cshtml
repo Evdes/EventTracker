@@ -1,0 +1,21 @@
+﻿@model Event
+
+<div>
+    @if (Model.IsCancelled)
+    {
+        <form method="post">
+            <input asp-route-id="@Model.Id" type="submit" name="UndoCancellation" value="Undo Cancellation" class="btn-undoCancel btn-secondary btn" />
+        </form>
+    }
+    else
+    {
+        <div class="btn-group">
+            <form method="post">
+                <input asp-route-id="@Model.Id" type="submit" role="button" name="Subscribe" value="Going?" class="btn-action-sm btn-outline-primary" />
+                <input asp-route-id="@Model.Id" type="submit" name="CancelEvent" value="Cancel" class="btn-action-sm btn-secondary" />
+            </form>
+            <a role="button" asp-action="EditEvent" asp-route-id="@Model.Id" class="btn-action-sm btn-warning">Edit</a>
+            <a role="button" asp-action="DeleteEvent" asp-route-id="@Model.Id" class="btn-action-sm btn-danger">Delete</a>
+        </div>
+    }
+</div>

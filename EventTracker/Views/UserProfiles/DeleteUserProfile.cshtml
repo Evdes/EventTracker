@@ -1,16 +1,13 @@
 ﻿@model UserProfile
 @{
     ViewBag.Title = "Delete Userprofile";
+    ViewBag.Page = "DeleteUser";
 }
 
-<h1>Delete Userprofile</h1>
-<div>
-    <partial name="Partials/_UserProfileDetails" model="@Model" />
-    <div>
-        <a asp-action="AllUserProfiles">Cancel</a>
-        <form method="post">
-            <input type="submit" name="Delete" value="Delete" />
-        </form>
+<div class="jumbotron col-8 offset-sm-2">
+    <div class="container">
+        <h1>Delete User</h1>
+        <partial name="Partials/_UserProfileDetails" model="Model" />
+        <partial name="Partials/_ActionButtons" model="Model" />
     </div>
 </div>
-

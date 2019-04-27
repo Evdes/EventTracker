@@ -1,0 +1,64 @@
+﻿@model Event
+
+    <div class="col-10 offset-1 form-group">
+        <div class="jumbotron">
+            <div class="container-fluid">
+                @if (ViewBag.Page == "AddEvent")
+                {
+                    <h1>Add new event</h1>
+                }
+                else
+                {
+                    <h1>Edit event</h1>
+                }
+                <div>
+                    <div>
+                        <label asp-for="Name"></label>
+                        <input class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Description"></label>
+                        <textarea class="form-control" asp-for="Description"></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Location.City"></label>
+                        <input class="form-control" asp-for="Location.City" />
+                        <span asp-validation-for="Location.City"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Location.Province"></label>
+                        <input class="form-control" asp-for="Location.Province" />
+                        <span asp-validation-for="Location.Province"></span>
+                    </div>
+                    <div>
+                        <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
+                        <input class="form-control" asp-for="WantedAmountOfParticipants" min="1" value="1" />
+                        <span asp-validation-for="WantedAmountOfParticipants"></span>
+                    </div>
+                </div>
+                <partial name="Partials/_Timeframes" model="Model" />
+                @if (ViewBag.Page == "AddEvent")
+                {
+                    <a class="btn btn-secondary" href="#" id="addTimeframe">Add Timeframe</a>
+                }
+                else
+                {
+                    <partial name="Partials/_Participants" model="Model" />
+                }
+
+            </div>
+        </div>
+        <div class="float-right">
+            <a class="btn-action-sm btn-outline-secondary" asp-action="AllUpcomingEvents">Cancel</a>
+            @if (ViewBag.Page == "AddEvent")
+            {
+                <input class="btn-action-sm btn-primary" type="submit" name="Add" value="Add" />
+            }
+            else
+            {
+                <input class="btn-action-sm btn-primary" type="submit" name="Edit" value="Update" />
+            }
+        </div>
+    </div>

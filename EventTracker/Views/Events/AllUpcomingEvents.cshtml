@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <a asp-controller="Events" asp-action="EventDetails" asp-route-id="@e.Id" class="text-decoration-none d-block">
                     <partial name="Partials/_EventBasicDetails" model="e" />
-                    <partial name="Partials/_EventActions" model="e" />
+                    <partial name="Partials/_ActionButtons" model="e" />
                 </a>
             </div>
         </div>

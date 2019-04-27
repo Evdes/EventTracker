@@ -1,16 +1,7 @@
 ﻿@model Event
 @{
     ViewBag.Title = "Event details";
+    ViewBag.Page = "EventDetails";
 }
 
-    <div class="col-10 offset-1">
-        <div class="jumbotron @(Model.IsCancelled ? "cancelled" : null)
-     @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.Participants.Count ? "full" : null)">
-            <div class="container-fluid">
-                <partial name="Partials/_EventFullDetails" model="Model" />
-            </div>
-        </div>
-        <div class="float-right">
-            <a class="btn btn-dark" asp-action="AllUpcomingEvents">Back to overview</a>
-        </div>
-    </div>
+<partial name="Partials/_EventFullDetails" model="Model" />

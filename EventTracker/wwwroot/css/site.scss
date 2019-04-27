@@ -3,56 +3,8 @@
 @import "_normalize.scss";
 @import "_variables.css";
 @import "_mixins.scss";
+@import "_responsiveTypography.scss";
+@import "_layout.scss";
+@import "_events.scss";
 
-//Position body under fixed navbar
-body{
-    padding-top:70px;
-}
 
-a, a:hover{
-    color: black;
-}
-
-.actionButtonLarge{
-    @extend .btn;
-    width: 200px;
-}
-
-.actionButtonSmall {
-    @extend .btn;
-    width: 70px;
-    display: inline-block;
-    float:left;
-    margin-right:10px;
-}
-
-.cancelled {
-    background-color: #cc0000;
-}
-
-.full {
-    background-color: #6AA84F;
-}
-
-.round-button {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    line-height: 50px;
-    border: 2px solid #f5f5f5;
-    border-radius: 50%;
-    text-decoration: none;
-    box-shadow: 0 0 3px gray;
-    font-size: 20px;
-    font-weight: bold;
-    align-items: center;
-    justify-content: space-between;
-    float: right;
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-
-    i {
-        margin: auto;
-    }
-}

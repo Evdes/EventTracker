@@ -1,15 +1,13 @@
 ﻿@model Event
 @{
     ViewBag.Title = "Delete an event";
+    ViewBag.WithEventActions = false;
 }
-<h2>Are you sure you want to delete this?</h2>
+
 <div>
-   
     <partial name="Partials/_EventFullDetails" model="Model" />
 
-    <form method="post">
-        <a asp-action="AllUpcomingEvents">Back to overview</a>
-        <a asp-action="EventDetails" asp-route-id="@Model.Id">Back to details</a>
-        <input type="submit" name="Delete" value="Delete" />
+    <form method="post" class="float-right">
+        <input type="submit" name="Delete" value="Delete" class="btn-action-md btn-danger"/>
     </form>
 </div>
