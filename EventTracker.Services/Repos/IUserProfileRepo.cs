@@ -1,14 +1,14 @@
-﻿using EventTracker.BLL.Models.UserProfiles;
+﻿using EventTracker.Models.UserProfiles;
 using System.Collections.Generic;
 
-namespace EventTracker.BLL.Services.Repos
+namespace EventTracker.Services.Repos
 {
     public interface IUserProfileRepo
     {
         IEnumerable<UserProfile> GetAllUserProfiles();
         UserProfile GetUserProfile(int? id);
         void DeleteUserProfile(UserProfile userProfileToDelete);
-        UserProfile UpdateUserProfile(UserProfile userToUpdate, UserProfile postedUserProfile);
+        UserProfile UpdateUserProfile(UserProfile userToUpdate);
         UserProfile AddUserProfile(UserProfile userProfileToAdd);
     }
 }

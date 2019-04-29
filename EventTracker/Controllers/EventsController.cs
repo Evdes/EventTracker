@@ -1,5 +1,5 @@
-﻿using EventTracker.BLL.Models.Events;
-using EventTracker.BLL.Services.Repos;
+﻿using EventTracker.Models.Events;
+using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -72,7 +72,7 @@ namespace EventTracker.BLL.Controllers
         public IActionResult AddEvent()
         {
             var eventToAdd = new Event();
-            eventToAdd.Timeframes.Add(new TimeFrame { EventDate = DateTime.Today, Starttime = 0, Endtime = 0 });
+            eventToAdd.Timeframes.Add(new TimeFrame { EventDate = DateTime.Today, Starttime = 10, Endtime = 17 });
             return View(eventToAdd);
         }
 
@@ -82,6 +82,7 @@ namespace EventTracker.BLL.Controllers
         {
             if (ModelState.IsValid)
             {
+                newEvent.IsCancelled = false;
                 newEvent = _events.AddEvent(newEvent);
                 return RedirectToAction(nameof(EventDetails), new { id = newEvent.Id });
             }
@@ -163,7 +164,26 @@ namespace EventTracker.BLL.Controllers
                 else
                 {
                     var eventToUpdate = _events.GetEvent(postedEvent.Id);
-                    eventToUpdate = _events.EditEvent(postedEvent, eventToUpdate);
+
+                    eventToUpdate.Name = postedEvent.Name;
+                    eventToUpdate.Description = postedEvent.Description;
+                    eventToUpdate.WantedAmountOfParticipants = postedEvent.WantedAmountOfParticipants;
+                    eventToUpdate.Location.City = postedEvent.Location.City;
+                    eventToUpdate.Location.Province = postedEvent.Location.Province;
+                    eventToUpdate.Timeframes.Clear();
+
+                    foreach (var timeframe in postedEvent.Timeframes)
+                    {
+                        eventToUpdate.Timeframes.Add(
+                            new TimeFrame
+                            {
+                                EventDate = timeframe.EventDate,
+                                Starttime = timeframe.Starttime,
+                                Endtime = timeframe.Endtime
+                            });
+                    }
+
+                    eventToUpdate = _events.EditEvent(eventToUpdate);
                     return RedirectToAction(nameof(EventDetails), new { id = eventToUpdate.Id });
                 }
             }
@@ -177,6 +197,7 @@ namespace EventTracker.BLL.Controllers
         {
             var eventToToggle = _events.GetEvent(id);
             eventToToggle.IsCancelled = !eventToToggle.IsCancelled;
+            _events.EditEvent(eventToToggle);
         }
     }
 }

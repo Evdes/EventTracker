@@ -1,7 +1,7 @@
-﻿using EventTracker.BLL.Models.Events;
+﻿using EventTracker.Models.Events;
 using System.Collections.Generic;
 
-namespace EventTracker.BLL.Services.Repos
+namespace EventTracker.Services.Repos
 {
     public interface IEventRepo
     {
@@ -9,6 +9,6 @@ namespace EventTracker.BLL.Services.Repos
         Event GetEvent(int? id);
         Event AddEvent(Event newEvent);
         void DeleteEvent(Event eventToDelete);
-        Event EditEvent(Event postedEvent, Event eventToUpdate);
+        Event EditEvent(Event eventToUpdate);
     }
 }

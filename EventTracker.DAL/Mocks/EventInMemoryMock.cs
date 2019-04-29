@@ -1,20 +1,20 @@
-﻿using System;
+﻿using EventTracker.Models.Events;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using EventTracker.BLL.Models.Events;
+using System.Text;
 
-namespace EventTracker.BLL.Services.Repos
+namespace EventTracker.DAL.Mocks
 {
-    public class EventMockRepo : IEventRepo
+    public class EventInMemoryMock
     {
         private List<Event> _events;
 
-        public EventMockRepo()
+        public EventInMemoryMock()
         {
-            PopulateMock();
+            Populate();
         }
 
-        private void PopulateMock()
+        private void Populate()
         {
             _events = new List<Event> {
                 new Event { Id = 1,
@@ -63,48 +63,9 @@ namespace EventTracker.BLL.Services.Repos
                 }
             };
         }
-
-        public Event AddEvent(Event newEvent)
-        {
-            newEvent.Id = _events.Max(e => e.Id) + 1;
-            _events.Add(newEvent);
-            return newEvent;
-        }
-
-        public void DeleteEvent(Event eventToDelete)
-        {
-            _events.Remove(eventToDelete);
-        }
-
-        public Event EditEvent(Event postedEvent, Event eventToUpdate)
-        {
-            eventToUpdate.Name = postedEvent.Name;
-            eventToUpdate.Description = postedEvent.Description;
-            eventToUpdate.WantedAmountOfParticipants = postedEvent.WantedAmountOfParticipants;
-            eventToUpdate.Location.City = postedEvent.Location.City;
-            eventToUpdate.Location.Province = postedEvent.Location.Province;
-            eventToUpdate.Timeframes.Clear();
-            foreach (var timeframe in postedEvent.Timeframes)
-            {
-                eventToUpdate.Timeframes.Add(
-                    new TimeFrame
-                    {
-                        EventDate = timeframe.EventDate,
-                        Starttime = timeframe.Starttime,
-                        Endtime = timeframe.Endtime
-                    });
-            }
-            return eventToUpdate;
-        }
-
-        public IEnumerable<Event> GetAllUpcomingEvents()
+        public List<Event> GetEvents()
         {
             return _events;
-        }
-
-        public Event GetEvent(int? id)
-        {
-            return _events.FirstOrDefault(e => e.Id == id.Value);
         }
     }
 }

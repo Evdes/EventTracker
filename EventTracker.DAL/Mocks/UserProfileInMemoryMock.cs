@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EventTracker.BLL.Models.UserProfiles;
+﻿using EventTracker.Models.UserProfiles;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace EventTracker.BLL.Services.Repos
+namespace EventTracker.DAL.Mocks
 {
-    public class UserProfileMockRepo : IUserProfileRepo
+    public class UserProfileInMemoryMock
     {
         private List<UserProfile> _userProfiles;
 
-        public UserProfileMockRepo()
+        public UserProfileInMemoryMock()
         {
-            PopulateMock();
+            Populate(); 
         }
 
-        private void PopulateMock()
+        private void Populate()
         {
             _userProfiles = new List<UserProfile> {
                                         new UserProfile {
@@ -40,35 +41,10 @@ namespace EventTracker.BLL.Services.Repos
             };
         }
 
-        public IEnumerable<UserProfile> GetAllUserProfiles()
+        public List<UserProfile> GetUserProfiles()
         {
             return _userProfiles;
         }
 
-        public UserProfile GetUserProfile(int? id)
-        {
-            return _userProfiles.FirstOrDefault(u => u.Id == id.Value);
-        }
-
-        public void DeleteUserProfile(UserProfile userProfileToDelete)
-        {
-            _userProfiles.Remove(userProfileToDelete);
-        }
-
-        public UserProfile UpdateUserProfile(UserProfile userToUpdate, UserProfile postedUserProfile)
-        {
-            userToUpdate.FirstName = postedUserProfile.FirstName;
-            userToUpdate.LastName = postedUserProfile.LastName;
-            userToUpdate.Email = postedUserProfile.Email;
-            userToUpdate.UserRole = postedUserProfile.UserRole;
-            return userToUpdate;
-        }
-
-        public UserProfile AddUserProfile(UserProfile userProfileToAdd)
-        {
-            userProfileToAdd.Id = _userProfiles.Max(u => u.Id) + 1;
-            _userProfiles.Add(userProfileToAdd);
-            return userProfileToAdd;
-        }
     }
 }

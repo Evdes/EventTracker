@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EventTracker.BLL.Models.UserProfiles
+namespace EventTracker.Models.UserProfiles
 {
     public class UserProfile
     {

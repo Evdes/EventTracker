@@ -39,11 +39,11 @@
         button.click(removeTimeframe);
     });
 
-/*
-####################################################
-HELPER FUNCTIONS
-####################################################
-*/
+    /*
+    ####################################################
+    HELPER FUNCTIONS
+    ####################################################
+    */
     function removeTimeframe() {
         if ($(".timeframes").length > 1) {
             var timeframeToRemove = "#Timeframe_" + $(this).data('id');
@@ -51,5 +51,3 @@ HELPER FUNCTIONS
         }
     }
 });
-
-

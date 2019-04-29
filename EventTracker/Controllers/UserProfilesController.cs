@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using EventTracker.BLL.Models.UserProfiles;
-using EventTracker.BLL.Services.Repos;
+using EventTracker.Models.UserProfiles;
+using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventTracker.BLL.Controllers
@@ -95,7 +95,12 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 var userToUpdate = _userProfiles.GetUserProfile(id.Value);
-                _userProfiles.UpdateUserProfile(userToUpdate, postedUserProfile);
+                userToUpdate.FirstName = postedUserProfile.FirstName;
+                userToUpdate.LastName = postedUserProfile.LastName;
+                userToUpdate.Email = postedUserProfile.Email;
+                userToUpdate.UserRole = postedUserProfile.UserRole;
+
+                _userProfiles.UpdateUserProfile(userToUpdate);
                 return RedirectToAction(nameof(AllUserProfiles));
             }
         }

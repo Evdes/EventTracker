@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EventTracker.DAL.SqlData;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace EventTracker
     {
         public static void Main(string[] args)
         {
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
@@ -21,4 +23,6 @@ namespace EventTracker
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
     }
+
+
 }

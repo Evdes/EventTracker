@@ -1,11 +1,12 @@
-﻿using EventTracker.BLL.Validators;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventTracker.BLL.Models.Events
+namespace EventTracker.Models.Events
 {
     public class TimeFrame
     {
+        public int Id { get; set; }
+
         [Required]
         [DataType(DataType.Date, ErrorMessage ="This date is invalid")]
         [DateRangeValidatorForEventTimeFrames]
