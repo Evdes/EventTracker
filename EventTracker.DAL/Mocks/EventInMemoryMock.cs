@@ -21,10 +21,10 @@ namespace EventTracker.DAL.Mocks
                     Name = "Event1",
                     Description = "Description1",
                     WantedAmountOfParticipants = 1,
-                    Timeframes = new List<TimeFrame>
+                    Timeframes = new List<Timeframe>
                     {
-                        new TimeFrame { EventDate = new DateTime(2021, 1, 1), Starttime = 11, Endtime = 21 },
-                        new TimeFrame { EventDate = new DateTime(2021, 1, 2), Starttime = 11, Endtime = 21 }
+                        new Timeframe { EventDate = new DateTime(2021, 1, 1), Starttime = 11, Endtime = 21 },
+                        new Timeframe { EventDate = new DateTime(2021, 1, 2), Starttime = 11, Endtime = 21 }
                     },
                     Location = new Location {City="City1", Province="Province1"},
                     Participants = new List<Participant>
@@ -37,9 +37,9 @@ namespace EventTracker.DAL.Mocks
                     Name = "Event2",
                     Description = "Description2",
                     WantedAmountOfParticipants = 2,
-                    Timeframes = new List<TimeFrame> {
-                        new TimeFrame { EventDate = new DateTime(2022, 2, 1), Starttime = 12, Endtime = 22 },
-                        new TimeFrame { EventDate = new DateTime(2022, 2, 2), Starttime = 12, Endtime = 22 }
+                    Timeframes = new List<Timeframe> {
+                        new Timeframe { EventDate = new DateTime(2022, 2, 1), Starttime = 12, Endtime = 22 },
+                        new Timeframe { EventDate = new DateTime(2022, 2, 2), Starttime = 12, Endtime = 22 }
                     },
                     Location = new Location {City="City2", Province="Province2"},
                     Participants = new List<Participant>
@@ -52,8 +52,8 @@ namespace EventTracker.DAL.Mocks
                     Name = "Event3",
                     Description = "Description3",
                     WantedAmountOfParticipants = 3,
-                    Timeframes = new List<TimeFrame>
-                        { new TimeFrame { EventDate = new DateTime(2023, 2, 1), Starttime = 12, Endtime = 22}
+                    Timeframes = new List<Timeframe>
+                        { new Timeframe { EventDate = new DateTime(2023, 2, 1), Starttime = 12, Endtime = 22}
                     },
                     Location = new Location {City="City3", Province="Province3"},
                     Participants = new List<Participant>

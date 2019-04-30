@@ -1,5 +1,6 @@
 ﻿using EventTracker.Models.Events;
 using EventTracker.Services.Repos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -72,7 +73,7 @@ namespace EventTracker.BLL.Controllers
         public IActionResult AddEvent()
         {
             var eventToAdd = new Event();
-            eventToAdd.Timeframes.Add(new TimeFrame { EventDate = DateTime.Today, Starttime = 10, Endtime = 17 });
+            eventToAdd.Timeframes.Add(new Timeframe { EventDate = DateTime.Today, Starttime = 10, Endtime = 17 });
             return View(eventToAdd);
         }
 
@@ -175,7 +176,7 @@ namespace EventTracker.BLL.Controllers
                     foreach (var timeframe in postedEvent.Timeframes)
                     {
                         eventToUpdate.Timeframes.Add(
-                            new TimeFrame
+                            new Timeframe
                             {
                                 EventDate = timeframe.EventDate,
                                 Starttime = timeframe.Starttime,

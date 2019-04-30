@@ -9,6 +9,11 @@ using EventTracker.DAL.SqlData;
 using EventTracker.Services.Repos.SqlData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using EventTracker.Models.UserProfiles;
+using Microsoft.AspNetCore.Identity;
+using EventTracker.Services.EmailSender;
 
 namespace EventTracker
 {
@@ -24,11 +29,21 @@ namespace EventTracker
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<EventTrackerDbContext>();
+
+            services.AddIdentity<UserProfile, IdentityRole>(options => {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = true;
+            })
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<EventTrackerDbContext>();
             services.AddDbContext<EventTrackerDbContext>(
                 options => options.UseSqlServer(_config.GetConnectionString("EventTrackerDevDb")));
             services.AddScoped<IEventRepo, EventSqlData>();
             services.AddScoped<IUserProfileRepo, UserProfileSqlData>();
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddMvc();
         }
 
@@ -41,7 +56,10 @@ namespace EventTracker
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRewriter(new RewriteOptions()
+                                .AddRedirectToHttpsPermanent());
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(ConfigureRoutes);
             
             

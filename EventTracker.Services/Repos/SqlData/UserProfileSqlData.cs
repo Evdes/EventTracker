@@ -9,7 +9,7 @@ namespace EventTracker.Services.Repos.SqlData
 {
     public class UserProfileSqlData : IUserProfileRepo
     {
-        private EventTrackerDbContext _context;
+        private readonly EventTrackerDbContext _context;
 
         public UserProfileSqlData(EventTrackerDbContext context)
         {
@@ -18,25 +18,25 @@ namespace EventTracker.Services.Repos.SqlData
 
         public UserProfile AddUserProfile(UserProfile userProfileToAdd)
         {
-            _context.UserProfiles.Add(userProfileToAdd);
+            _context.Users.Add(userProfileToAdd);
             _context.SaveChanges();
             return userProfileToAdd;
         }
 
         public void DeleteUserProfile(UserProfile userProfileToDelete)
         {
-            _context.UserProfiles.Remove(userProfileToDelete);
+            _context.Users.Remove(userProfileToDelete);
             _context.SaveChanges();
         }
 
         public IEnumerable<UserProfile> GetAllUserProfiles()
         {
-            return _context.UserProfiles;
+            return _context.Users;
         }
 
         public UserProfile GetUserProfile(int? id)
         {
-            return _context.UserProfiles.FirstOrDefault(u => u.Id == id.Value);
+            return _context.Users.FirstOrDefault(u => u.Id == id.Value.ToString());
         }
 
         public UserProfile UpdateUserProfile(UserProfile userToUpdate)

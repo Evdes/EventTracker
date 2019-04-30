@@ -7,7 +7,7 @@ namespace EventTracker.Models.Events
     {
         public Event()
         {
-            Timeframes = new List<TimeFrame>();
+            Timeframes = new List<Timeframe>();
             Participants = new List<Participant>();
         }
 
@@ -27,7 +27,7 @@ namespace EventTracker.Models.Events
         public int WantedAmountOfParticipants { get; set; }
 
 
-        public List<TimeFrame> Timeframes { get; set; }
+        public List<Timeframe> Timeframes { get; set; }
         public Location Location { get; set; }
         public List<Participant> Participants { get; set; }
         public bool IsCancelled { get; set; }

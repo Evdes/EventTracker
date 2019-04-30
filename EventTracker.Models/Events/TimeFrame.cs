@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models.Events
 {
-    public class TimeFrame
+    public class Timeframe
     {
         public int Id { get; set; }
 

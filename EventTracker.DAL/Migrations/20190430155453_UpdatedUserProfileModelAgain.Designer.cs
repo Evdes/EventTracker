@@ -4,14 +4,16 @@ using EventTracker.DAL.SqlData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventTracker.DAL.Migrations
 {
     [DbContext(typeof(EventTrackerDbContext))]
-    partial class EventTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190430155453_UpdatedUserProfileModelAgain")]
+    partial class UpdatedUserProfileModelAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +118,8 @@ namespace EventTracker.DAL.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("ConfirmPassword");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -137,11 +141,16 @@ namespace EventTracker.DAL.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Password")
+                        .IsRequired();
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<bool>("RememberMe");
 
                     b.Property<string>("SecurityStamp");
 

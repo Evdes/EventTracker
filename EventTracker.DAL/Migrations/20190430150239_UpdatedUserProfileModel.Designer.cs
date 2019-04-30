@@ -4,14 +4,16 @@ using EventTracker.DAL.SqlData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventTracker.DAL.Migrations
 {
     [DbContext(typeof(EventTrackerDbContext))]
-    partial class EventTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190430150239_UpdatedUserProfileModel")]
+    partial class UpdatedUserProfileModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace EventTracker.DAL.Migrations
                     b.ToTable("Participant");
                 });
 
-            modelBuilder.Entity("EventTracker.Models.Events.Timeframe", b =>
+            modelBuilder.Entity("EventTracker.Models.Events.TimeFrame", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +105,7 @@ namespace EventTracker.DAL.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Timeframe");
+                    b.ToTable("TimeFrame");
                 });
 
             modelBuilder.Entity("EventTracker.Models.UserProfiles.UserProfile", b =>
@@ -115,6 +117,9 @@ namespace EventTracker.DAL.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -131,17 +136,25 @@ namespace EventTracker.DAL.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
+                    b.Property<string>("LoginEmail")
+                        .IsRequired();
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Password")
+                        .IsRequired();
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<bool>("RememberMe");
 
                     b.Property<string>("SecurityStamp");
 
@@ -289,7 +302,7 @@ namespace EventTracker.DAL.Migrations
                         .HasForeignKey("EventId");
                 });
 
-            modelBuilder.Entity("EventTracker.Models.Events.Timeframe", b =>
+            modelBuilder.Entity("EventTracker.Models.Events.TimeFrame", b =>
                 {
                     b.HasOne("EventTracker.Models.Events.Event")
                         .WithMany("Timeframes")

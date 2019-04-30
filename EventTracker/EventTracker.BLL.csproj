@@ -27,8 +27,4 @@
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
     <ProjectReference Include="..\EventTracker.Services\EventTracker.Services.csproj" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.8"></DotNetCliToolReference>
-  </ItemGroup>-->
 </Project>

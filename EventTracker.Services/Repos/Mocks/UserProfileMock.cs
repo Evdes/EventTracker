@@ -21,7 +21,7 @@ namespace EventTracker.Services.Repos.Mocks
 
         public UserProfile GetUserProfile(int? id)
         {
-            return _userProfiles.FirstOrDefault(u => u.Id == id.Value);
+            return _userProfiles.FirstOrDefault(u => u.Id == id.Value.ToString());
         }
 
         public void DeleteUserProfile(UserProfile userProfileToDelete)

@@ -4,14 +4,16 @@ using EventTracker.DAL.SqlData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventTracker.DAL.Migrations
 {
     [DbContext(typeof(EventTrackerDbContext))]
-    partial class EventTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190430125338_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace EventTracker.DAL.Migrations
                     b.ToTable("Participant");
                 });
 
-            modelBuilder.Entity("EventTracker.Models.Events.Timeframe", b =>
+            modelBuilder.Entity("EventTracker.Models.Events.TimeFrame", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +105,7 @@ namespace EventTracker.DAL.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Timeframe");
+                    b.ToTable("TimeFrame");
                 });
 
             modelBuilder.Entity("EventTracker.Models.UserProfiles.UserProfile", b =>
@@ -289,7 +291,7 @@ namespace EventTracker.DAL.Migrations
                         .HasForeignKey("EventId");
                 });
 
-            modelBuilder.Entity("EventTracker.Models.Events.Timeframe", b =>
+            modelBuilder.Entity("EventTracker.Models.Events.TimeFrame", b =>
                 {
                     b.HasOne("EventTracker.Models.Events.Event")
                         .WithMany("Timeframes")

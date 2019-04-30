@@ -1,32 +1,34 @@
 ﻿@model Event
 
-<fieldset id="TimeFramesToAdd">
-    <legend>Event Timeframes</legend>
+<div id="TimeFramesToAdd">
+    <h5>Event Timeframes</h5>
     @for (var i = 0; i < Model.Timeframes.Count; i++)
     {
-        <div class="timeframes form-row align-items-center" id="Timeframe_@i">
+        <div>
+            <div class="timeframes form-row align-items-center" id="Timeframe_@i">
 
-            <div class="col-sm-auto col-md-4 col-lg-2">
-                <label asp-for="Timeframes[i].EventDate"></label>
-                <input class="form-control" asp-for="Timeframes[i].EventDate" />
+                <div class="col-sm-auto col-md-4 col-lg-2">
+                    <label asp-for="Timeframes[i].EventDate"></label>
+                    <input class="form-control" asp-for="Timeframes[i].EventDate" />
 
-            </div>
-            <div class="col-sm-auto col-md-3 col-lg-2">
-                <label asp-for="Timeframes[i].Starttime">Starting hour</label>
-                <input class="form-control" asp-for="Timeframes[i].Starttime" min="0" max="24" />
+                </div>
+                <div class="col-sm-auto col-md-3 col-lg-2">
+                    <label asp-for="Timeframes[i].Starttime">Starting hour</label>
+                    <input class="form-control" asp-for="Timeframes[i].Starttime" min="0" max="24" />
 
-            </div>
-            <div class="col-sm-auto col-md-3 col-lg-2">
-                <label asp-for="Timeframes[i].Endtime">Ending hour</label>
-                <input class="form-control" asp-for="Timeframes[i].Endtime" min="0" max="24" />
+                </div>
+                <div class="col-sm-auto col-md-3 col-lg-2">
+                    <label asp-for="Timeframes[i].Endtime">Ending hour</label>
+                    <input class="form-control" asp-for="Timeframes[i].Endtime" min="0" max="24" />
 
+                </div>
+                <div class="col-sm-auto col-md-1">
+                    <button type="button" class="deleteTimeframeButton btn btn-danger form-control" data-id="@i"><i class="fa fa-remove"></i></button>
+                </div>
             </div>
-            <div class="col-sm-auto col-md-1">
-                <button type="button" class="deleteTimeframeButton btn btn-danger form-control" data-id="@i"><i class="fa fa-remove"></i></button>
-            </div>
+            <div><span asp-validation-for="Timeframes[i].EventDate"></span></div>
+            <div><span asp-validation-for="Timeframes[i].Starttime"></span></div>
+            <div><span asp-validation-for="Timeframes[i].Endtime"></span></div>
         </div>
-        <div><span asp-validation-for="Timeframes[i].EventDate"></span></div>
-        <div><span asp-validation-for="Timeframes[i].Starttime"></span></div>
-        <div><span asp-validation-for="Timeframes[i].Endtime"></span></div>
     }
-</fieldset>
+</div>
