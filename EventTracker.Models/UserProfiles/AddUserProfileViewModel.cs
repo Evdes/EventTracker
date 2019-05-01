@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EventTracker.Models.UserProfiles
 {
-    public class UserProfileViewModel
+    public class AddUserProfileViewModel
     {
         [Required]
         [Display(Name = "First Name")]
@@ -21,6 +21,7 @@ namespace EventTracker.Models.UserProfiles
         public string Email { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -30,7 +31,5 @@ namespace EventTracker.Models.UserProfiles
         public string ConfirmPassword { get; set; }
 
         public UserRole UserRole { get; set; }
-
-        public bool RememberMe { get; set; }
     }
 }

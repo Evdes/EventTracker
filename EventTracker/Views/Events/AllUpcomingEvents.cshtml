@@ -18,5 +18,8 @@
     }
 </div>
 <div>
-    <a class="round-button btn-primary text-decoration-none" asp-action="AddEvent"><i class="fa fa-plus fa-3x"></i></a>
+    @if (User.IsInRole("Super"))
+    {
+        <a class="round-button btn-primary text-decoration-none" asp-action="AddEvent"><i class="fa fa-plus fa-3x"></i></a>
+    }
 </div>

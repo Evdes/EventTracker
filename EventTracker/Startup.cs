@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
 using EventTracker.Services.EmailSender;
+using EventTracker.DAL;
 
 namespace EventTracker
 {
@@ -25,16 +26,18 @@ namespace EventTracker
         {
             _config = config;
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddIdentity<UserProfile, IdentityRole>(options => {
+            services.AddIdentity<UserProfile, IdentityRole>(options =>
+            {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 8;
+                options.SignIn.RequireConfirmedEmail = true;
             })
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<EventTrackerDbContext>();
@@ -48,12 +51,19 @@ namespace EventTracker
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
-                                IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,
+                                IHostingEnvironment env, 
+                                EventTrackerDbContext context,
+                                UserManager<UserProfile> userManager)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                //******Only use for dev purpose! Will seed database!*******////
+                //var seeder = new Seeder(context, userManager);
+                //seeder.SeedRoles();
+                //seeder.SeedUsers().Wait();
             }
 
             app.UseRewriter(new RewriteOptions()
@@ -61,12 +71,11 @@ namespace EventTracker
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(ConfigureRoutes);
-            
-            
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)

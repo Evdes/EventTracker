@@ -4628,7 +4628,8 @@
         "dependencies": {
           "EventTracker.Models": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "2.1.8",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.8"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.8",
+          "Microsoft.Extensions.Identity.Core": "2.1.1"
         },
         "compile": {
           "bin/placeholder/EventTracker.DAL.dll": {}

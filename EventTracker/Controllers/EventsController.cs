@@ -6,6 +6,7 @@ using System;
 
 namespace EventTracker.BLL.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly IEventRepo _events;
@@ -24,6 +25,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
         public IActionResult AllUpcomingEvents(int? id)
         {
             if (id == null)
@@ -53,6 +55,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
         [ActionName("EventDetails")]
         public IActionResult EventDetailsPost(int? id)
         {
@@ -70,6 +73,7 @@ namespace EventTracker.BLL.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Super")]
         public IActionResult AddEvent()
         {
             var eventToAdd = new Event();
@@ -79,6 +83,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
         public IActionResult AddEvent(Event newEvent)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace EventTracker.BLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Super")]
         public IActionResult DeleteEvent(int? id)
         {
             if (id == null)
@@ -117,6 +123,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
         [ActionName("DeleteEvent")]
         public IActionResult DeleteEventPost(int? id)
         {
@@ -132,6 +139,7 @@ namespace EventTracker.BLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Super")]
         public IActionResult EditEvent(int? id)
         {
             if (id == null)
@@ -154,6 +162,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
         public IActionResult EditEvent(Event postedEvent)
         {
             if (ModelState.IsValid)

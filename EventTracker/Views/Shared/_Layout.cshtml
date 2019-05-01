@@ -23,14 +23,16 @@
                         <a class="nav-link" href="#">My Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Change Password</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
                     </li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="UserProfiles" asp-action="AllUserProfiles">User accounts</a>
-                    </li>
+                    @if (User.IsInRole(UserRole.Admin.ToString()))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="UserProfiles" asp-action="AllUserProfiles">User accounts</a>
+                        </li>}
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
