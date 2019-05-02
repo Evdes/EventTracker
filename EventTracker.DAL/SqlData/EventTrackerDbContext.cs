@@ -23,7 +23,6 @@ namespace EventTracker.DAL.SqlData
             modelBuilder.Entity<Event>().HasMany(e => e.Participants);
             modelBuilder.Entity<Event>().HasMany(e => e.Timeframes);
             base.OnModelCreating(modelBuilder);
-
         }
     }
 

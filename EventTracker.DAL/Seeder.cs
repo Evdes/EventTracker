@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL
 {
+
+    //**Seeder can be used for TEST PURPOSES ONLY!**
+    //**Seed needs to be instantiated & its methods need to called from Configure method in startup class (Project EventTracker.BLL)**
+    //**Seeder must only be used in dev env**
+    //**For safety reasons, code must be deleted from startup class after seeder has populated Db**
     public class Seeder
     {
         private readonly EventTrackerDbContext _context;
@@ -57,7 +62,7 @@ namespace EventTracker.DAL
             {
                 var currentUser = _userManager.FindByIdAsync(user1.Id).Result;
                 currentUser.EmailConfirmed = true;
-                await _userManager.AddToRoleAsync(currentUser, user1.UserRole.ToString());
+                await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER", "BASIC" });
             }
 
             //start user2
@@ -75,7 +80,7 @@ namespace EventTracker.DAL
             {
                 var currentUser = _userManager.FindByIdAsync(user2.Id).Result;
                 currentUser.EmailConfirmed = true;
-                await _userManager.AddToRoleAsync(currentUser, user2.UserRole.ToString());
+                await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER" });
             }
 
             //start user3

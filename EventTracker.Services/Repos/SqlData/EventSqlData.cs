@@ -43,7 +43,8 @@ namespace EventTracker.Services.Repos.SqlData
                 .Include(e => e.Location)
                 .Include(e => e.Participants)
                 .Include(e => e.Timeframes)
-                .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today);
+                .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today)
+                .OrderBy(e => e.Timeframes.Min(t => t.EventDate));
         }
 
         public Event GetEvent(int? id)

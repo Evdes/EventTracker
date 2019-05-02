@@ -44,7 +44,6 @@ namespace EventTracker
             services.AddDbContext<EventTrackerDbContext>(
                 options => options.UseSqlServer(_config.GetConnectionString("EventTrackerDevDb")));
             services.AddScoped<IEventRepo, EventSqlData>();
-            services.AddScoped<IUserProfileRepo, UserProfileSqlData>();
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
@@ -52,18 +51,11 @@ namespace EventTracker
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-                                IHostingEnvironment env, 
-                                EventTrackerDbContext context,
-                                UserManager<UserProfile> userManager)
+                                IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
-                //******Only use for dev purpose! Will seed database!*******////
-                //var seeder = new Seeder(context, userManager);
-                //seeder.SeedRoles();
-                //seeder.SeedUsers().Wait();
             }
 
             app.UseRewriter(new RewriteOptions()
@@ -71,11 +63,6 @@ namespace EventTracker
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(ConfigureRoutes);
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
