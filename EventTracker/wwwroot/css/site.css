@@ -9887,6 +9887,10 @@ a, a:hover {
     width: 50px;
     height: 50px; } }
 
+.btn-delete-sm {
+  width: 20px;
+  height: 20px; }
+
 #addTimeframe {
   margin-top: 20px; }
 

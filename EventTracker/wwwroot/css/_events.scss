@@ -21,6 +21,7 @@
     .btn-action-sm {
         width: 70px;
     }
+
     .btn-action-md {
         width: 150px;
         margin-right: 10px;
@@ -68,15 +69,18 @@
     }
 }
 
-@media (min-width: 64em){
+@media (min-width: 64em) {
     .deleteTimeframeButton {
         width: 50px;
         height: 50px;
     }
 }
 
+.btn-delete-sm {
+    width: 20px;
+    height: 20px;
+}
+
 #addTimeframe {
     margin-top: 20px;
 }
-
-

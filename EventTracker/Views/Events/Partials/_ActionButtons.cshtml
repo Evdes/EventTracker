@@ -1,25 +1,32 @@
-﻿@model Event
+﻿@inject UserManager<UserProfile> UserManager
+@model Event
 
 <div>
     @if (Model.IsCancelled)
     {
         if (User.IsInRole(UserRole.Super.ToString()))
         {
-            <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" name="UndoCancellation" value="Undo Cancellation" class="btn-undoCancel btn-secondary btn" />
-            </form>
+            <a role="button" asp-action="CancelEvent" asp-route-id="@Model.Id" class="btn-undoCancel btn-secondary btn">Undo Cancellation</a>
         }
     }
     else
     {
         <div class="btn-group">
             <form method="post">
-                <input asp-route-id="@Model.Id" type="submit" role="button" name="Subscribe" value="Going?" class="btn-action-sm btn-outline-primary" />
-                @if (User.IsInRole(UserRole.Super.ToString()))
+                @if (Model.UserEvents.Any(ue => ue.UserId == UserManager.FindByNameAsync(User.Identity.Name).Result.Id))
                 {
-                    <input asp-route-id="@Model.Id" type="submit" name="CancelEvent" value="Cancel" class="btn-action-sm btn-secondary" />
+                    <input asp-route-id="@Model.Id" type="submit" role="button" name="Unsubscribe" value="Going!" class="btn-action-sm btn-primary" />
+                }
+                else
+                {
+                    <input asp-route-id="@Model.Id" type="submit" role="button" name="Subscribe" value="Going?" class="btn-action-sm btn-outline-primary" />
                 }
             </form>
+            @if (User.IsInRole(UserRole.Super.ToString()))
+            {
+                <a role="button" asp-action="CancelEvent" asp-route-id="@Model.Id" class="btn-action-sm btn-secondary btn">Cancel</a>
+            }
+
             @if (User.IsInRole(UserRole.Super.ToString()))
             {
                 <a role="button" asp-action="EditEvent" asp-route-id="@Model.Id" class="btn-action-sm btn-warning">Edit</a>

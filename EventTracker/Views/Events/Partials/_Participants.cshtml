@@ -4,23 +4,24 @@
 <div>
     <h4>Participants:</h4>
     <div>
-        @if (Model.Participants.Count == 0)
+        @if (Model.UserEvents.Count == 0)
         {
             <h5>There are currently no participants for this event</h5>
         }
         else
         {
             <ul class="list-unstyled">
-                @foreach (var participant in @Model.Participants)
+                @foreach (var userEvent in @Model.UserEvents)
                 {
-                <li class="participantRow">
-                    <label asp-for="@participant.Name">@participant.Name</label>
-                    @if (ViewBag.Page == "EditEvent")
-                    {
-                        <button class="d-inline btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
-                    }
-
-                </li>
+                    <li class="participantRow">
+                        <div class="row">
+                            <h5>@userEvent.UserProfile.FirstName @userEvent.UserProfile.LastName</h5>
+                            @if (ViewBag.Page == "EditEvent")
+                            {
+                                <button class="btn-delete-sm btn btn-danger form-control" type="button"><i class="fa fa-remove"></i></button>
+                            }
+                        </div>
+                    </li>
                 }
             </ul>
         }

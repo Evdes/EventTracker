@@ -1,4 +1,5 @@
 ﻿using EventTracker.DAL.SqlData;
+using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -23,6 +24,13 @@ namespace EventTracker.DAL
         {
             _context = context;
             _userManager = userManager;
+        }
+
+        public async void SeedAll()
+        {
+            SeedRoles();
+            await SeedUsers();
+            SeedEvents();
         }
     
         public void SeedRoles()
@@ -100,6 +108,42 @@ namespace EventTracker.DAL
                 currentUser.EmailConfirmed = true;
                 await _userManager.AddToRoleAsync(currentUser, user3.UserRole.ToString());
             }
+        }
+        public void SeedEvents()
+        {
+            new List<Event> {
+                new Event { Id = 1,
+                    Name = "Event1",
+                    Description = "Description1",
+                    WantedAmountOfParticipants = 1,
+                    Timeframes = new List<Timeframe>
+                    {
+                        new Timeframe { EventDate = new DateTime(2051, 1, 1), Starttime = 10, Endtime = 17 },
+                        new Timeframe { EventDate = new DateTime(2051, 1, 2), Starttime = 10, Endtime = 17 }
+                    },
+                    Location = new Location {City="City1", Province="Province1"},
+                    IsCancelled=true
+                },
+                new Event { Id = 2,
+                    Name = "Event2",
+                    Description = "Description2",
+                    WantedAmountOfParticipants = 2,
+                    Timeframes = new List<Timeframe> {
+                        new Timeframe { EventDate = new DateTime(2052, 2, 1), Starttime = 9, Endtime = 18 },
+                        new Timeframe { EventDate = new DateTime(2052, 2, 2), Starttime = 9, Endtime = 18 }
+                    },
+                    Location = new Location {City="City2", Province="Province2"},
+                },
+                new Event { Id = 3,
+                    Name = "Event3",
+                    Description = "Description3",
+                    WantedAmountOfParticipants = 3,
+                    Timeframes = new List<Timeframe>
+                        { new Timeframe { EventDate = new DateTime(2053, 3, 1), Starttime = 9, Endtime = 15}
+                    },
+                    Location = new Location {City="City3", Province="Province3"},
+                }
+            };
         }
     }
 }

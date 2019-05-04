@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EventTracker.Models.Events;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models.UserProfiles
@@ -15,5 +17,7 @@ namespace EventTracker.Models.UserProfiles
         public string LastName { get; set; }
 
         public UserRole UserRole { get; set; }
+
+        public ICollection<UserEvents> UserEvents { get; set; }
     }
 }

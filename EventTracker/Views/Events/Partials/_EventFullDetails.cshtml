@@ -2,7 +2,7 @@
 
 <div class="col-10 offset-1">
     <div class="jumbotron @(Model.IsCancelled ? "cancelled" : null)
-     @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.Participants.Count ? "full" : null)">
+     @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.UserEvents.Count ? "full" : null)">
         <div class="container-fluid">
             <partial name="Partials/_EventBasicDetails" />
             @if (ViewBag.Page == "EventDetails")

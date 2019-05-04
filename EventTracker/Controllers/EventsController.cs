@@ -1,8 +1,13 @@
 ﻿using EventTracker.Models.Events;
+using EventTracker.Models.UserProfiles;
 using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Controllers
 {
@@ -10,10 +15,13 @@ namespace EventTracker.BLL.Controllers
     public class EventsController : Controller
     {
         private readonly IEventRepo _events;
+        private readonly UserManager<UserProfile> _userManager;
 
-        public EventsController(IEventRepo eventMockRepo)
+        public EventsController(IEventRepo eventMockRepo, 
+            UserManager<UserProfile> userManager)
         {
             _events = eventMockRepo;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -25,8 +33,8 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super")]
-        public IActionResult AllUpcomingEvents(int? id)
+        [ActionName(nameof(AllUpcomingEvents))]
+        public async Task<IActionResult> ToggleSubscribeFromAllAsync(int? id)
         {
             if (id == null)
             {
@@ -34,10 +42,12 @@ namespace EventTracker.BLL.Controllers
             }
             else
             {
-                ToggleCancel(id.Value);
-                return RedirectToAction(nameof(AllUpcomingEvents));
+                await ToggleSubscribeAsync(id);
+                return RedirectToAction(nameof(AllUpcomingEvents), new { id = string.Empty});
             }
         }
+
+        
 
         [HttpGet]
         public IActionResult EventDetails(int? id)
@@ -55,9 +65,8 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super")]
-        [ActionName("EventDetails")]
-        public IActionResult EventDetailsPost(int? id)
+        [ActionName(nameof(EventDetails))]
+        public async Task<IActionResult> ToggleSubscribeFromDetailsAsync(int? id)
         {
             if (id == null)
             {
@@ -65,9 +74,41 @@ namespace EventTracker.BLL.Controllers
             }
             else
             {
-                ToggleCancel(id.Value);
-                var requestedEvent = _events.GetEvent(id.Value);
-                return RedirectToAction(nameof(EventDetails), new { id = requestedEvent.Id });
+                await ToggleSubscribeAsync(id);
+                return RedirectToAction(nameof(EventDetails), new { id = id.Value});
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Super")]
+        public IActionResult CancelEvent(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(_events.GetEvent(id.Value));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
+        [ActionName(nameof(CancelEvent))]
+        public IActionResult CancelEventPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+                
+            }
+            else
+            {
+                var eventToCancel = _events.GetEvent(id.Value);
+                ToggleCancel(eventToCancel);
+                return RedirectToAction(nameof(EventDetails), new { id = eventToCancel.Id });
             }
         }
 
@@ -134,7 +175,7 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 _events.DeleteEvent(_events.GetEvent(id.Value));
-                return RedirectToAction(nameof(AllUpcomingEvents));
+                return RedirectToAction(nameof(AllUpcomingEvents), new { id = string.Empty });
             }
         }
 
@@ -203,11 +244,34 @@ namespace EventTracker.BLL.Controllers
             }
         }
 
-        private void ToggleCancel(int id)
+        private void ToggleCancel(Event @event)
         {
-            var eventToToggle = _events.GetEvent(id);
-            eventToToggle.IsCancelled = !eventToToggle.IsCancelled;
-            _events.EditEvent(eventToToggle);
+            @event.IsCancelled = !@event.IsCancelled;
+            _events.EditEvent(@event);
+        }
+
+        private async Task ToggleSubscribeAsync(int? id)
+        {
+            var @event = _events.GetEvent(id.Value);
+            var userProfile = await _userManager.GetUserAsync(HttpContext.User);
+            var subscription = new UserEvents
+            {
+                Event = @event,
+                EventId = @event.Id,
+                UserProfile = userProfile,
+                UserId = userProfile.Id
+            };
+
+            if (@event.UserEvents.Any(ue => ue.UserId == userProfile.Id))
+            {
+                var ueToRemove = @event.UserEvents.FirstOrDefault(ue => ue.UserId == userProfile.Id);
+                @event.UserEvents.Remove(ueToRemove);
+            }
+            else
+            {
+                @event.UserEvents.Add(subscription);
+            }
+            _events.EditEvent(@event);
         }
     }
 }

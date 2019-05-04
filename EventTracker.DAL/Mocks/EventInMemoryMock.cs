@@ -27,10 +27,6 @@ namespace EventTracker.DAL.Mocks
                         new Timeframe { EventDate = new DateTime(2021, 1, 2), Starttime = 11, Endtime = 21 }
                     },
                     Location = new Location {City="City1", Province="Province1"},
-                    Participants = new List<Participant>
-                    {
-                        new Participant { Name = "Participant1" }
-                    },
                     IsCancelled=true
                 },
                 new Event { Id = 2,
@@ -42,11 +38,6 @@ namespace EventTracker.DAL.Mocks
                         new Timeframe { EventDate = new DateTime(2022, 2, 2), Starttime = 12, Endtime = 22 }
                     },
                     Location = new Location {City="City2", Province="Province2"},
-                    Participants = new List<Participant>
-                    {
-                        new Participant { Name = "Participant1" },
-                        new Participant { Name = "Participant2" }
-                    }
                 },
                 new Event { Id = 3,
                     Name = "Event3",
@@ -56,10 +47,6 @@ namespace EventTracker.DAL.Mocks
                         { new Timeframe { EventDate = new DateTime(2023, 2, 1), Starttime = 12, Endtime = 22}
                     },
                     Location = new Location {City="City3", Province="Province3"},
-                    Participants = new List<Participant>
-                    {
-                        new Participant { Name = "Participant1" }
-                    }
                 }
             };
         }

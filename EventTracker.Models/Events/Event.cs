@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EventTracker.Models.UserProfiles;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models.Events
@@ -8,7 +9,6 @@ namespace EventTracker.Models.Events
         public Event()
         {
             Timeframes = new List<Timeframe>();
-            Participants = new List<Participant>();
         }
 
         public int Id { get; set; }
@@ -26,10 +26,9 @@ namespace EventTracker.Models.Events
         [Range(1,int.MaxValue, ErrorMessage ="Enter a valid number larger than 0")]
         public int WantedAmountOfParticipants { get; set; }
 
-
         public List<Timeframe> Timeframes { get; set; }
         public Location Location { get; set; }
-        public List<Participant> Participants { get; set; }
+        public ICollection<UserEvents> UserEvents { get; set; }
         public bool IsCancelled { get; set; }
     }
 }
