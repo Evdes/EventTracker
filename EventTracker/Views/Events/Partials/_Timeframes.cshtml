@@ -1,29 +1,28 @@
 ﻿@model Event
 
 <div id="TimeFramesToAdd">
-    <h5>Event Timeframes</h5>
+    <label class="mb-3">Event Timeframes</label>
     @for (var i = 0; i < Model.Timeframes.Count; i++)
     {
         <div>
-            <div class="timeframes form-row align-items-center" id="Timeframe_@i">
-
+            <div class="timeframes form-row align-items-center mb-3" id="Timeframe_@i">
                 <div class="col-sm-auto col-md-4 col-lg-2">
-                    <label asp-for="Timeframes[i].EventDate"></label>
+                    <label asp-for="Timeframes[i].EventDate">Date</label>
                     <input class="form-control" asp-for="Timeframes[i].EventDate" />
 
                 </div>
                 <div class="col-sm-auto col-md-3 col-lg-2">
-                    <label asp-for="Timeframes[i].Starttime">Starting hour</label>
+                    <label asp-for="Timeframes[i].Starttime">Start</label>
                     <input class="form-control" asp-for="Timeframes[i].Starttime" min="0" max="24" />
 
                 </div>
                 <div class="col-sm-auto col-md-3 col-lg-2">
-                    <label asp-for="Timeframes[i].Endtime">Ending hour</label>
+                    <label asp-for="Timeframes[i].Endtime">End</label>
                     <input class="form-control" asp-for="Timeframes[i].Endtime" min="0" max="24" />
 
                 </div>
                 <div class="col-sm-auto col-md-1">
-                    <button type="button" class="deleteTimeframeButton btn btn-danger form-control" data-id="@i"><i class="fa fa-remove"></i></button>
+                    <button type="button" class="btn-delete-md btn btn-danger form-control" data-id="@i"><i class="fa fa-remove"></i></button>
                 </div>
             </div>
             <div><span asp-validation-for="Timeframes[i].EventDate"></span></div>

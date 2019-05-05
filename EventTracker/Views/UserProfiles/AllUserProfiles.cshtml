@@ -1,24 +1,29 @@
-﻿@model List<UserProfile>
+﻿@inject UserManager<UserProfile> UserManager
+@model List<UserProfile>
 @{
     ViewBag.Title = "Userprofiles";
     ViewBag.Page = "AllUsers";
 }
 
 
-    <div class="col">
+<div class="col">
 
-        @foreach (var userProfile in Model)
+    @foreach (var userProfile in Model)
+    {
+    <div class="jumbotron  col-lg-2 col-md-6 col-sm-10">
+        <partial name="Partials/_UserProfileDetails" model="@userProfile" />
+        @if (userProfile.Id != UserManager.FindByNameAsync(User.Identity.Name).Result.Id)
         {
-        <div class="jumbotron  col-lg-2 col-md-6 col-sm-10">
-            <partial name="Partials/_UserProfileDetails" model="@userProfile" />
-                <div>
-                    <a class="btn-action-sm btn-warning" type="button" asp-action="EditUserProfile" asp-route-id="@userProfile.Id">Edit</a>
-                    <a class="btn-action-sm btn-danger" type="button" asp-action="DeleteUserProfile" asp-route-id="@userProfile.Id">Delete</a>
-                </div>
-        </div>
+            <div>
+                <a class="btn-action-sm btn-warning" type="button" asp-action="EditUserProfile" asp-route-id="@userProfile.Id">Edit</a>
+                <a class="btn-action-sm btn-danger" type="button" asp-action="DeleteUserProfile" asp-route-id="@userProfile.Id">Delete</a>
+            </div>
         }
-        <a class="round-button btn-primary text-decoration-none" asp-controller="UserProfiles" asp-action="AddUserProfile">
-            <i class="fa fa-plus fa-3x"></i>
-        </a>
+
     </div>
+    }
+    <a class="round-button btn-primary text-decoration-none" asp-controller="UserProfiles" asp-action="AddUserProfile">
+        <i class="fa fa-plus fa-3x"></i>
+    </a>
+</div>
 

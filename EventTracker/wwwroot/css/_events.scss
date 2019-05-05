@@ -70,7 +70,7 @@
 }
 
 @media (min-width: 64em) {
-    .deleteTimeframeButton {
+    .btn-delete-md {
         width: 50px;
         height: 50px;
     }
@@ -79,8 +79,20 @@
 .btn-delete-sm {
     width: 20px;
     height: 20px;
+    position: relative;
+    i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+    }
 }
 
 #addTimeframe {
     margin-top: 20px;
+}
+
+.participantName{
+    margin-right: 10px;
 }

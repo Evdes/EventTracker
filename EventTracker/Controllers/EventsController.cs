@@ -244,27 +244,65 @@ namespace EventTracker.BLL.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super")]
+        public async Task<IActionResult> RemoveParticipantAsync(int? id, string userId)
+        {
+            if (ModelState.IsValid)
+            {
+                var eventToModify = _events.GetEvent(id);
+                var userProfileToRemove = await _userManager.FindByIdAsync(userId);
+                var ueToRemove = eventToModify.UserEvents.FirstOrDefault(ue => ue.UserId == userProfileToRemove.Id);
+                eventToModify.UserEvents.Remove(ueToRemove);
+                _events.EditEvent(eventToModify);
+                return RedirectToAction(nameof(EditEvent), new { id = id });
+            }
+            else
+            {
+                return View(nameof(EditEvent), new { id = id });
+            }
+        }
+
+        [HttpGet]
+        [ActionName("MyEvents")]
+        public async Task<IActionResult> MyEventsAsync()
+        {
+            var allEvents = _events.GetAllUpcomingEvents();
+            List<Event> MyEvents = new List<Event>();
+
+            foreach (var @event in allEvents)
+            {
+                
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                if (@event.UserEvents.Any(e => e.UserId == currentUser.Id))
+                {
+                    MyEvents.Add(@event);
+                }
+            }
+            return View(MyEvents);
+        }
+
         private void ToggleCancel(Event @event)
         {
             @event.IsCancelled = !@event.IsCancelled;
             _events.EditEvent(@event);
         }
-
         private async Task ToggleSubscribeAsync(int? id)
         {
             var @event = _events.GetEvent(id.Value);
-            var userProfile = await _userManager.GetUserAsync(HttpContext.User);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var subscription = new UserEvents
             {
                 Event = @event,
                 EventId = @event.Id,
-                UserProfile = userProfile,
-                UserId = userProfile.Id
+                UserProfile = currentUser,
+                UserId = currentUser.Id
             };
 
-            if (@event.UserEvents.Any(ue => ue.UserId == userProfile.Id))
+            if (@event.UserEvents.Any(ue => ue.UserId == currentUser.Id))
             {
-                var ueToRemove = @event.UserEvents.FirstOrDefault(ue => ue.UserId == userProfile.Id);
+                var ueToRemove = @event.UserEvents.FirstOrDefault(ue => ue.UserId == currentUser.Id);
                 @event.UserEvents.Remove(ueToRemove);
             }
             else

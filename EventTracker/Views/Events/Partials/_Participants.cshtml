@@ -2,8 +2,8 @@
 
 
 <div>
-    <h4>Participants:</h4>
-    <div>
+    <label>Participants:</label>
+    <div class="col">
         @if (Model.UserEvents.Count == 0)
         {
             <h5>There are currently no participants for this event</h5>
@@ -13,14 +13,23 @@
             <ul class="list-unstyled">
                 @foreach (var userEvent in @Model.UserEvents)
                 {
-                    <li class="participantRow">
+                    <li class="participantRow align-items-center">
+
                         <div class="row">
-                            <h5>@userEvent.UserProfile.FirstName @userEvent.UserProfile.LastName</h5>
+                            <h5 class="participantName">@userEvent.UserProfile.FirstName @userEvent.UserProfile.LastName</h5>
                             @if (ViewBag.Page == "EditEvent")
                             {
-                                <button class="btn-delete-sm btn btn-danger form-control" type="button"><i class="fa fa-remove"></i></button>
+                                <button asp-action="RemoveParticipantAsync"
+                                        asp-controller="Events"
+                                        asp-route-id="@Model.Id"
+                                        asp-route-userId="@userEvent.UserId"
+                                        type="submit"
+                                        class="btn-delete-sm btn btn-danger form-control">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             }
                         </div>
+
                     </li>
                 }
             </ul>

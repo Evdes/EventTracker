@@ -11,7 +11,7 @@
     }
     else
     {
-        <div class="btn-group">
+      
             <form method="post">
                 @if (Model.UserEvents.Any(ue => ue.UserId == UserManager.FindByNameAsync(User.Identity.Name).Result.Id))
                 {
@@ -33,6 +33,6 @@
                 <a role="button" asp-action="DeleteEvent" asp-route-id="@Model.Id" class="btn-action-sm btn-danger">Delete</a>
             }
 
-        </div>
+    
     }
 </div>

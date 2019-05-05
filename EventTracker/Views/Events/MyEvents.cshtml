@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Event>
+@{
+    ViewBag.Title = "My events";
+}
+
+<div class="col">
+    @foreach (var e in Model)
+    {
+        <div class="jumbotron pt-4 pb-4 col-lg-3 col-md-6 col-sm-10
+               @(e.IsCancelled ? "cancelled" : null) @(!e.IsCancelled && e.WantedAmountOfParticipants <= e.UserEvents.Count ? "full" : null)">
+            <div class="container-fluid">
+                <a asp-controller="Events" asp-action="EventDetails" asp-route-id="@e.Id" class="text-decoration-none d-block">
+                    <partial name="Partials/_EventBasicDetails" model="e" />
+                </a>
+            </div>
+        </div>
+    }
+</div>
