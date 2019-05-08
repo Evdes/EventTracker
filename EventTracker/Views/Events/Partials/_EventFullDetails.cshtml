@@ -1,7 +1,7 @@
 ﻿@model Event
 
-<div class="col-10 offset-1">
-    <div class="jumbotron pt-4 @(Model.IsCancelled ? "cancelled" : null)
+<div class="col-md-10 offset-md-1">
+    <div class="jumbotron pt-4 pb-5 @(Model.IsCancelled ? "cancelled" : null)
      @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.UserEvents.Count ? "full" : null)">
         <div class="container-fluid">
             <partial name="Partials/_EventBasicDetails" />

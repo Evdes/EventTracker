@@ -42,6 +42,18 @@
         button.click(removeTimeframe);
     });
 
+    //Toggle password visibility input
+    $(".toggle-password").click(function () {
+        $(this).children().toggleClass("fa-eye fa-eye-slash");
+        var input = $(this).parent().siblings(".password");
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    }else {
+        input.attr("type", "password");
+    }
+});
+
+
     /*
     ####################################################
     HELPER FUNCTIONS

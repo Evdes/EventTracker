@@ -9823,7 +9823,8 @@ h6 {
     border-radius: 4px; }
 
 body {
-  padding-top: 70px; }
+  padding-top: 70px;
+  padding-bottom: 50px; }
 
 a, a:hover {
   color: black; }
@@ -9832,7 +9833,9 @@ a, a:hover {
   width: 200px; }
 
 .btn-action-sm {
-  width: 64px;
+  width: 50px;
+  padding-left: 0px;
+  padding-right: 0px;
   display: inline-block;
   float: left;
   margin-right: 10px; }
@@ -9843,7 +9846,15 @@ a, a:hover {
 
 @media (min-width: 48em) {
   .btn-action-sm {
-    width: 70px; }
+    width: 60px; } }
+
+@media (min-width: 48em) and (min-width: 75em) {
+  .btn-action-sm {
+    width: 70px;
+    padding-left: 10px;
+    padding-right: 10px; } }
+
+@media (min-width: 48em) {
   .btn-action-md {
     width: 150px;
     margin-right: 10px; } }

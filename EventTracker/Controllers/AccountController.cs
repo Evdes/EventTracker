@@ -40,10 +40,10 @@ namespace EventTracker.BLL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(userProfile.Email, 
-                                                                userProfile.Password, 
-                                                                userProfile.RememberMe, 
-                                                                false);
+                var result = await _signInManager.PasswordSignInAsync(userProfile.Email,
+                                                                                 userProfile.Password,
+                                                                                 userProfile.RememberMe,
+                                                                                 false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction(nameof(EventsController.AllUpcomingEvents), "Events");

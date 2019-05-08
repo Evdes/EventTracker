@@ -5,7 +5,9 @@
 
 .btn-action-sm {
     @extend .btn;
-    width: 64px;
+    width: 50px;
+    padding-left: 0px;
+    padding-right:0px;
     display: inline-block;
     float: left;
     margin-right: 10px;
@@ -19,7 +21,15 @@
 
 @media (min-width: 48em) {
     .btn-action-sm {
-        width: 70px;
+        width: 60px;
+    }
+
+    @media (min-width: 75em) {
+        .btn-action-sm {
+            width: 70px;
+            padding-left:10px;
+            padding-right: 10px;
+        }
     }
 
     .btn-action-md {
