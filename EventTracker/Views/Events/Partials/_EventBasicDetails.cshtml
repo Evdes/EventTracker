@@ -15,8 +15,9 @@
                 <h3>@Model.Name</h3>
             </li>
         }
+        <li><h5>@Model.Description</h5></li>
         <li><h5>@Model.Location.City (@Model.Location.Province)</h5></li>
-        <li><h5>Participants wanted: @Model.WantedAmountOfParticipants</h5></li>
+        <li><h5>Participants needed: @Model.WantedAmountOfParticipants</h5></li>
         <li>
             <h4>Event dates:</h4>
             @foreach (var timeframe in @Model.Timeframes)

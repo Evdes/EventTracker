@@ -1,4 +1,5 @@
-﻿using EventTracker.Models.Events;
+﻿using EventTracker.BLL.Extensions.Alerts;
+using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Authorization;
@@ -42,11 +43,12 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 await ToggleSubscribeAsync(id);
-                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty })
+                    .WithSuccess("Success", "You have altered your presence for this event");
             }
         }
 
-         [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Super")]
         public IActionResult CancelEvent(int? id)
@@ -58,9 +60,17 @@ namespace EventTracker.BLL.Controllers
             }
             else
             {
-                var eventToCancel = _events.GetEvent(id.Value);
-                ToggleCancel(eventToCancel);
-                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
+                var @event = _events.GetEvent(id.Value);
+                ToggleCancel(@event);
+                if (@event.IsCancelled)
+                {
+                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty }).WithSuccess("Success", "Event was cancelled");
+                }
+                else
+                {
+                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty }).WithSuccess("Success", "Event is no longer cancelled");
+                }
+                
             }
         }
 
@@ -82,13 +92,13 @@ namespace EventTracker.BLL.Controllers
             {
                 newEvent.IsCancelled = false;
                 _events.AddEvent(newEvent);
-                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty })
+                    .WithSuccess("Success", "Event added");
             }
             else
             {
-                return View(newEvent);
+                return View(newEvent).WithDanger("Failed", "Event not added");
             }
-
         }
 
         [HttpPost]
@@ -103,7 +113,7 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 _events.DeleteEvent(_events.GetEvent(id.Value));
-                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty }).WithSuccess("Success", "Event deleted");
             }
         }
 
@@ -156,11 +166,12 @@ namespace EventTracker.BLL.Controllers
                             });
                     }
                     _events.EditEvent(eventToUpdate);
-                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
+                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty })
+                    .WithSuccess("Success", "Event updated");
             }
             else
             {
-                return View(postedEvent);
+                return View(postedEvent).WithDanger("Failed", "Event not updated");
             }
         }
 
@@ -176,7 +187,7 @@ namespace EventTracker.BLL.Controllers
                 var ueToRemove = eventToModify.UserEvents.FirstOrDefault(ue => ue.UserId == userProfileToRemove.Id);
                 eventToModify.UserEvents.Remove(ueToRemove);
                 _events.EditEvent(eventToModify);
-                return RedirectToAction(nameof(EditEvent), new { id });
+                return RedirectToAction(nameof(EditEvent), new { id }).WithSuccess("Success","Participant removed");
             }
             else
             {

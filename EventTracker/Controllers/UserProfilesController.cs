@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.DAL.SqlData;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
@@ -80,14 +81,17 @@ namespace EventTracker.BLL.Controllers
                     await _emailSender.SendEmailAsync(userProfileToAdd.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    return RedirectToAction(nameof(AllUserProfiles));
+                    return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success","User account added");
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
-            return View();
+            return View().WithDanger("Failed", "Unable to add user account");
         }
 
         [HttpGet]
@@ -128,7 +132,7 @@ namespace EventTracker.BLL.Controllers
             {
                 var UserProfileToDelete = await _userManager.FindByIdAsync(id);
                 await _userManager.DeleteAsync(UserProfileToDelete);
-                return RedirectToAction(nameof(AllUserProfiles));
+                return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account deleted");
             }
             else
             {
@@ -225,7 +229,7 @@ namespace EventTracker.BLL.Controllers
                 await _userManager.UpdateAsync(userProfileToEdit);
                 
 
-                return RedirectToAction(nameof(AllUserProfiles));
+                return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account updated");
             }
             else
             {

@@ -2,7 +2,7 @@
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace IdentityDemo.Services
+namespace EventTracker.BLL.Extensions
 {
     public static class EmailSenderExtensions
     {

@@ -45,13 +45,14 @@
                 }
                 else
                 {
+                    <h5>Participants:</h5>
                     <partial name="Partials/_Participants" model="Model" />
                 }
 
             </div>
         </div>
         <div class="float-right">
-            <a class="btn-action-sm btn-outline-secondary" asp-action="AllUpcomingEvents">Cancel</a>
+            <a class="btn-action-sm btn-outline-secondary" asp-action="UpcomingEvents">Cancel</a>
             @if (ViewBag.Page == "AddEvent")
             {
                 <input class="btn-action-sm btn-primary" type="submit" name="Add" value="Add" />

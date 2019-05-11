@@ -1,10 +1,11 @@
 ﻿using EventTracker.BLL.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNetCore.Mvc
+namespace EventTracker.BLL.Extensions
 {
     public static class UrlHelperExtensions
     {

@@ -47,11 +47,17 @@
         $(this).children().toggleClass("fa-eye fa-eye-slash");
         var input = $(this).parent().siblings(".password");
         if (input.attr("type") == "password") {
-        input.attr("type", "text");
-    }else {
-        input.attr("type", "password");
-    }
-});
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+
+    });
+
+    //Autofade alerts
+    $(".alert-dismissible").fadeTo(3000, 500).slideUp(500, function () {
+        $(".alert-dismissible").alert('close');
+    });
 
 
     /*

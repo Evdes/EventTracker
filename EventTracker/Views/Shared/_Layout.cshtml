@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" asp-controller="Events" asp-action="AllUpcomingEvents">Event Tracker</a>
+        <a class="navbar-brand" asp-controller="Events" asp-action="UpcomingEvents">Event Tracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +17,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Events" asp-action="AllUpcomingEvents">Upcoming Events</a>
+                        <a class="nav-link" asp-controller="Events" asp-action="UpcomingEvents">Upcoming Events</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Events" asp-action="MyEvents">My Events</a>
@@ -49,9 +49,11 @@
             </ul>
         </div>
     </nav>
+    <partial name="Partials/_StatusMessages" />
     <div>
         @RenderBody()
     </div>
+
     <script src="~/js/vendor.min.js"></script>
     <script src="~/js/site.min.js"></script>
 </body>

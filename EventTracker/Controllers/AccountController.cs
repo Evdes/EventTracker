@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EventTracker.BLL.Extensions;
+using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
@@ -46,12 +48,12 @@ namespace EventTracker.BLL.Controllers
                                                                                  false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
+                    return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events").WithSuccess("Success", "Login succesful");
                 }
                 else
                 {
                     ModelState.AddModelError(String.Empty, "Login failed");
-                    return View();
+                    return View().WithDanger("Failed", "Unable to log in");
                 }
             }
             return View();
@@ -62,7 +64,7 @@ namespace EventTracker.BLL.Controllers
         public async Task<IActionResult> LogoutAsync()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(Login)).WithSuccess("Success", "Logout succesful");
         }
 
         [HttpGet]
@@ -96,7 +98,7 @@ namespace EventTracker.BLL.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                    return NotFound();
                 }
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -105,16 +107,10 @@ namespace EventTracker.BLL.Controllers
                                                                 Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                return RedirectToAction(nameof(Login)).WithSuccess("Success", "Reset mail sent");
             }
 
             return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
         }
 
         [HttpGet]
@@ -140,19 +136,13 @@ namespace EventTracker.BLL.Controllers
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult ResetPasswordConfirmation()
-        {
             return View();
         }
 
@@ -196,7 +186,7 @@ namespace EventTracker.BLL.Controllers
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return View("ChangePasswordCOnfirmation");
+            return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events").WithSuccess("Success", "Password was changed");
         }
     }
 }

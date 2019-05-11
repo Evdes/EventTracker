@@ -9923,3 +9923,11 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
   display: none; }
+
+.alert-dismissible {
+  width: 20%;
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  border-radius: 25px;
+  padding: 20px; }
