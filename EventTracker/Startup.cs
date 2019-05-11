@@ -67,7 +67,7 @@ namespace EventTracker
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-            routeBuilder.MapRoute("default", "{controller=events}/{action=AllUpcomingEvents}/{id?}");
+            routeBuilder.MapRoute("default", "{controller=events}/{action=UpcomingEvents}/{id?}");
         }
     }
 }

@@ -1,22 +1,9 @@
 ﻿@model Event
 
-<div class="col-md-10 offset-md-1">
-    <div class="jumbotron pt-4 pb-5 @(Model.IsCancelled ? "cancelled" : null)
-     @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.UserEvents.Count ? "full" : null)">
-        <div class="container-fluid">
-            <partial name="Partials/_EventBasicDetails" />
-            @if (ViewBag.Page == "EventDetails")
-            {
-                <partial name="Partials/_Participants" model="Model" />
-            }
-            @if (ViewBag.Page == "EventDetails" || ViewBag.Page == "UpcomingEvents")
-            {
-                 <partial name="Partials/_ActionButtons" model="Model" />
-            }
+<div class="@(Model.IsCancelled ? "cancelled" : null)">
 
-        </div>
-    </div>
-    <div class="float-right">
-        <a role="button" class="btn-action-md btn-dark" asp-action="AllUpcomingEvents">Event overview</a>
+    <div class="container-fluid">
+        <partial name="Partials/_EventBasicDetails" />
+        <partial name="Partials/_Participants" model="Model" />
     </div>
 </div>

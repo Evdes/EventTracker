@@ -5,12 +5,13 @@
 
 .btn-action-sm {
     @extend .btn;
-    width: 50px;
+    width: 100px;
     padding-left: 0px;
-    padding-right:0px;
+    padding-right: 0px;
     display: inline-block;
     float: left;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .btn-action-md {
@@ -19,24 +20,11 @@
     margin-right: 5px;
 }
 
-@media (min-width: 48em) {
-    .btn-action-sm {
-        width: 60px;
-    }
-
-    @media (min-width: 75em) {
-        .btn-action-sm {
-            width: 70px;
-            padding-left:10px;
-            padding-right: 10px;
-        }
-    }
-
-    .btn-action-md {
-        width: 150px;
-        margin-right: 10px;
-    }
+.btn-action-md {
+    width: 150px;
+    margin-right: 10px;
 }
+
 
 .cancelled {
     background-color: #cc0000;
@@ -90,6 +78,7 @@
     width: 20px;
     height: 20px;
     position: relative;
+
     i {
         position: absolute;
         top: 50%;
@@ -103,6 +92,6 @@
     margin-top: 20px;
 }
 
-.participantName{
+.participantName {
     margin-right: 10px;
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace EventTracker.Models
 {
     //Minvalue = today, Maxvalue = 31/12/9999
-    public class DateRangeValidatorForEventTimeFrames : RangeAttribute
+    public class DateIsNotInPast : RangeAttribute
     {
-        public DateRangeValidatorForEventTimeFrames() 
+        public DateIsNotInPast() 
             : base(typeof(DateTime), 
                   DateTime.Today.ToShortDateString(), 
                   DateTime.MaxValue.ToShortDateString())

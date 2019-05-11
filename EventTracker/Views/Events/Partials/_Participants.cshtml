@@ -2,8 +2,8 @@
 
 
 <div>
-    <label>Participants:</label>
     <div class="col">
+        <input asp-for="UserEvents" type="hidden" />
         @if (Model.UserEvents.Count == 0)
         {
             <h5>There are currently no participants for this event</h5>

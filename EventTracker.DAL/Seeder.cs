@@ -111,12 +111,12 @@ namespace EventTracker.DAL
         }
         public void SeedEvents()
         {
-            new List<Event> {
+            var events = new List<Event> {
                 new Event { Id = 1,
                     Name = "Event1",
                     Description = "Description1",
                     WantedAmountOfParticipants = 1,
-                    Timeframes = new List<Timeframe>
+                    Timeframes = 
                     {
                         new Timeframe { EventDate = new DateTime(2051, 1, 1), Starttime = 10, Endtime = 17 },
                         new Timeframe { EventDate = new DateTime(2051, 1, 2), Starttime = 10, Endtime = 17 }
@@ -128,7 +128,7 @@ namespace EventTracker.DAL
                     Name = "Event2",
                     Description = "Description2",
                     WantedAmountOfParticipants = 2,
-                    Timeframes = new List<Timeframe> {
+                    Timeframes = {
                         new Timeframe { EventDate = new DateTime(2052, 2, 1), Starttime = 9, Endtime = 18 },
                         new Timeframe { EventDate = new DateTime(2052, 2, 2), Starttime = 9, Endtime = 18 }
                     },
@@ -138,12 +138,13 @@ namespace EventTracker.DAL
                     Name = "Event3",
                     Description = "Description3",
                     WantedAmountOfParticipants = 3,
-                    Timeframes = new List<Timeframe>
+                    Timeframes = 
                         { new Timeframe { EventDate = new DateTime(2053, 3, 1), Starttime = 9, Endtime = 15}
                     },
                     Location = new Location {City="City3", Province="Province3"},
                 }
             };
+            _context.Events.AddRange(events);
         }
     }
 }

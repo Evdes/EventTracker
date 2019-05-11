@@ -1,0 +1,30 @@
+﻿@model Event
+<!-- The Modal -->
+<div class="modal fade" id="CancelModal_@Model.Id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @if (Model.IsCancelled)
+                {
+                    <p>Are you sure you want to undo the cancellation for this event?</p>
+                }
+                else
+                {
+                    <p>Are you sure you want to cancel this event?</p>
+                }
+                <h5>@Model.Name</h5>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                <form asp-action="CancelEvent" asp-route-id="@Model.Id" method="post">
+                    <input type="submit" name="Cancel" value="Yes" class="btn-action-sm btn-danger" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

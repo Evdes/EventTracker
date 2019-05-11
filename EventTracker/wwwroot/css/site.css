@@ -9833,31 +9833,21 @@ a, a:hover {
   width: 200px; }
 
 .btn-action-sm {
-  width: 50px;
+  width: 100px;
   padding-left: 0px;
   padding-right: 0px;
   display: inline-block;
   float: left;
-  margin-right: 10px; }
+  margin-right: 10px;
+  margin-bottom: 10px; }
 
 .btn-action-md {
   width: 120px;
   margin-right: 5px; }
 
-@media (min-width: 48em) {
-  .btn-action-sm {
-    width: 60px; } }
-
-@media (min-width: 48em) and (min-width: 75em) {
-  .btn-action-sm {
-    width: 70px;
-    padding-left: 10px;
-    padding-right: 10px; } }
-
-@media (min-width: 48em) {
-  .btn-action-md {
-    width: 150px;
-    margin-right: 10px; } }
+.btn-action-md {
+  width: 150px;
+  margin-right: 10px; }
 
 .cancelled {
   background-color: #cc0000; }

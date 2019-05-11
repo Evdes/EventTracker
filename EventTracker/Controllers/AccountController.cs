@@ -29,7 +29,7 @@ namespace EventTracker.BLL.Controllers
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                RedirectToAction(nameof(EventsController.AllUpcomingEvents), "Events");
+                RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
             }
             return View();
         }
@@ -46,7 +46,7 @@ namespace EventTracker.BLL.Controllers
                                                                                  false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(EventsController.AllUpcomingEvents), "Events");
+                    return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace EventTracker.BLL.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(EventsController.AllUpcomingEvents), "Events");
+                return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)

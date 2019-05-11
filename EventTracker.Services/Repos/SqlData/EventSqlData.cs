@@ -41,7 +41,7 @@ namespace EventTracker.Services.Repos.SqlData
         {
             return _context.Events
                 .Include(e => e.Location)
-                .Include(e => e.UserEvents)
+                .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
                 .Include(e => e.Timeframes)
                 .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today)
                 .OrderBy(e => e.Timeframes.Min(t => t.EventDate));

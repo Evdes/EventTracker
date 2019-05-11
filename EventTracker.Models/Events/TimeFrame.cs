@@ -9,7 +9,7 @@ namespace EventTracker.Models.Events
 
         [Required]
         [DataType(DataType.Date, ErrorMessage ="This date is invalid")]
-        [DateRangeValidatorForEventTimeFrames]
+        [DateIsNotInPast]
         [Display(Name = "Event Date")]
         public DateTime? EventDate { get; set; }
 
@@ -20,6 +20,7 @@ namespace EventTracker.Models.Events
 
         [Required]
         [Range(0, 24, ErrorMessage = "Invalid hour")]
+        [GreaterThan(nameof(Starttime))]
         [Display(Name = "End")]
         public int? Endtime { get; set; }
     }

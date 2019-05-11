@@ -17,7 +17,7 @@ namespace EventTracker.BLL.Controllers
         private readonly IEventRepo _events;
         private readonly UserManager<UserProfile> _userManager;
 
-        public EventsController(IEventRepo eventMockRepo, 
+        public EventsController(IEventRepo eventMockRepo,
             UserManager<UserProfile> userManager)
         {
             _events = eventMockRepo;
@@ -25,7 +25,7 @@ namespace EventTracker.BLL.Controllers
         }
 
         [HttpGet]
-        public IActionResult AllUpcomingEvents()
+        public IActionResult UpcomingEvents()
         {
             var allUpcomingEvents = _events.GetAllUpcomingEvents();
             return View(allUpcomingEvents);
@@ -33,8 +33,7 @@ namespace EventTracker.BLL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName(nameof(AllUpcomingEvents))]
-        public async Task<IActionResult> ToggleSubscribeFromAllAsync(int? id)
+        public async Task<IActionResult> ToggleSubscribe(int? id)
         {
             if (id == null)
             {
@@ -43,75 +42,27 @@ namespace EventTracker.BLL.Controllers
             else
             {
                 await ToggleSubscribeAsync(id);
-                return RedirectToAction(nameof(AllUpcomingEvents), new { id = string.Empty});
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
             }
         }
 
-        
-
-        [HttpGet]
-        public IActionResult EventDetails(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var requestedEvent = _events.GetEvent(id.Value);
-                return View(requestedEvent);
-            }
-        }
-
-        [HttpPost]
+         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName(nameof(EventDetails))]
-        public async Task<IActionResult> ToggleSubscribeFromDetailsAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                await ToggleSubscribeAsync(id);
-                return RedirectToAction(nameof(EventDetails), new { id = id.Value});
-            }
-        }
-
-        [HttpGet]
         [Authorize(Roles = "Super")]
         public IActionResult CancelEvent(int? id)
         {
             if (id == null)
             {
                 return NotFound();
-            }
-            else
-            {
-                return View(_events.GetEvent(id.Value));
-            }
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super")]
-        [ActionName(nameof(CancelEvent))]
-        public IActionResult CancelEventPost(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-                
             }
             else
             {
                 var eventToCancel = _events.GetEvent(id.Value);
                 ToggleCancel(eventToCancel);
-                return RedirectToAction(nameof(EventDetails), new { id = eventToCancel.Id });
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
             }
         }
-
 
         [HttpGet]
         [Authorize(Roles = "Super")]
@@ -130,17 +81,18 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 newEvent.IsCancelled = false;
-                newEvent = _events.AddEvent(newEvent);
-                return RedirectToAction(nameof(EventDetails), new { id = newEvent.Id });
+                _events.AddEvent(newEvent);
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
             }
             else
             {
                 return View(newEvent);
             }
-            
+
         }
 
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Super")]
         public IActionResult DeleteEvent(int? id)
         {
@@ -150,32 +102,8 @@ namespace EventTracker.BLL.Controllers
             }
             else
             {
-                var eventToDelete = _events.GetEvent(id.Value);
-                if (eventToDelete.IsCancelled)
-                {
-                    return RedirectToAction(nameof(EventDetails), new { id = id.Value });
-                }
-                else
-                {
-                    return View(eventToDelete);
-                }
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super")]
-        [ActionName("DeleteEvent")]
-        public IActionResult DeleteEventPost(int? id)
-        {
-            if(id == null)
-            {
-                return NotFound();
-            }
-            else
-            {
                 _events.DeleteEvent(_events.GetEvent(id.Value));
-                return RedirectToAction(nameof(AllUpcomingEvents), new { id = string.Empty });
+                return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
             }
         }
 
@@ -192,7 +120,7 @@ namespace EventTracker.BLL.Controllers
                 var eventToEdit = _events.GetEvent(id.Value);
                 if (eventToEdit.IsCancelled)
                 {
-                    return RedirectToAction(nameof(EventDetails), new { id = eventToEdit.Id });
+                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
                 }
                 else
                 {
@@ -206,16 +134,10 @@ namespace EventTracker.BLL.Controllers
         [Authorize(Roles = "Super")]
         public IActionResult EditEvent(Event postedEvent)
         {
+            
             if (ModelState.IsValid)
             {
-                if (postedEvent == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
                     var eventToUpdate = _events.GetEvent(postedEvent.Id);
-
                     eventToUpdate.Name = postedEvent.Name;
                     eventToUpdate.Description = postedEvent.Description;
                     eventToUpdate.WantedAmountOfParticipants = postedEvent.WantedAmountOfParticipants;
@@ -233,10 +155,8 @@ namespace EventTracker.BLL.Controllers
                                 Endtime = timeframe.Endtime
                             });
                     }
-
-                    eventToUpdate = _events.EditEvent(eventToUpdate);
-                    return RedirectToAction(nameof(EventDetails), new { id = eventToUpdate.Id });
-                }
+                    _events.EditEvent(eventToUpdate);
+                    return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty });
             }
             else
             {
@@ -256,11 +176,11 @@ namespace EventTracker.BLL.Controllers
                 var ueToRemove = eventToModify.UserEvents.FirstOrDefault(ue => ue.UserId == userProfileToRemove.Id);
                 eventToModify.UserEvents.Remove(ueToRemove);
                 _events.EditEvent(eventToModify);
-                return RedirectToAction(nameof(EditEvent), new { id = id });
+                return RedirectToAction(nameof(EditEvent), new { id });
             }
             else
             {
-                return View(nameof(EditEvent), new { id = id });
+                return View(nameof(EditEvent), new { id });
             }
         }
 
@@ -273,7 +193,7 @@ namespace EventTracker.BLL.Controllers
 
             foreach (var @event in allEvents)
             {
-                
+
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
                 if (@event.UserEvents.Any(e => e.UserId == currentUser.Id))
                 {
