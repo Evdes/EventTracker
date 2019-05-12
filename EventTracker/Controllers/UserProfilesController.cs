@@ -21,7 +21,7 @@ namespace EventTracker.BLL.Controllers
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
 
-        public UserProfilesController(UserManager<UserProfile> userManager, 
+        public UserProfilesController(UserManager<UserProfile> userManager,
                                         IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -81,7 +81,7 @@ namespace EventTracker.BLL.Controllers
                     await _emailSender.SendEmailAsync(userProfileToAdd.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success","User account added");
+                    return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account added");
                 }
                 else
                 {
@@ -107,20 +107,27 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 var userProfileToDelete = await _userManager.FindByIdAsync(id);
-                var userProfileToDeleteViewModel = new UserProfileViewModel
+                if (userProfileToDelete == null)
                 {
-                    Id = userProfileToDelete.Id,
-                    FirstName = userProfileToDelete.FirstName,
-                    LastName = userProfileToDelete.LastName,
-                    Email = userProfileToDelete.Email,
-                    UserRole = userProfileToDelete.UserRole
-                };
+                    return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
+                }
+                else
+                {
+                    var userProfileToDeleteViewModel = new UserProfileViewModel
+                    {
+                        Id = userProfileToDelete.Id,
+                        FirstName = userProfileToDelete.FirstName,
+                        LastName = userProfileToDelete.LastName,
+                        Email = userProfileToDelete.Email,
+                        UserRole = userProfileToDelete.UserRole
+                    };
 
-                return View(userProfileToDeleteViewModel);
+                    return View(userProfileToDeleteViewModel);
+                }
             }
             else
             {
-                return NotFound();
+                return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
             }
         }
 
@@ -131,12 +138,19 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 var UserProfileToDelete = await _userManager.FindByIdAsync(id);
-                await _userManager.DeleteAsync(UserProfileToDelete);
-                return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account deleted");
+                if (UserProfileToDelete == null)
+                {
+                    return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
+                }
+                else
+                {
+                    await _userManager.DeleteAsync(UserProfileToDelete);
+                    return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account deleted");
+                }
             }
             else
             {
-                return NotFound();
+                return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
             }
         }
 
@@ -147,19 +161,26 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 var userProfileToEdit = await _userManager.FindByIdAsync(id);
-                var userProfileToEditViewModel = new UserProfileViewModel
+                if(userProfileToEdit == null)
                 {
-                    Id = userProfileToEdit.Id,
-                    FirstName = userProfileToEdit.FirstName,
-                    LastName = userProfileToEdit.LastName,
-                    Email = userProfileToEdit.Email,
-                    UserRole = userProfileToEdit.UserRole
-                };
-                return View(userProfileToEditViewModel);
+                    return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
+                }
+                else
+                {
+                    var userProfileToEditViewModel = new UserProfileViewModel
+                    {
+                        Id = userProfileToEdit.Id,
+                        FirstName = userProfileToEdit.FirstName,
+                        LastName = userProfileToEdit.LastName,
+                        Email = userProfileToEdit.Email,
+                        UserRole = userProfileToEdit.UserRole
+                    };
+                    return View(userProfileToEditViewModel);
+                }
             }
             else
             {
-                return NotFound();
+                return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
             }
         }
 
@@ -170,70 +191,78 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 var userProfileToEdit = await _userManager.FindByIdAsync(postedUserProfileViewModel.Id);
-                userProfileToEdit.FirstName = postedUserProfileViewModel.FirstName;
-                userProfileToEdit.LastName = postedUserProfileViewModel.LastName;
-                userProfileToEdit.UserName = postedUserProfileViewModel.Email;
-                userProfileToEdit.Email = postedUserProfileViewModel.Email;
-
-                switch (userProfileToEdit.UserRole)
+                if(userProfileToEdit == null)
                 {
-                    case UserRole.Basic:
-                        if (postedUserProfileViewModel.UserRole == UserRole.Admin)
-                        {
-                            await _userManager.AddToRolesAsync(userProfileToEdit, new string[] { UserRole.Admin.ToString(),
+                    return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
+                }
+                else
+                {
+                    userProfileToEdit.FirstName = postedUserProfileViewModel.FirstName;
+                    userProfileToEdit.LastName = postedUserProfileViewModel.LastName;
+                    userProfileToEdit.UserName = postedUserProfileViewModel.Email;
+                    userProfileToEdit.Email = postedUserProfileViewModel.Email;
+
+                    switch (userProfileToEdit.UserRole)
+                    {
+                        case UserRole.Basic:
+                            if (postedUserProfileViewModel.UserRole == UserRole.Admin)
+                            {
+                                await _userManager.AddToRolesAsync(userProfileToEdit, new string[] { UserRole.Admin.ToString(),
                                                                                 UserRole.Super.ToString()});
 
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
+                                if (postedUserProfileViewModel.UserRole == UserRole.Super)
+                                {
+                                    await _userManager.AddToRoleAsync(userProfileToEdit, UserRole.Super.ToString());
+                                }
+                            }
+                            //posted userole must be basic.No change
+                            break;
+                        case UserRole.Super:
+                            if (postedUserProfileViewModel.UserRole == UserRole.Admin)
+                            {
+                                await _userManager.AddToRoleAsync(userProfileToEdit, UserRole.Admin.ToString());
+                            }
+                            else
+                            {
+                                if (postedUserProfileViewModel.UserRole == UserRole.Basic)
+                                {
+                                    await _userManager.RemoveFromRoleAsync(userProfileToEdit, UserRole.Super.ToString());
+                                }
+                            }
+                            //posted role must be super. No change
+                            break;
+                        case UserRole.Admin:
                             if (postedUserProfileViewModel.UserRole == UserRole.Super)
                             {
-                                await _userManager.AddToRoleAsync(userProfileToEdit, UserRole.Super.ToString());
+                                await _userManager.RemoveFromRoleAsync(userProfileToEdit, UserRole.Admin.ToString());
                             }
-                        }
-                        //posted userole must be basic.No change
-                        break;
-                    case UserRole.Super:
-                        if (postedUserProfileViewModel.UserRole == UserRole.Admin)
-                        {
-                            await _userManager.AddToRoleAsync(userProfileToEdit, UserRole.Admin.ToString());
-                        }
-                        else
-                        {
-                            if (postedUserProfileViewModel.UserRole == UserRole.Basic)
+                            else
                             {
-                                await _userManager.RemoveFromRoleAsync(userProfileToEdit, UserRole.Super.ToString());
-                            }
-                        }
-                        //posted role must be super. No change
-                        break;
-                    case UserRole.Admin:
-                        if (postedUserProfileViewModel.UserRole == UserRole.Super)
-                        {
-                            await _userManager.RemoveFromRoleAsync(userProfileToEdit, UserRole.Admin.ToString());
-                        }
-                        else
-                        {
-                            if (postedUserProfileViewModel.UserRole == UserRole.Basic)
-                            {
-                                await _userManager.RemoveFromRolesAsync(userProfileToEdit, new string[] { UserRole.Admin.ToString(),
+                                if (postedUserProfileViewModel.UserRole == UserRole.Basic)
+                                {
+                                    await _userManager.RemoveFromRolesAsync(userProfileToEdit, new string[] { UserRole.Admin.ToString(),
                                                                                         UserRole.Super.ToString() });
+                                }
                             }
-                        }
-                        //posted role must be admin. No change
-                        break;
-                    default:
-                        break;
-                }
-                userProfileToEdit.UserRole = postedUserProfileViewModel.UserRole;
-                await _userManager.UpdateAsync(userProfileToEdit);
-                
+                            //posted role must be admin. No change
+                            break;
+                        default:
+                            break;
+                    }
+                    userProfileToEdit.UserRole = postedUserProfileViewModel.UserRole;
+                    await _userManager.UpdateAsync(userProfileToEdit);
 
-                return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account updated");
+
+                    return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account updated");
+                }
+                
             }
             else
             {
-                return NotFound();
+                return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
             }
 
         }

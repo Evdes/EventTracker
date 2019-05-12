@@ -27,4 +27,13 @@
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
     <ProjectReference Include="..\EventTracker.Services\EventTracker.Services.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Error\UserProfileNotFound.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Error\EventNotFound.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
 </Project>

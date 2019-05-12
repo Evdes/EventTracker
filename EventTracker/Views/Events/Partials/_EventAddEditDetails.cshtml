@@ -39,16 +39,12 @@
                     </div>
                 </div>
                 <partial name="Partials/_Timeframes" model="Model" />
-                @if (ViewBag.Page == "AddEvent")
-                {
-                    <a class="btn btn-secondary" href="#" id="addTimeframe">Add Timeframe</a>
-                }
-                else
+                <a class="btn btn-secondary" href="#" id="addTimeframe">Add Timeframe</a>
+                @if (ViewBag.Page == "EditEvent")
                 {
                     <h5>Participants:</h5>
                     <partial name="Partials/_Participants" model="Model" />
                 }
-
             </div>
         </div>
         <div class="float-right">

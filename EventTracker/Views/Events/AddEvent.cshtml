@@ -4,7 +4,7 @@
     ViewBag.Title = "Add an event";
     ViewBag.Page = "AddEvent";
 }
-<form method="post">
+<form asp-action="AddEventAsync" method="post">
     <partial name="Partials/_EventAddEditDetails" model="Model" />
 </form>
 

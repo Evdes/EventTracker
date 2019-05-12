@@ -14,7 +14,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
-                <form asp-action="DeleteEvent" asp-route-id="@Model.Id" method="post">
+                <form asp-action="DeleteEventAsync" asp-route-id="@Model.Id" method="post">
                     <input type="submit" name="Delete" value="Yes" class="btn-action-sm btn-danger" />
                 </form>
             </div>

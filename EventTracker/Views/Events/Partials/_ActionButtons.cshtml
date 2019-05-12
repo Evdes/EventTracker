@@ -13,7 +13,7 @@
         }
         else
         {
-            <form asp-action="ToggleSubscribe" asp-route-id="@Model.Id" method="post">
+            <form asp-action="ToggleSubscribeAsync" asp-route-id="@Model.Id" method="post">
                 @if (Model.UserEvents.Any(ue => ue.UserId == UserManager.FindByNameAsync(User.Identity.Name).Result.Id))
                 {
                     <input type="submit" role="button" name="Unsubscribe" value="Going!" class="btn-action-sm btn-primary" />

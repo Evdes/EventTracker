@@ -1666,7 +1666,7 @@ textarea.form-control {
     .form-inline .custom-control-label {
       margin-bottom: 0; } }
 
-.btn, .btn-undoCancel, .btn-action-sm, .btn-action-md {
+.btn, .btn-undoCancel, .btn-action-sm, .btn-action-md, .btn-delete-sm, .btn-delete-md {
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -1681,22 +1681,24 @@ textarea.form-control {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
-    .btn, .btn-undoCancel, .btn-action-sm, .btn-action-md {
+    .btn, .btn-undoCancel, .btn-action-sm, .btn-action-md, .btn-delete-sm, .btn-delete-md {
       transition: none; } }
-  .btn:hover, .btn-undoCancel:hover, .btn-action-sm:hover, .btn-action-md:hover {
+  .btn:hover, .btn-undoCancel:hover, .btn-action-sm:hover, .btn-action-md:hover, .btn-delete-sm:hover, .btn-delete-md:hover {
     color: #212529;
     text-decoration: none; }
-  .btn:focus, .btn-undoCancel:focus, .btn-action-sm:focus, .btn-action-md:focus, .btn.focus, .focus.btn-undoCancel, .focus.btn-action-sm, .focus.btn-action-md {
+  .btn:focus, .btn-undoCancel:focus, .btn-action-sm:focus, .btn-action-md:focus, .btn-delete-sm:focus, .btn-delete-md:focus, .btn.focus, .focus.btn-undoCancel, .focus.btn-action-sm, .focus.btn-action-md, .focus.btn-delete-sm, .focus.btn-delete-md {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
-  .btn.disabled, .disabled.btn-undoCancel, .disabled.btn-action-sm, .disabled.btn-action-md, .btn:disabled, .btn-undoCancel:disabled, .btn-action-sm:disabled, .btn-action-md:disabled {
+  .btn.disabled, .disabled.btn-undoCancel, .disabled.btn-action-sm, .disabled.btn-action-md, .disabled.btn-delete-sm, .disabled.btn-delete-md, .btn:disabled, .btn-undoCancel:disabled, .btn-action-sm:disabled, .btn-action-md:disabled, .btn-delete-sm:disabled, .btn-delete-md:disabled {
     opacity: 0.65; }
 
-a.btn.disabled, a.disabled.btn-undoCancel, a.disabled.btn-action-sm, a.disabled.btn-action-md,
+a.btn.disabled, a.disabled.btn-undoCancel, a.disabled.btn-action-sm, a.disabled.btn-action-md, a.disabled.btn-delete-sm, a.disabled.btn-delete-md,
 fieldset:disabled a.btn,
 fieldset:disabled a.btn-undoCancel,
 fieldset:disabled a.btn-action-sm,
-fieldset:disabled a.btn-action-md {
+fieldset:disabled a.btn-action-md,
+fieldset:disabled a.btn-delete-sm,
+fieldset:disabled a.btn-delete-md {
   pointer-events: none; }
 
 .btn-primary {
@@ -2065,13 +2067,13 @@ fieldset:disabled a.btn-action-md {
     color: #6c757d;
     pointer-events: none; }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .btn-undoCancel, .btn-group-lg > .btn-action-sm, .btn-group-lg > .btn-action-md {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .btn-undoCancel, .btn-group-lg > .btn-action-sm, .btn-group-lg > .btn-action-md, .btn-group-lg > .btn-delete-sm, .btn-group-lg > .btn-delete-md {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   border-radius: 0.3rem; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn-undoCancel, .btn-group-sm > .btn-action-sm, .btn-group-sm > .btn-action-md {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn-undoCancel, .btn-group-sm > .btn-action-sm, .btn-group-sm > .btn-action-md, .btn-group-sm > .btn-delete-sm, .btn-group-sm > .btn-delete-md {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -2315,32 +2317,42 @@ input[type="button"].btn-block {
   position: relative;
   display: inline-flex;
   vertical-align: middle; }
-  .btn-group > .btn, .btn-group > .btn-undoCancel, .btn-group > .btn-action-sm, .btn-group > .btn-action-md,
+  .btn-group > .btn, .btn-group > .btn-undoCancel, .btn-group > .btn-action-sm, .btn-group > .btn-action-md, .btn-group > .btn-delete-sm, .btn-group > .btn-delete-md,
   .btn-group-vertical > .btn,
   .btn-group-vertical > .btn-undoCancel,
   .btn-group-vertical > .btn-action-sm,
-  .btn-group-vertical > .btn-action-md {
+  .btn-group-vertical > .btn-action-md,
+  .btn-group-vertical > .btn-delete-sm,
+  .btn-group-vertical > .btn-delete-md {
     position: relative;
     flex: 1 1 auto; }
-    .btn-group > .btn:hover, .btn-group > .btn-undoCancel:hover, .btn-group > .btn-action-sm:hover, .btn-group > .btn-action-md:hover,
+    .btn-group > .btn:hover, .btn-group > .btn-undoCancel:hover, .btn-group > .btn-action-sm:hover, .btn-group > .btn-action-md:hover, .btn-group > .btn-delete-sm:hover, .btn-group > .btn-delete-md:hover,
     .btn-group-vertical > .btn:hover,
     .btn-group-vertical > .btn-undoCancel:hover,
     .btn-group-vertical > .btn-action-sm:hover,
-    .btn-group-vertical > .btn-action-md:hover {
+    .btn-group-vertical > .btn-action-md:hover,
+    .btn-group-vertical > .btn-delete-sm:hover,
+    .btn-group-vertical > .btn-delete-md:hover {
       z-index: 1; }
-    .btn-group > .btn:focus, .btn-group > .btn-undoCancel:focus, .btn-group > .btn-action-sm:focus, .btn-group > .btn-action-md:focus, .btn-group > .btn:active, .btn-group > .btn-undoCancel:active, .btn-group > .btn-action-sm:active, .btn-group > .btn-action-md:active, .btn-group > .btn.active, .btn-group > .active.btn-undoCancel, .btn-group > .active.btn-action-sm, .btn-group > .active.btn-action-md,
+    .btn-group > .btn:focus, .btn-group > .btn-undoCancel:focus, .btn-group > .btn-action-sm:focus, .btn-group > .btn-action-md:focus, .btn-group > .btn-delete-sm:focus, .btn-group > .btn-delete-md:focus, .btn-group > .btn:active, .btn-group > .btn-undoCancel:active, .btn-group > .btn-action-sm:active, .btn-group > .btn-action-md:active, .btn-group > .btn-delete-sm:active, .btn-group > .btn-delete-md:active, .btn-group > .btn.active, .btn-group > .active.btn-undoCancel, .btn-group > .active.btn-action-sm, .btn-group > .active.btn-action-md, .btn-group > .active.btn-delete-sm, .btn-group > .active.btn-delete-md,
     .btn-group-vertical > .btn:focus,
     .btn-group-vertical > .btn-undoCancel:focus,
     .btn-group-vertical > .btn-action-sm:focus,
     .btn-group-vertical > .btn-action-md:focus,
+    .btn-group-vertical > .btn-delete-sm:focus,
+    .btn-group-vertical > .btn-delete-md:focus,
     .btn-group-vertical > .btn:active,
     .btn-group-vertical > .btn-undoCancel:active,
     .btn-group-vertical > .btn-action-sm:active,
     .btn-group-vertical > .btn-action-md:active,
+    .btn-group-vertical > .btn-delete-sm:active,
+    .btn-group-vertical > .btn-delete-md:active,
     .btn-group-vertical > .btn.active,
     .btn-group-vertical > .active.btn-undoCancel,
     .btn-group-vertical > .active.btn-action-sm,
-    .btn-group-vertical > .active.btn-action-md {
+    .btn-group-vertical > .active.btn-action-md,
+    .btn-group-vertical > .active.btn-delete-sm,
+    .btn-group-vertical > .active.btn-delete-md {
       z-index: 1; }
 
 .btn-toolbar {
@@ -2350,23 +2362,27 @@ input[type="button"].btn-block {
   .btn-toolbar .input-group {
     width: auto; }
 
-.btn-group > .btn:not(:first-child), .btn-group > .btn-undoCancel:not(:first-child), .btn-group > .btn-action-sm:not(:first-child), .btn-group > .btn-action-md:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > .btn-undoCancel:not(:first-child), .btn-group > .btn-action-sm:not(:first-child), .btn-group > .btn-action-md:not(:first-child), .btn-group > .btn-delete-sm:not(:first-child), .btn-group > .btn-delete-md:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
   margin-left: -1px; }
 
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-undoCancel:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-action-sm:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-action-md:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-undoCancel:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-action-sm:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-action-md:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-delete-sm:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-delete-md:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn-group:not(:last-child) > .btn,
 .btn-group > .btn-group:not(:last-child) > .btn-undoCancel,
 .btn-group > .btn-group:not(:last-child) > .btn-action-sm,
-.btn-group > .btn-group:not(:last-child) > .btn-action-md {
+.btn-group > .btn-group:not(:last-child) > .btn-action-md,
+.btn-group > .btn-group:not(:last-child) > .btn-delete-sm,
+.btn-group > .btn-group:not(:last-child) > .btn-delete-md {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
 
-.btn-group > .btn:not(:first-child), .btn-group > .btn-undoCancel:not(:first-child), .btn-group > .btn-action-sm:not(:first-child), .btn-group > .btn-action-md:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > .btn-undoCancel:not(:first-child), .btn-group > .btn-action-sm:not(:first-child), .btn-group > .btn-action-md:not(:first-child), .btn-group > .btn-delete-sm:not(:first-child), .btn-group > .btn-delete-md:not(:first-child),
 .btn-group > .btn-group:not(:first-child) > .btn,
 .btn-group > .btn-group:not(:first-child) > .btn-undoCancel,
 .btn-group > .btn-group:not(:first-child) > .btn-action-sm,
-.btn-group > .btn-group:not(:first-child) > .btn-action-md {
+.btn-group > .btn-group:not(:first-child) > .btn-action-md,
+.btn-group > .btn-group:not(:first-child) > .btn-delete-sm,
+.btn-group > .btn-group:not(:first-child) > .btn-delete-md {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0; }
 
@@ -2380,11 +2396,11 @@ input[type="button"].btn-block {
   .dropleft .dropdown-toggle-split::before {
     margin-right: 0; }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .btn-undoCancel + .dropdown-toggle-split, .btn-group-sm > .btn-action-sm + .dropdown-toggle-split, .btn-group-sm > .btn-action-md + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .btn-undoCancel + .dropdown-toggle-split, .btn-group-sm > .btn-action-sm + .dropdown-toggle-split, .btn-group-sm > .btn-action-md + .dropdown-toggle-split, .btn-group-sm > .btn-delete-sm + .dropdown-toggle-split, .btn-group-sm > .btn-delete-md + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem; }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .btn-undoCancel + .dropdown-toggle-split, .btn-group-lg > .btn-action-sm + .dropdown-toggle-split, .btn-group-lg > .btn-action-md + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .btn-undoCancel + .dropdown-toggle-split, .btn-group-lg > .btn-action-sm + .dropdown-toggle-split, .btn-group-lg > .btn-action-md + .dropdown-toggle-split, .btn-group-lg > .btn-delete-sm + .dropdown-toggle-split, .btn-group-lg > .btn-delete-md + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem; }
 
@@ -2392,46 +2408,58 @@ input[type="button"].btn-block {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  .btn-group-vertical > .btn, .btn-group-vertical > .btn-undoCancel, .btn-group-vertical > .btn-action-sm, .btn-group-vertical > .btn-action-md,
+  .btn-group-vertical > .btn, .btn-group-vertical > .btn-undoCancel, .btn-group-vertical > .btn-action-sm, .btn-group-vertical > .btn-action-md, .btn-group-vertical > .btn-delete-sm, .btn-group-vertical > .btn-delete-md,
   .btn-group-vertical > .btn-group {
     width: 100%; }
-  .btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .btn-undoCancel:not(:first-child), .btn-group-vertical > .btn-action-sm:not(:first-child), .btn-group-vertical > .btn-action-md:not(:first-child),
+  .btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .btn-undoCancel:not(:first-child), .btn-group-vertical > .btn-action-sm:not(:first-child), .btn-group-vertical > .btn-action-md:not(:first-child), .btn-group-vertical > .btn-delete-sm:not(:first-child), .btn-group-vertical > .btn-delete-md:not(:first-child),
   .btn-group-vertical > .btn-group:not(:first-child) {
     margin-top: -1px; }
-  .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-undoCancel:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-action-sm:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-action-md:not(:last-child):not(.dropdown-toggle),
+  .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-undoCancel:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-action-sm:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-action-md:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-delete-sm:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .btn-delete-md:not(:last-child):not(.dropdown-toggle),
   .btn-group-vertical > .btn-group:not(:last-child) > .btn,
   .btn-group-vertical > .btn-group:not(:last-child) > .btn-undoCancel,
   .btn-group-vertical > .btn-group:not(:last-child) > .btn-action-sm,
-  .btn-group-vertical > .btn-group:not(:last-child) > .btn-action-md {
+  .btn-group-vertical > .btn-group:not(:last-child) > .btn-action-md,
+  .btn-group-vertical > .btn-group:not(:last-child) > .btn-delete-sm,
+  .btn-group-vertical > .btn-group:not(:last-child) > .btn-delete-md {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0; }
-  .btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .btn-undoCancel:not(:first-child), .btn-group-vertical > .btn-action-sm:not(:first-child), .btn-group-vertical > .btn-action-md:not(:first-child),
+  .btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .btn-undoCancel:not(:first-child), .btn-group-vertical > .btn-action-sm:not(:first-child), .btn-group-vertical > .btn-action-md:not(:first-child), .btn-group-vertical > .btn-delete-sm:not(:first-child), .btn-group-vertical > .btn-delete-md:not(:first-child),
   .btn-group-vertical > .btn-group:not(:first-child) > .btn,
   .btn-group-vertical > .btn-group:not(:first-child) > .btn-undoCancel,
   .btn-group-vertical > .btn-group:not(:first-child) > .btn-action-sm,
-  .btn-group-vertical > .btn-group:not(:first-child) > .btn-action-md {
+  .btn-group-vertical > .btn-group:not(:first-child) > .btn-action-md,
+  .btn-group-vertical > .btn-group:not(:first-child) > .btn-delete-sm,
+  .btn-group-vertical > .btn-group:not(:first-child) > .btn-delete-md {
     border-top-left-radius: 0;
     border-top-right-radius: 0; }
 
-.btn-group-toggle > .btn, .btn-group-toggle > .btn-undoCancel, .btn-group-toggle > .btn-action-sm, .btn-group-toggle > .btn-action-md,
+.btn-group-toggle > .btn, .btn-group-toggle > .btn-undoCancel, .btn-group-toggle > .btn-action-sm, .btn-group-toggle > .btn-action-md, .btn-group-toggle > .btn-delete-sm, .btn-group-toggle > .btn-delete-md,
 .btn-group-toggle > .btn-group > .btn,
 .btn-group-toggle > .btn-group > .btn-undoCancel,
 .btn-group-toggle > .btn-group > .btn-action-sm,
-.btn-group-toggle > .btn-group > .btn-action-md {
+.btn-group-toggle > .btn-group > .btn-action-md,
+.btn-group-toggle > .btn-group > .btn-delete-sm,
+.btn-group-toggle > .btn-group > .btn-delete-md {
   margin-bottom: 0; }
-  .btn-group-toggle > .btn input[type="radio"], .btn-group-toggle > .btn-undoCancel input[type="radio"], .btn-group-toggle > .btn-action-sm input[type="radio"], .btn-group-toggle > .btn-action-md input[type="radio"],
+  .btn-group-toggle > .btn input[type="radio"], .btn-group-toggle > .btn-undoCancel input[type="radio"], .btn-group-toggle > .btn-action-sm input[type="radio"], .btn-group-toggle > .btn-action-md input[type="radio"], .btn-group-toggle > .btn-delete-sm input[type="radio"], .btn-group-toggle > .btn-delete-md input[type="radio"],
   .btn-group-toggle > .btn input[type="checkbox"],
   .btn-group-toggle > .btn-undoCancel input[type="checkbox"],
   .btn-group-toggle > .btn-action-sm input[type="checkbox"],
   .btn-group-toggle > .btn-action-md input[type="checkbox"],
+  .btn-group-toggle > .btn-delete-sm input[type="checkbox"],
+  .btn-group-toggle > .btn-delete-md input[type="checkbox"],
   .btn-group-toggle > .btn-group > .btn input[type="radio"],
   .btn-group-toggle > .btn-group > .btn-undoCancel input[type="radio"],
   .btn-group-toggle > .btn-group > .btn-action-sm input[type="radio"],
   .btn-group-toggle > .btn-group > .btn-action-md input[type="radio"],
+  .btn-group-toggle > .btn-group > .btn-delete-sm input[type="radio"],
+  .btn-group-toggle > .btn-group > .btn-delete-md input[type="radio"],
   .btn-group-toggle > .btn-group > .btn input[type="checkbox"],
   .btn-group-toggle > .btn-group > .btn-undoCancel input[type="checkbox"],
   .btn-group-toggle > .btn-group > .btn-action-sm input[type="checkbox"],
-  .btn-group-toggle > .btn-group > .btn-action-md input[type="checkbox"] {
+  .btn-group-toggle > .btn-group > .btn-action-md input[type="checkbox"],
+  .btn-group-toggle > .btn-group > .btn-delete-sm input[type="checkbox"],
+  .btn-group-toggle > .btn-group > .btn-delete-md input[type="checkbox"] {
     position: absolute;
     clip: rect(0, 0, 0, 0);
     pointer-events: none; }
@@ -2491,54 +2519,86 @@ input[type="button"].btn-block {
 .input-group-prepend,
 .input-group-append {
   display: flex; }
-  .input-group-prepend .btn, .input-group-prepend .btn-undoCancel, .input-group-prepend .btn-action-sm, .input-group-prepend .btn-action-md,
+  .input-group-prepend .btn, .input-group-prepend .btn-undoCancel, .input-group-prepend .btn-action-sm, .input-group-prepend .btn-action-md, .input-group-prepend .btn-delete-sm, .input-group-prepend .btn-delete-md,
   .input-group-append .btn,
   .input-group-append .btn-undoCancel,
   .input-group-append .btn-action-sm,
-  .input-group-append .btn-action-md {
+  .input-group-append .btn-action-md,
+  .input-group-append .btn-delete-sm,
+  .input-group-append .btn-delete-md {
     position: relative;
     z-index: 2; }
-    .input-group-prepend .btn:focus, .input-group-prepend .btn-undoCancel:focus, .input-group-prepend .btn-action-sm:focus, .input-group-prepend .btn-action-md:focus,
+    .input-group-prepend .btn:focus, .input-group-prepend .btn-undoCancel:focus, .input-group-prepend .btn-action-sm:focus, .input-group-prepend .btn-action-md:focus, .input-group-prepend .btn-delete-sm:focus, .input-group-prepend .btn-delete-md:focus,
     .input-group-append .btn:focus,
     .input-group-append .btn-undoCancel:focus,
     .input-group-append .btn-action-sm:focus,
-    .input-group-append .btn-action-md:focus {
+    .input-group-append .btn-action-md:focus,
+    .input-group-append .btn-delete-sm:focus,
+    .input-group-append .btn-delete-md:focus {
       z-index: 3; }
-  .input-group-prepend .btn + .btn, .input-group-prepend .btn-undoCancel + .btn, .input-group-prepend .btn-action-sm + .btn, .input-group-prepend .btn-action-md + .btn, .input-group-prepend .btn + .btn-undoCancel, .input-group-prepend .btn-undoCancel + .btn-undoCancel, .input-group-prepend .btn-action-sm + .btn-undoCancel, .input-group-prepend .btn-action-md + .btn-undoCancel, .input-group-prepend .btn + .btn-action-sm, .input-group-prepend .btn-undoCancel + .btn-action-sm, .input-group-prepend .btn-action-sm + .btn-action-sm, .input-group-prepend .btn-action-md + .btn-action-sm, .input-group-prepend .btn + .btn-action-md, .input-group-prepend .btn-undoCancel + .btn-action-md, .input-group-prepend .btn-action-sm + .btn-action-md, .input-group-prepend .btn-action-md + .btn-action-md,
+  .input-group-prepend .btn + .btn, .input-group-prepend .btn-undoCancel + .btn, .input-group-prepend .btn-action-sm + .btn, .input-group-prepend .btn-action-md + .btn, .input-group-prepend .btn-delete-sm + .btn, .input-group-prepend .btn-delete-md + .btn, .input-group-prepend .btn + .btn-undoCancel, .input-group-prepend .btn-undoCancel + .btn-undoCancel, .input-group-prepend .btn-action-sm + .btn-undoCancel, .input-group-prepend .btn-action-md + .btn-undoCancel, .input-group-prepend .btn-delete-sm + .btn-undoCancel, .input-group-prepend .btn-delete-md + .btn-undoCancel, .input-group-prepend .btn + .btn-action-sm, .input-group-prepend .btn-undoCancel + .btn-action-sm, .input-group-prepend .btn-action-sm + .btn-action-sm, .input-group-prepend .btn-action-md + .btn-action-sm, .input-group-prepend .btn-delete-sm + .btn-action-sm, .input-group-prepend .btn-delete-md + .btn-action-sm, .input-group-prepend .btn + .btn-action-md, .input-group-prepend .btn-undoCancel + .btn-action-md, .input-group-prepend .btn-action-sm + .btn-action-md, .input-group-prepend .btn-action-md + .btn-action-md, .input-group-prepend .btn-delete-sm + .btn-action-md, .input-group-prepend .btn-delete-md + .btn-action-md, .input-group-prepend .btn + .btn-delete-sm, .input-group-prepend .btn-undoCancel + .btn-delete-sm, .input-group-prepend .btn-action-sm + .btn-delete-sm, .input-group-prepend .btn-action-md + .btn-delete-sm, .input-group-prepend .btn-delete-sm + .btn-delete-sm, .input-group-prepend .btn-delete-md + .btn-delete-sm, .input-group-prepend .btn + .btn-delete-md, .input-group-prepend .btn-undoCancel + .btn-delete-md, .input-group-prepend .btn-action-sm + .btn-delete-md, .input-group-prepend .btn-action-md + .btn-delete-md, .input-group-prepend .btn-delete-sm + .btn-delete-md, .input-group-prepend .btn-delete-md + .btn-delete-md,
   .input-group-prepend .btn + .input-group-text,
   .input-group-prepend .btn-undoCancel + .input-group-text,
   .input-group-prepend .btn-action-sm + .input-group-text,
   .input-group-prepend .btn-action-md + .input-group-text,
+  .input-group-prepend .btn-delete-sm + .input-group-text,
+  .input-group-prepend .btn-delete-md + .input-group-text,
   .input-group-prepend .input-group-text + .input-group-text,
   .input-group-prepend .input-group-text + .btn,
   .input-group-prepend .input-group-text + .btn-undoCancel,
   .input-group-prepend .input-group-text + .btn-action-sm,
   .input-group-prepend .input-group-text + .btn-action-md,
+  .input-group-prepend .input-group-text + .btn-delete-sm,
+  .input-group-prepend .input-group-text + .btn-delete-md,
   .input-group-append .btn + .btn,
   .input-group-append .btn-undoCancel + .btn,
   .input-group-append .btn-action-sm + .btn,
   .input-group-append .btn-action-md + .btn,
+  .input-group-append .btn-delete-sm + .btn,
+  .input-group-append .btn-delete-md + .btn,
   .input-group-append .btn + .btn-undoCancel,
   .input-group-append .btn-undoCancel + .btn-undoCancel,
   .input-group-append .btn-action-sm + .btn-undoCancel,
   .input-group-append .btn-action-md + .btn-undoCancel,
+  .input-group-append .btn-delete-sm + .btn-undoCancel,
+  .input-group-append .btn-delete-md + .btn-undoCancel,
   .input-group-append .btn + .btn-action-sm,
   .input-group-append .btn-undoCancel + .btn-action-sm,
   .input-group-append .btn-action-sm + .btn-action-sm,
   .input-group-append .btn-action-md + .btn-action-sm,
+  .input-group-append .btn-delete-sm + .btn-action-sm,
+  .input-group-append .btn-delete-md + .btn-action-sm,
   .input-group-append .btn + .btn-action-md,
   .input-group-append .btn-undoCancel + .btn-action-md,
   .input-group-append .btn-action-sm + .btn-action-md,
   .input-group-append .btn-action-md + .btn-action-md,
+  .input-group-append .btn-delete-sm + .btn-action-md,
+  .input-group-append .btn-delete-md + .btn-action-md,
+  .input-group-append .btn + .btn-delete-sm,
+  .input-group-append .btn-undoCancel + .btn-delete-sm,
+  .input-group-append .btn-action-sm + .btn-delete-sm,
+  .input-group-append .btn-action-md + .btn-delete-sm,
+  .input-group-append .btn-delete-sm + .btn-delete-sm,
+  .input-group-append .btn-delete-md + .btn-delete-sm,
+  .input-group-append .btn + .btn-delete-md,
+  .input-group-append .btn-undoCancel + .btn-delete-md,
+  .input-group-append .btn-action-sm + .btn-delete-md,
+  .input-group-append .btn-action-md + .btn-delete-md,
+  .input-group-append .btn-delete-sm + .btn-delete-md,
+  .input-group-append .btn-delete-md + .btn-delete-md,
   .input-group-append .btn + .input-group-text,
   .input-group-append .btn-undoCancel + .input-group-text,
   .input-group-append .btn-action-sm + .input-group-text,
   .input-group-append .btn-action-md + .input-group-text,
+  .input-group-append .btn-delete-sm + .input-group-text,
+  .input-group-append .btn-delete-md + .input-group-text,
   .input-group-append .input-group-text + .input-group-text,
   .input-group-append .input-group-text + .btn,
   .input-group-append .input-group-text + .btn-undoCancel,
   .input-group-append .input-group-text + .btn-action-sm,
-  .input-group-append .input-group-text + .btn-action-md {
+  .input-group-append .input-group-text + .btn-action-md,
+  .input-group-append .input-group-text + .btn-delete-sm,
+  .input-group-append .input-group-text + .btn-delete-md {
     margin-left: -1px; }
 
 .input-group-prepend {
@@ -2577,10 +2637,14 @@ input[type="button"].btn-block {
 .input-group-lg > .input-group-prepend > .btn-undoCancel,
 .input-group-lg > .input-group-prepend > .btn-action-sm,
 .input-group-lg > .input-group-prepend > .btn-action-md,
+.input-group-lg > .input-group-prepend > .btn-delete-sm,
+.input-group-lg > .input-group-prepend > .btn-delete-md,
 .input-group-lg > .input-group-append > .btn,
 .input-group-lg > .input-group-append > .btn-undoCancel,
 .input-group-lg > .input-group-append > .btn-action-sm,
-.input-group-lg > .input-group-append > .btn-action-md {
+.input-group-lg > .input-group-append > .btn-action-md,
+.input-group-lg > .input-group-append > .btn-delete-sm,
+.input-group-lg > .input-group-append > .btn-delete-md {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -2598,10 +2662,14 @@ input[type="button"].btn-block {
 .input-group-sm > .input-group-prepend > .btn-undoCancel,
 .input-group-sm > .input-group-prepend > .btn-action-sm,
 .input-group-sm > .input-group-prepend > .btn-action-md,
+.input-group-sm > .input-group-prepend > .btn-delete-sm,
+.input-group-sm > .input-group-prepend > .btn-delete-md,
 .input-group-sm > .input-group-append > .btn,
 .input-group-sm > .input-group-append > .btn-undoCancel,
 .input-group-sm > .input-group-append > .btn-action-sm,
-.input-group-sm > .input-group-append > .btn-action-md {
+.input-group-sm > .input-group-append > .btn-action-md,
+.input-group-sm > .input-group-append > .btn-delete-sm,
+.input-group-sm > .input-group-append > .btn-delete-md {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -2611,32 +2679,40 @@ input[type="button"].btn-block {
 .input-group-sm > .custom-select {
   padding-right: 1.75rem; }
 
-.input-group > .input-group-prepend > .btn, .input-group > .input-group-prepend > .btn-undoCancel, .input-group > .input-group-prepend > .btn-action-sm, .input-group > .input-group-prepend > .btn-action-md,
+.input-group > .input-group-prepend > .btn, .input-group > .input-group-prepend > .btn-undoCancel, .input-group > .input-group-prepend > .btn-action-sm, .input-group > .input-group-prepend > .btn-action-md, .input-group > .input-group-prepend > .btn-delete-sm, .input-group > .input-group-prepend > .btn-delete-md,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,
 .input-group > .input-group-append:not(:last-child) > .btn-undoCancel,
 .input-group > .input-group-append:not(:last-child) > .btn-action-sm,
 .input-group > .input-group-append:not(:last-child) > .btn-action-md,
+.input-group > .input-group-append:not(:last-child) > .btn-delete-sm,
+.input-group > .input-group-append:not(:last-child) > .btn-delete-md,
 .input-group > .input-group-append:not(:last-child) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .btn-undoCancel:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .btn-action-sm:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .btn-action-md:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .btn-delete-sm:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .btn-delete-md:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
 
-.input-group > .input-group-append > .btn, .input-group > .input-group-append > .btn-undoCancel, .input-group > .input-group-append > .btn-action-sm, .input-group > .input-group-append > .btn-action-md,
+.input-group > .input-group-append > .btn, .input-group > .input-group-append > .btn-undoCancel, .input-group > .input-group-append > .btn-action-sm, .input-group > .input-group-append > .btn-action-md, .input-group > .input-group-append > .btn-delete-sm, .input-group > .input-group-append > .btn-delete-md,
 .input-group > .input-group-append > .input-group-text,
 .input-group > .input-group-prepend:not(:first-child) > .btn,
 .input-group > .input-group-prepend:not(:first-child) > .btn-undoCancel,
 .input-group > .input-group-prepend:not(:first-child) > .btn-action-sm,
 .input-group > .input-group-prepend:not(:first-child) > .btn-action-md,
+.input-group > .input-group-prepend:not(:first-child) > .btn-delete-sm,
+.input-group > .input-group-prepend:not(:first-child) > .btn-delete-md,
 .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
 .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
 .input-group > .input-group-prepend:first-child > .btn-undoCancel:not(:first-child),
 .input-group > .input-group-prepend:first-child > .btn-action-sm:not(:first-child),
 .input-group > .input-group-prepend:first-child > .btn-action-md:not(:first-child),
+.input-group > .input-group-prepend:first-child > .btn-delete-sm:not(:first-child),
+.input-group > .input-group-prepend:first-child > .btn-delete-md:not(:first-child),
 .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0; }
@@ -3571,7 +3647,7 @@ input[type="button"].btn-block {
   .badge:empty {
     display: none; }
 
-.btn .badge, .btn-undoCancel .badge, .btn-action-sm .badge, .btn-action-md .badge {
+.btn .badge, .btn-undoCancel .badge, .btn-action-sm .badge, .btn-action-md .badge, .btn-delete-sm .badge, .btn-delete-md .badge {
   position: relative;
   top: -1px; }
 
@@ -7069,7 +7145,7 @@ a.text-dark:hover, a.text-dark:focus {
   *::after {
     text-shadow: none !important;
     box-shadow: none !important; }
-  a:not(.btn):not(.btn-undoCancel):not(.btn-action-sm):not(.btn-action-md) {
+  a:not(.btn):not(.btn-undoCancel):not(.btn-action-sm):not(.btn-action-md):not(.btn-delete-sm):not(.btn-delete-md) {
     text-decoration: underline; }
   abbr[title]::after {
     content: " (" attr(title) ")"; }
@@ -9883,11 +9959,6 @@ a, a:hover {
     border: 2px solid #f5f5f5;
     font-size: 20px; } }
 
-@media (min-width: 64em) {
-  .btn-delete-md {
-    width: 50px;
-    height: 50px; } }
-
 .btn-delete-sm {
   width: 20px;
   height: 20px;
@@ -9898,6 +9969,11 @@ a, a:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     display: block; }
+
+@media (min-width: 64em) {
+  .btn-delete-md {
+    width: 50px;
+    height: 50px; } }
 
 #addTimeframe {
   margin-top: 20px; }
@@ -9929,5 +10005,33 @@ input[type="checkbox"].input-validation-error {
   position: fixed;
   top: 100px;
   right: 50px;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 20px; }
+
+#error {
+  display: block;
+  width: 100%;
+  padding: 150px 0;
+  line-height: 1.6em;
+  text-align: center; }
+  #error .hgroup {
+    margin-bottom: 15px; }
+  #error .hgroup h1, #error .hgroup h2 {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase; }
+  #error .hgroup h1 {
+    margin-bottom: 15px;
+    font-size: 40px; }
+  #error .hgroup h2 {
+    display: inline-block;
+    padding: 0 0 15px 0;
+    font-size: 80px;
+    border: solid #CCCCCC;
+    border-width: 1px 0;
+    text-transform: lowercase; }
+  #error p {
+    display: block;
+    margin: 15px 0 0 0;
+    padding: 0;
+    font-size: 16px; }

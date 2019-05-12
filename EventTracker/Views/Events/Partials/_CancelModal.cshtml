@@ -20,7 +20,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
-                <form asp-action="CancelEvent" asp-route-id="@Model.Id" method="post">
+                <form asp-action="CancelEventAsync" asp-route-id="@Model.Id" method="post">
                     <input type="submit" name="Cancel" value="Yes" class="btn-action-sm btn-danger" />
                 </form>
             </div>

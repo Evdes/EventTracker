@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     //Delete timeframes from edited event
-    $(".deleteTimeframeButton").click(removeTimeframe);
+    $(".btn-delete-timeframe").click(removeTimeframe);
 
     //Add empty timeframes when adding event
     $("#addTimeframe").click(function (e) {
@@ -27,7 +27,7 @@
                     
                 </div>
                 <div class="col-sm-auto col-md-1">
-                    <button type="button" id="DeleteTimeframeButton_` + i + `" class="deleteTimeframeButton btn btn-danger form-control" data-id=` + i + `><i class="fa fa-remove"></i></button>
+                    <button type="button" id="DeleteTimeframeButton_` + i + `" class="btn-delete-timeframe btn-delete-md btn-danger form-control" data-id=` + i + `><i class="fa fa-remove"></i></button>
                 </div>
             </div>
             <div><span class="field-validation-valid" data-valmsg-for="Timeframes[` + i + `].EventDate" data-valmsg-replace="true"></span></div>

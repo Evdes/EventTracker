@@ -1,0 +1,38 @@
+﻿#error {
+    display: block;
+    width: 100%;
+    padding: 150px 0;
+    line-height: 1.6em;
+    text-align: center;
+
+    .hgroup {
+        margin-bottom: 15px;
+    }
+
+    .hgroup h1, .hgroup h2 {
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+    }
+
+    .hgroup h1 {
+        margin-bottom: 15px;
+        font-size: 40px;
+    }
+
+    .hgroup h2 {
+        display: inline-block;
+        padding: 0 0 15px 0;
+        font-size: 80px;
+        border: solid #CCCCCC;
+        border-width: 1px 0;
+        text-transform: lowercase;
+    }
+
+    p {
+        display: block;
+        margin: 15px 0 0 0;
+        padding: 0;
+        font-size: 16px;
+    }
+}
