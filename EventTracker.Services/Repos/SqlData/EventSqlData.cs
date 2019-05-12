@@ -20,19 +20,22 @@ namespace EventTracker.Services.Repos.SqlData
 
         public async Task<Event> AddEventAsync(Event newEvent)
         {
+
             await _context.Events.AddAsync(newEvent);
             await _context.SaveChangesAsync();
             return newEvent;
+
         }
 
-        public async void DeleteEventAsync(Event eventToDelete)
+        public void DeleteEvent(Event eventToDelete)
         {
             _context.Remove(eventToDelete);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task<Event> EditEventAsync(Event eventToUpdate)
         {
+
             _context.Update(eventToUpdate);
             await _context.SaveChangesAsync();
             return eventToUpdate;
@@ -40,21 +43,25 @@ namespace EventTracker.Services.Repos.SqlData
 
         public IEnumerable<Event> GetAllUpcomingEvents()
         {
-            return _context.Events
-                .Include(e => e.Location)
-                .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
-                .Include(e => e.Timeframes)
-                .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today)
-                .OrderBy(e => e.Timeframes.Min(t => t.EventDate));
+
+            var allUpcomingEvents = _context.Events
+           .Include(e => e.Location)
+           .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
+           .Include(e => e.Timeframes)
+           .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today)
+           .OrderBy(e => e.Timeframes.Min(t => t.EventDate));
+            return allUpcomingEvents;
+
         }
 
         public async Task<Event> GetEventAsync(int? id)
         {
+
             var @event = await _context.Events
-                .Include(e => e.Location)
-                .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
-                .Include(e => e.Timeframes)
-                .FirstOrDefaultAsync(e => e.Id == id.Value);
+                   .Include(e => e.Location)
+                   .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
+                   .Include(e => e.Timeframes)
+                   .FirstOrDefaultAsync(e => e.Id == id.Value);
 
             return @event;
         }

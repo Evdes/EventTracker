@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,9 +13,9 @@ namespace EventTracker.DAL
 {
 
     //**Seeder can be used for TEST PURPOSES ONLY!**
-    //**Seed needs to be instantiated & its methods need to called from Configure method in startup class (Project EventTracker.BLL)**
+    //**Seeder needs to be instantiated & called from Configure method in startup class (Project EventTracker.BLL)**
     //**Seeder must only be used in dev env**
-    //**For safety reasons, code must be deleted from startup class after seeder has populated Db**
+
     public class Seeder
     {
         private readonly EventTrackerDbContext _context;
@@ -26,14 +27,27 @@ namespace EventTracker.DAL
             _userManager = userManager;
         }
 
-        public async void SeedAll()
+        public async void Seed()
         {
-            SeedRoles();
-            await SeedUsers();
-            SeedEvents();
+            _context.Database.EnsureCreated();
+
+            if (!_context.Roles.Any())
+            {
+                SeedRoles();
+            }
+
+            if (!_context.Users.Any())
+            {
+                await SeedUsers();
+            }
+
+            if (!_context.Events.Any())
+            {
+                SeedEvents();
+            }
         }
     
-        public void SeedRoles()
+        private void SeedRoles()
         {
             _context.Roles.Add(new IdentityRole()
             {
@@ -53,7 +67,7 @@ namespace EventTracker.DAL
 
             _context.SaveChanges();
         }
-        public async Task SeedUsers()
+        private async Task SeedUsers()
         {
             //start user1
             var user1 = new UserProfile
@@ -109,7 +123,7 @@ namespace EventTracker.DAL
                 await _userManager.AddToRoleAsync(currentUser, user3.UserRole.ToString());
             }
         }
-        public void SeedEvents()
+        private void SeedEvents()
         {
             var events = new List<Event> {
                 new Event { Id = 1,

@@ -93,7 +93,8 @@ namespace EventTracker.BLL.Controllers
                 }
                 else
                 {
-                    ToggleCancelAsync(@event);
+                    @event.IsCancelled = !@event.IsCancelled;
+                    await _events.EditEventAsync(@event);
                     if (@event.IsCancelled)
                     {
                         return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty }).WithSuccess("Success", "Event was cancelled");
@@ -151,7 +152,7 @@ namespace EventTracker.BLL.Controllers
                 }
                 else
                 {
-                    _events.DeleteEventAsync(eventToDelete);
+                    _events.DeleteEvent(eventToDelete);
                     return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty }).WithSuccess("Success", "Event deleted");
                 }
             }
@@ -274,12 +275,6 @@ namespace EventTracker.BLL.Controllers
                 }
             }
             return View(MyEvents);
-        }
-
-        private async void ToggleCancelAsync(Event @event)
-        {
-            @event.IsCancelled = !@event.IsCancelled;
-            await _events.EditEventAsync(@event);
         }
     }
 }

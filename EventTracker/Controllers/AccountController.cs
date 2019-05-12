@@ -52,7 +52,24 @@ namespace EventTracker.BLL.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(String.Empty, "Login failed");
+                    var attemptedLoginUserProfile = await _userManager.FindByEmailAsync(userProfile.Email);
+                    if (attemptedLoginUserProfile == null)
+                    {
+                        ModelState.AddModelError(String.Empty, "Unknown Email");
+                    }
+                    else
+                    {
+                        if (!await _userManager.IsEmailConfirmedAsync(attemptedLoginUserProfile))
+                        {
+                            ModelState.AddModelError(String.Empty,
+                                "Account has not been activated. " +
+                                "Please activated your account by following the instructions in the activation mail");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(String.Empty, "Login failed");
+                        }
+                    }
                     return View().WithDanger("Failed", "Unable to log in");
                 }
             }

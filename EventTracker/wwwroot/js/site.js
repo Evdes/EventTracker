@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    var TempscrollTop
+
     //Delete timeframes from edited event
     $(".btn-delete-timeframe").click(removeTimeframe);
 
@@ -58,7 +60,6 @@
     $(".alert-dismissible").fadeTo(3000, 500).slideUp(500, function () {
         $(".alert-dismissible").alert('close');
     });
-
 
     /*
     ####################################################

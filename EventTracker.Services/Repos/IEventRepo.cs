@@ -9,7 +9,7 @@ namespace EventTracker.Services.Repos
         IEnumerable<Event> GetAllUpcomingEvents();
         Task<Event> GetEventAsync(int? id);
         Task<Event> AddEventAsync(Event newEvent);
-        void DeleteEventAsync(Event eventToDelete);
+        void DeleteEvent(Event eventToDelete);
         Task<Event> EditEventAsync(Event eventToUpdate);
     }
 }
