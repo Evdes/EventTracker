@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.BLL.Extensions;
@@ -6,6 +7,7 @@ using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +18,17 @@ namespace EventTracker.BLL.Controllers
         private readonly SignInManager<UserProfile> _signInManager;
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IHostingEnvironment _env;
 
-        public AccountController(SignInManager<UserProfile> signInManager, 
-                                    UserManager<UserProfile> userManager, 
-                                    IEmailSender emailSender)
+        public AccountController(SignInManager<UserProfile> signInManager,
+                                    UserManager<UserProfile> userManager,
+                                    IEmailSender emailSender,
+                                    IHostingEnvironment env)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
+            _env = env;
         }
 
         [HttpGet]
@@ -113,17 +118,30 @@ namespace EventTracker.BLL.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
-                    return NotFound();
+                    ModelState.AddModelError(string.Empty, "Unknown email.");
+                    return View(model).WithDanger("Failed", "Request for reset link denied");
                 }
-
+                else
+                {
+                    if (!(await _userManager.IsEmailConfirmedAsync(user)))
+                    {
+                        ModelState.AddModelError(string.Empty, 
+                            "Email has not yet been confirmed. " +
+                            "Please confirm the email by clicking the link in the confirmation mail which was sent to you.");
+                    }
+                }
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id,
                                                                 code,
                                                                 Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+
+                var email = model.Email;
+                var subject = "EventTracker - Reset Password";
+                var message = $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>";
+
+                await _emailSender.SendEmailAsync(email, subject, message);
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "Reset mail sent");
             }
 

@@ -8,8 +8,10 @@
 <body>
     <partial name="Partials/_Navbar" />
     <partial name="Partials/_StatusMessages" />
-    <div>
-        @RenderBody()
+    <div id="container" class="clear">
+        <section id="error" class="clear">
+            @RenderBody()
+        </section>
     </div>
     <script src="~/js/vendor.min.js"></script>
     <script src="~/js/site.min.js"></script>

@@ -1,9 +1,0 @@
-﻿@model Event
-
-<div class="@(Model.IsCancelled ? "cancelled" : null)">
-
-    <div class="container-fluid">
-        <partial name="Partials/_EventBasicDetails" />
-        <partial name="Partials/_Participants" model="Model" />
-    </div>
-</div>

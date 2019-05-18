@@ -72,15 +72,23 @@ namespace EventTracker.BLL.Controllers
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
+                    var callbackUrl = Url.Action(
+                        action: nameof(AccountController.ConfirmEmail),
+                        controller: "account",
                         values: new { userId = user.Id, code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(userProfileToAdd.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code },
+                    //    protocol: Request.Scheme);
 
+                    var email = userProfileToAdd.Email;
+                    var subject = "Welcome to EventTracker! Please confirm your email.";
+                    var message = $"Welome {userProfileToAdd.FirstName}! <br> <br> Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+
+                    await _emailSender.SendEmailAsync(email, subject, message);
                     return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account added");
                 }
                 else

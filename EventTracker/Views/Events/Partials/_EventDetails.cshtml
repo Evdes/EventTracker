@@ -1,0 +1,29 @@
+﻿@model Event
+
+    <div>
+        @if (@Model.IsCancelled)
+        {
+            <h3>@Model.Name (Cancelled) </h3>
+        }
+        else
+        {
+            <h3>@Model.Name</h3>
+        }
+        <h5>Location: @Model.Location.City (@Model.Location.Province)</h5>
+        <h5>Participants needed: @Model.WantedAmountOfParticipants</h5>
+        <h5>@Model.Description</h5>
+        <br />
+        <h4><u>Event dates</u></h4>
+        <ul class="list-unstyled">
+            <li>
+                @foreach (var timeframe in @Model.Timeframes)
+                {
+                    <h5>
+                        <span>@timeframe.EventDate.Value.Date.ToShortDateString()</span>
+                        (<span>@timeframe.Starttime</span>h / <span>@timeframe.Endtime</span>h)
+                    </h5>
+                }
+            </li>
+        </ul>
+    </div>
+

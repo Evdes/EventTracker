@@ -4,17 +4,20 @@
 }
 
 <div class="col">
-    @foreach(var e in Model)
+    @foreach (var e in Model)
     {
-    <div class="jumbotron pt-4 pb-5 col-lg-3 col-md-8 col-sm-10
-               @(e.IsCancelled ? "cancelled" : null) 
+        <div class="jumbotron pt-4 pb-4 col-lg-4 col-md-9 col-sm-10
+               @(e.IsCancelled ? "cancelled" : null)
                 @(!e.IsCancelled && e.WantedAmountOfParticipants <= e.UserEvents.Count ? "full" : null)">
-        <div class="container-fluid overflow-hidden">
-            <partial name="Partials/_EventBasicDetails" model="e" />
-            <partial name="Partials/_ActionButtons" model="e" />
-            <partial name="Partials/_Modals" model="e"/>
+            <div class="container-fluid overflow-hidden">
+                <partial name="Partials/_EventDetails" model="e" />
+                <br />
+                <partial name="Partials/_Participants" model="e" />
+                <br />
+                <partial name="Partials/_ActionButtons" model="e" />
+                <partial name="Partials/_Modals" model="e" />
+            </div>
         </div>
-    </div>
     }
 </div>
 <div>

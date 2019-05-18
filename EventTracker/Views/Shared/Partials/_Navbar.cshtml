@@ -1,0 +1,42 @@
+﻿<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" asp-controller="Events" asp-action="UpcomingEvents">Event Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Events" asp-action="UpcomingEvents">Upcoming Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Events" asp-action="MyEvents">My Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider" />
+                </li>
+                @if (User.IsInRole(UserRole.Admin.ToString()))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="UserProfiles" asp-action="AllUserProfiles">User accounts</a>
+                    </li>}
+                <li>
+                    <hr class="dropdown-divider" />
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

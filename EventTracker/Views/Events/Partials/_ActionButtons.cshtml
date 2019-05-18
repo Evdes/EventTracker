@@ -23,9 +23,6 @@
                     <input type="submit" role="button" name="Subscribe" value="Going?" class="btn-action-sm btn-outline-primary" />
                 }
             </form>
-            <button type="button" class="btn-action-sm btn-dark" data-toggle="modal" data-target="#ParticipantsModal_@Model.Id">
-                Participants
-            </button>
             @if (User.IsInRole(UserRole.Super.ToString()))
             {
                 <button type="button" class="btn-action-sm btn-secondary" data-toggle="modal" data-target="#CancelModal_@Model.Id">
