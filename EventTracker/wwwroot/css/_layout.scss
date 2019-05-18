@@ -2,9 +2,18 @@
 body {
     padding-top: 70px;
     padding-bottom: 50px;
+    background-color: #181818;
 }
 
 //Remove font-styling from anchors
 a, a:hover {
     color: black;
+}
+
+.card {
+    background-color: #e9ecef;
+}
+
+.card-header {
+    background-color: darkgray;
 }

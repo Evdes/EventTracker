@@ -10,7 +10,7 @@
 
     @foreach (var userProfile in Model)
     {
-    <div class="jumbotron  col-lg-2 col-md-6 col-sm-10">
+    <div class="card mt-3 col-lg-2 col-md-6 col-sm-10">
         <partial name="Partials/_UserProfileDetails" model="@userProfile" />
         @if (userProfile.Id != UserManager.FindByNameAsync(User.Identity.Name).Result.Id)
         {

@@ -9899,10 +9899,17 @@ h6 {
 
 body {
   padding-top: 70px;
-  padding-bottom: 50px; }
+  padding-bottom: 50px;
+  background-color: #181818; }
 
 a, a:hover {
   color: black; }
+
+.card {
+  background-color: #e9ecef; }
+
+.card-header {
+  background-color: darkgray; }
 
 .btn-undoCancel {
   width: 200px; }
