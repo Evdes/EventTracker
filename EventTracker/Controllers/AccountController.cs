@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 
 namespace EventTracker.BLL.Controllers
 {
@@ -92,6 +93,10 @@ namespace EventTracker.BLL.Controllers
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
             if (userId == null || code == null)
             {
                 return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
@@ -139,10 +144,25 @@ namespace EventTracker.BLL.Controllers
 
                 var email = model.Email;
                 var subject = "EventTracker - Reset Password";
-                var message = $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>";
+                //var message = $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>";
+                var pathToFile = _env.WebRootPath
+                            + Path.DirectorySeparatorChar.ToString()
+                            + "templates"
+                            + Path.DirectorySeparatorChar.ToString()
+                            + "_EmailResetTemplate.html";
 
+                var builder = new BodyBuilder();
+                using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+                {
+
+                    builder.HtmlBody = SourceReader.ReadToEnd();
+
+                }
+
+                string message = string.Format(builder.HtmlBody, user.FirstName, callbackUrl);
                 await _emailSender.SendEmailAsync(email, subject, message);
-                return RedirectToAction(nameof(Login)).WithSuccess("Success", "Reset mail sent");
+                return RedirectToAction(nameof(Login)).WithSuccess("Success", "A link to reset your password has been sent. " +
+                    "Please keep in mind that this link is only valid for 24 hours");
             }
 
             return View(model);

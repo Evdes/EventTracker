@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -8,9 +9,11 @@ using EventTracker.DAL.SqlData;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 
 namespace EventTracker.BLL.Controllers
 {
@@ -20,12 +23,14 @@ namespace EventTracker.BLL.Controllers
 
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IHostingEnvironment _env;
 
         public UserProfilesController(UserManager<UserProfile> userManager,
-                                        IEmailSender emailSender)
+                                        IEmailSender emailSender, IHostingEnvironment env)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _env = env;
         }
 
         [HttpGet]
@@ -78,15 +83,22 @@ namespace EventTracker.BLL.Controllers
                         values: new { userId = user.Id, code },
                         protocol: Request.Scheme);
 
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { userId = user.Id, code },
-                    //    protocol: Request.Scheme);
-
                     var email = userProfileToAdd.Email;
                     var subject = "Welcome to EventTracker! Please confirm your email.";
-                    var message = $"Welome {userProfileToAdd.FirstName}! <br> <br> Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+                    //var message = $"Welome {userProfileToAdd.FirstName}! <br> <br> Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+                    var pathToFile = _env.WebRootPath
+                           + Path.DirectorySeparatorChar.ToString()
+                           + "templates"
+                           + Path.DirectorySeparatorChar.ToString()
+                           + "_EmailConfirmTemplate.html";
+
+                    var builder = new BodyBuilder();
+                    using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+                    {
+                        builder.HtmlBody = SourceReader.ReadToEnd();
+                    }
+
+                    string message = string.Format(builder.HtmlBody, user.FirstName, callbackUrl);
 
                     await _emailSender.SendEmailAsync(email, subject, message);
                     return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account added");

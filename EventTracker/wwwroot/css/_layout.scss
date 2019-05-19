@@ -10,10 +10,14 @@ a, a:hover {
     color: black;
 }
 
-.card {
+.card .modal-content{
     background-color: #e9ecef;
 }
 
 .card-header {
-    background-color: darkgray;
+    background-color: #FDF9F9;
+}
+
+#loginlink {
+    color: #6F93B7;
 }
