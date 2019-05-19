@@ -5,13 +5,19 @@
 
 .btn-action-sm {
     @extend .btn;
-    width: 130px;
+    width: 120px;
     padding-left: 0px;
     padding-right: 0px;
     display: inline-block;
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+@media (min-width: 64em) {
+    .btn-action-sm {
+        width: 130px;
+    }
 }
 
 .btn-action-md {

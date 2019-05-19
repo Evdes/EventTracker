@@ -13,3 +13,14 @@
 .participantName {
     margin-right: 10px;
 }
+
+.timeframes{
+    border: 1px solid grey;
+}
+
+@media (min-width: 48em)
+{
+    .timeframes{
+        border: 0;
+    }
+}

@@ -26,7 +26,7 @@
                     <input class="form-control" min="0" max="24" type="number" data-val="true" data-val-range="Invalid hour" data-val-range-max="24" data-val-range-min="0" data-val-required="The End field is required." id="Timeframes_` + i + `__Endtime" name="Timeframes[` + i + `].Endtime" value="0" />
                     
                 </div>
-                <div class="col-sm-auto col-md-1">
+                <div class="col-sm-auto col-md-1 mt-4 mb-md-0 mb-2">
                     <button type="button" id="DeleteTimeframeButton_` + i + `" class="btn-delete-timeframe btn-delete-md btn-danger form-control" data-id=` + i + `><i class="fa fa-remove"></i></button>
                 </div>
             </div>

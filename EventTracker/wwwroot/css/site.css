@@ -9930,17 +9930,28 @@ a, a:hover {
 .participantName {
   margin-right: 10px; }
 
+.timeframes {
+  border: 1px solid grey; }
+
+@media (min-width: 48em) {
+  .timeframes {
+    border: 0; } }
+
 .btn-undoCancel {
   width: 200px; }
 
 .btn-action-sm {
-  width: 130px;
+  width: 120px;
   padding-left: 0px;
   padding-right: 0px;
   display: inline-block;
   float: left;
   margin-right: 10px;
   margin-bottom: 10px; }
+
+@media (min-width: 64em) {
+  .btn-action-sm {
+    width: 130px; } }
 
 .btn-action-md {
   width: 150px;
@@ -9984,12 +9995,30 @@ input[type="checkbox"].input-validation-error {
   display: none; }
 
 .alert-dismissible {
-  width: 20%;
   position: fixed;
-  bottom: 40px;
-  right: 50px;
-  border-radius: 10px;
-  padding: 20px; }
+  width: 95%;
+  bottom: 5px;
+  right: 10px;
+  border-radius: 1px;
+  padding: 10px;
+  background-color: lightgreen;
+  z-index: 1; }
+
+@media (min-width: 48em) {
+  .alert-dismissible {
+    width: 40%;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 10px;
+    padding: 20px; } }
+
+@media (min-width: 76em) {
+  .alert-dismissible {
+    width: 20%;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 10px;
+    padding: 20px; } }
 
 #error {
   display: block;

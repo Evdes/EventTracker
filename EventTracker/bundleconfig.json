@@ -8,7 +8,7 @@
       "node_modules/popper.js/dist/umd/popper.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.min.js"
     ],
-    "minify": { "enabled": false }
+    "minify": { "enabled": true }
   },
   {
     "outputFileName": "wwwroot/js/site.min.js",
