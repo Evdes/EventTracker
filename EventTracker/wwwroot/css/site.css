@@ -9900,13 +9900,13 @@ h6 {
 body {
   padding-top: 70px;
   padding-bottom: 50px;
-  background-color: #393e46;
+  background-color: #DCDCDC;
   font-family: "Trebuchet MS", Helvetica, sans-serif; }
 
 a, a:hover {
   color: black; }
 
-.card .modal-content {
+.card .modal-content .jumbotron {
   background-color: #e9ecef; }
 
 .card-header {
@@ -9916,13 +9916,13 @@ a, a:hover {
   color: #6F93B7; }
 
 .navbar-dark {
-  background-color: #010101; }
+  background-color: #273E46; }
 
 .cancelled {
-  background-color: #cc0000; }
+  background-color: #B22222; }
 
 .full {
-  background-color: #6AA84F; }
+  background-color: #90EE90; }
 
 #addTimeframe {
   margin-top: 20px; }
@@ -10001,7 +10001,6 @@ input[type="checkbox"].input-validation-error {
   right: 10px;
   border-radius: 1px;
   padding: 10px;
-  background-color: lightgreen;
   z-index: 1; }
 
 @media (min-width: 48em) {
