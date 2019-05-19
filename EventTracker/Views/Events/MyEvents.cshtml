@@ -3,15 +3,13 @@
     ViewBag.Title = "My events";
 }
 
-<div class="col">
+<div class="offset-lg-4 offset-md-1">
     @foreach (var e in Model)
     {
-        <div class="card mt-3 pt-4 pb-4 col-lg-4 col-md-9 col-sm-10">
-
+        <div class="card m-3 pt-4 pb-4 col-lg-6 col-md-10 col-11">
                 <partial name="Partials/_EventDetails" model="e" />
                 <br />
                 <partial name="Partials/_Participants" model="e" />
-
         </div>
     }
 </div>

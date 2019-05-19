@@ -2,7 +2,8 @@
 body {
     padding-top: 70px;
     padding-bottom: 50px;
-    background-color: #181818;
+    background-color: #393e46;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 //Remove font-styling from anchors
@@ -20,4 +21,8 @@ a, a:hover {
 
 #loginlink {
     color: #6F93B7;
+}
+
+.navbar-dark {
+    background-color: #010101;
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +16,6 @@ namespace EventTracker.Services.EmailSender
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-
             using (var client = new SmtpClient())
             {
                 var credential = new NetworkCredential

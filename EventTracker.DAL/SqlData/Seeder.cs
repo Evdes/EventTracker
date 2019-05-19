@@ -1,15 +1,12 @@
-﻿using EventTracker.DAL.SqlData;
-using EventTracker.Models.Events;
+﻿using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DAL
+namespace EventTracker.DAL.SqlData
 {
 
     //**Seeder can be used for TEST PURPOSES ONLY!**

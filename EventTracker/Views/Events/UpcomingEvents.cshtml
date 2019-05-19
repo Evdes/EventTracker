@@ -3,24 +3,20 @@
     ViewBag.Title = "Upcoming events";
 }
 
-<div class="col">
+<div class="offset-lg-4 offset-md-1">
     @foreach (var e in Model)
     {
-        <div class="card m-3 pt-4 pb-4 col-lg-4 col-md-9 col-sm-10">
-
-                <partial name="Partials/_EventDetails" model="e" />
-                <br />
-                <partial name="Partials/_Participants" model="e" />
-                <br />
-                <partial name="Partials/_ActionButtons" model="e" />
-                <partial name="Partials/_Modals" model="e" />
-
+    <div class="card m-3 pt-4 pb-4 col-lg-6 col-md-10 col-11">
+        <partial name="Partials/_EventDetails" model="e" />
+        <br />
+        <div class="card-body">
+            <partial name="Partials/_Participants" model="e" />
         </div>
-    }
-</div>
-<div>
-    @if (User.IsInRole("Super"))
-    {
-        <a class="round-button btn-primary text-decoration-none" asp-action="AddEvent"><i class="fa fa-plus fa-3x"></i></a>
+
+        <br />
+        <partial name="Partials/_ActionButtons" model="e" />
+        <partial name="Partials/_DeleteModal" model="Model" />
+        <partial name="Partials/_CancelModal" model="Model" />
+    </div>
     }
 </div>

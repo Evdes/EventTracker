@@ -1,5 +1,4 @@
 ﻿using EventTracker.Models.UserProfiles;
-using System;
 
 namespace EventTracker.Models.Events
 {

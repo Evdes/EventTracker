@@ -1,7 +1,5 @@
 ﻿$(document).ready(function () {
 
-    var TempscrollTop
-
     //Delete timeframes from edited event
     $(".btn-delete-timeframe").click(removeTimeframe);
 

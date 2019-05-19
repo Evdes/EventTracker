@@ -17,7 +17,6 @@ namespace EventTracker.Models.UserProfiles
         public string LastName { get; set; }
 
         public UserRole UserRole { get; set; }
-
         public ICollection<UserEvents> UserEvents { get; set; }
     }
 }

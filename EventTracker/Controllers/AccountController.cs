@@ -1,16 +1,15 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.BLL.Extensions;
 using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
+using EventTracker.Models.UserProfiles.ViewModels;
 
 namespace EventTracker.BLL.Controllers
 {

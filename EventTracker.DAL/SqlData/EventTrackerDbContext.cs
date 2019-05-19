@@ -2,9 +2,6 @@
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EventTracker.DAL.SqlData
 {
@@ -15,6 +12,7 @@ namespace EventTracker.DAL.SqlData
         {
 
         }
+
         public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,5 +36,4 @@ namespace EventTracker.DAL.SqlData
             base.OnModelCreating(modelBuilder);
         }
     }
-
 }

@@ -4,27 +4,24 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.Services.Repos.SqlData
+namespace EventTracker.Services.Repos
 {
-    public class EventSqlData : IEventRepo
+    public class EventSqlRepo : IEventRepo
     {
         private readonly EventTrackerDbContext _context;
 
-        public EventSqlData(EventTrackerDbContext context)
+        public EventSqlRepo(EventTrackerDbContext context)
         {
             _context = context;
         }
 
         public async Task<Event> AddEventAsync(Event newEvent)
         {
-
             await _context.Events.AddAsync(newEvent);
             await _context.SaveChangesAsync();
             return newEvent;
-
         }
 
         public void DeleteEvent(Event eventToDelete)
@@ -35,7 +32,6 @@ namespace EventTracker.Services.Repos.SqlData
 
         public async Task<Event> EditEventAsync(Event eventToUpdate)
         {
-
             _context.Update(eventToUpdate);
             await _context.SaveChangesAsync();
             return eventToUpdate;
@@ -43,7 +39,6 @@ namespace EventTracker.Services.Repos.SqlData
 
         public IEnumerable<Event> GetAllUpcomingEvents()
         {
-
             var allUpcomingEvents = _context.Events
            .Include(e => e.Location)
            .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
@@ -51,18 +46,15 @@ namespace EventTracker.Services.Repos.SqlData
            .Where(e => e.Timeframes.Max(t => t.EventDate) >= DateTime.Today)
            .OrderBy(e => e.Timeframes.Min(t => t.EventDate));
             return allUpcomingEvents;
-
         }
 
         public async Task<Event> GetEventAsync(int? id)
         {
-
             var @event = await _context.Events
                    .Include(e => e.Location)
                    .Include(e => e.UserEvents).ThenInclude(ue => ue.UserProfile)
                    .Include(e => e.Timeframes)
                    .FirstOrDefaultAsync(e => e.Id == id.Value);
-
             return @event;
         }
     }

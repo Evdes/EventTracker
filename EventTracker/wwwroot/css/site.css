@@ -9844,7 +9844,7 @@ h3 {
   font-size: 1.266em; }
 
 h4 {
-  font-size: 1.125em; }
+  font-size: 1em; }
 
 h5 {
   font-size: 0.889em; }
@@ -9900,7 +9900,8 @@ h6 {
 body {
   padding-top: 70px;
   padding-bottom: 50px;
-  background-color: #181818; }
+  background-color: #393e46;
+  font-family: "Trebuchet MS", Helvetica, sans-serif; }
 
 a, a:hover {
   color: black; }
@@ -9914,11 +9915,26 @@ a, a:hover {
 #loginlink {
   color: #6F93B7; }
 
+.navbar-dark {
+  background-color: #010101; }
+
+.cancelled {
+  background-color: #cc0000; }
+
+.full {
+  background-color: #6AA84F; }
+
+#addTimeframe {
+  margin-top: 20px; }
+
+.participantName {
+  margin-right: 10px; }
+
 .btn-undoCancel {
   width: 200px; }
 
 .btn-action-sm {
-  width: 100px;
+  width: 130px;
   padding-left: 0px;
   padding-right: 0px;
   display: inline-block;
@@ -9927,46 +9943,8 @@ a, a:hover {
   margin-bottom: 10px; }
 
 .btn-action-md {
-  width: 120px;
-  margin-right: 5px; }
-
-.btn-action-md {
   width: 150px;
-  margin-right: 10px; }
-
-.cancelled {
-  background-color: #cc0000; }
-
-.full {
-  background-color: #6AA84F; }
-
-.round-button {
-  display: flex;
-  width: 50px;
-  height: 50px;
-  line-height: 20px;
-  border: 1px solid #f5f5f5;
-  border-radius: 50%;
-  text-decoration: none;
-  box-shadow: 0 0 3px gray;
-  font-size: 10px;
-  font-weight: bold;
-  align-items: center;
-  justify-content: space-between;
-  float: right;
-  position: fixed;
-  bottom: 50px;
-  right: 50px; }
-  .round-button i {
-    margin: auto; }
-
-@media (min-width: 48em) {
-  .round-button {
-    width: 100px;
-    height: 100px;
-    line-height: 50px;
-    border: 2px solid #f5f5f5;
-    font-size: 20px; } }
+  margin-right: 5px; }
 
 .btn-delete-sm {
   width: 20px;
@@ -9984,26 +9962,20 @@ a, a:hover {
     width: 50px;
     height: 50px; } }
 
-#addTimeframe {
-  margin-top: 20px; }
-
-.participantName {
-  margin-right: 10px; }
-
 .field-validation-error {
-  color: #e80c4d; }
+  color: #cc0000; }
 
 .field-validation-valid {
   display: none; }
 
 input.input-validation-error {
-  border: 1px solid #e80c4d; }
+  border: 1px solid #cc0000; }
 
 input[type="checkbox"].input-validation-error {
   border: 0 none; }
 
 .validation-summary-errors {
-  color: #e80c4d;
+  color: #cc0000;
   font-size: 1.1em; }
   .validation-summary-errors ul {
     list-style: none; }
@@ -10014,7 +9986,7 @@ input[type="checkbox"].input-validation-error {
 .alert-dismissible {
   width: 20%;
   position: fixed;
-  top: 100px;
+  bottom: 40px;
   right: 50px;
   border-radius: 10px;
   padding: 20px; }

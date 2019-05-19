@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using EventTracker.BLL.Extensions.Alerts;
-using EventTracker.DAL.SqlData;
 using EventTracker.Models.UserProfiles;
+using EventTracker.Models.UserProfiles.ViewModels;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 

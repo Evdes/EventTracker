@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using EventTracker.DAL.SqlData;
-using EventTracker.Services.Repos.SqlData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Rewrite;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
 using EventTracker.Services.EmailSender;
-using EventTracker.DAL;
 
 namespace EventTracker
 {
@@ -40,7 +38,7 @@ namespace EventTracker
             .AddEntityFrameworkStores<EventTrackerDbContext>();
             services.AddDbContext<EventTrackerDbContext>(
                 options => options.UseSqlServer(_config.GetConnectionString("EventTrackerDevDb")));
-            services.AddScoped<IEventRepo, EventSqlData>();
+            services.AddScoped<IEventRepo, EventSqlRepo>();
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();

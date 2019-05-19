@@ -1,5 +1,4 @@
-﻿using EventTracker.Models.UserProfiles;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models.Events
@@ -14,8 +13,8 @@ namespace EventTracker.Models.Events
         public int Id { get; set; }
 
         [Required]
-        [Display(Name="Event Name")]
-        [MaxLength(50, ErrorMessage ="The name you've entered is too long")]
+        [Display(Name = "Event Name")]
+        [MaxLength(50, ErrorMessage = "The name you've entered is too long")]
         public string Name { get; set; }
 
         [Required]
@@ -23,7 +22,7 @@ namespace EventTracker.Models.Events
         public string Description { get; set; }
 
         [Required]
-        [Range(1,int.MaxValue, ErrorMessage ="Enter a valid number larger than 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Enter a valid number larger than 0")]
         public int WantedAmountOfParticipants { get; set; }
 
         public List<Timeframe> Timeframes { get; set; }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace EventTracker.Models.UserProfiles
+namespace EventTracker.Models.UserProfiles.ViewModels
 {
     public class AddUserProfileViewModel
     {
