@@ -1,32 +1,51 @@
 ﻿@model Event
+@{ 
+    var participantsStilNeeded = Model.WantedAmountOfParticipants - Model.UserEvents.Count;
+}
 
 <div class="card-header @(Model.IsCancelled ? "cancelled" : null)
                 @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.UserEvents.Count ? "full" : null)">
     @if (@Model.IsCancelled)
     {
-        <h2>@Model.Name (Cancelled) </h2>
+        <h2 class="mb-0">@Model.Name (Cancelled) </h2>
     }
     else
     {
-        <h2>@Model.Name</h2>
+        <h2 class="mb-0">@Model.Name</h2>
     }
 </div>
 <div class="card-body">
-    <h4>Location: @Model.Location.City (@Model.Location.Province)</h4>
-    <h4>Participants needed: @Model.WantedAmountOfParticipants</h4>
-    <h4>@Model.Description</h4>
+    <h5 class="subheader">General info</h5>
+    <h6>Description: @Model.Description</h6>
+    <h6>Location: @Model.Location.City (@Model.Location.Province)</h6>
+    @if (participantsStilNeeded <= 0)
+    {
+        <h6>0 participants still needed</h6>
+    }
+    else
+    {
+        if (participantsStilNeeded == 1)
+        {
+            <h6>1 participant still needed</h6>
+        }
+        else
+        {
+            <h6>@participantsStilNeeded participants still needed</h6>
+        }
+    }
     <br />
-    <h3><u>Event dates</u></h3>
+    <h5 class="subheader">Timing</h5>
     <ul class="list-unstyled">
         <li>
             @foreach (var timeframe in @Model.Timeframes)
             {
-                <h4>
+                <h6>
                     <span>@timeframe.EventDate.Value.Date.ToShortDateString():</span>
                     <span>@timeframe.Starttime</span>h - <span>@timeframe.Endtime</span>h
-                </h4>
+                </h6>
             }
         </li>
     </ul>
+    <partial name="Partials/_Participants" model="Model" />
 </div>
 

@@ -3,20 +3,14 @@
     ViewBag.Title = "Upcoming events";
 }
 
-<div class="offset-xl-4 offset-md-1">
-    @foreach (var e in Model)
-    {
-    <div class="card m-3 pt-4 pb-4 col-xl-6 col-md-10 col-11">
-        <partial name="Partials/_EventDetails" model="e" />
-        <br />
-        <div class="card-body">
-            <partial name="Partials/_Participants" model="e" />
-        </div>
-
-        <br />
-        <partial name="Partials/_ActionButtons" model="e" />
-        <partial name="Partials/_DeleteModal" model="e" />
-        <partial name="Partials/_CancelModal" model="e" />
+    <div class="offset-xl-4 offset-sm-1">
+        @foreach (var e in Model)
+        {
+            <div class="card mb-3 pt-4 pb-4 col-xl-6 col-sm-11">
+                <partial name="Partials/_EventDetails" model="e" />
+                <partial name="Partials/_ActionButtons" model="e" />
+                <partial name="Partials/_DeleteModal" model="e" />
+                <partial name="Partials/_CancelModal" model="e" />
+            </div>
+        }
     </div>
-    }
-</div>

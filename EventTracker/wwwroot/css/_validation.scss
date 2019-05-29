@@ -18,9 +18,9 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-errors {
     color: $validationRed;
-    font-size: 1.1em;
     ul {
         list-style: none;
+        padding-left: 0;
     }
 }
 

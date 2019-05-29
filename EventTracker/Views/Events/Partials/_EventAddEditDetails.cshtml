@@ -1,7 +1,7 @@
 ﻿@model Event
 
-    <div class="col-10 offset-1 form-group">
-        <div class="jumbotron pt-4">
+    <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-1 form-group p-0">
+        <div class="jumbotron pt-4 pb-5">
             <div class="container-fluid">
                 @if (ViewBag.Page == "AddEvent")
                 {
@@ -12,6 +12,7 @@
                     <h1>Edit event</h1>
                 }
                 <div>
+                    <h4 class="mb-3 subheader">General Info</h4>
                     <div class="mb-3">
                         <label asp-for="Name"></label>
                         <input class="form-control" asp-for="Name" />
@@ -22,42 +23,45 @@
                         <textarea class="form-control" asp-for="Description"></textarea>
                         <span asp-validation-for="Description"></span>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="Location.City"></label>
-                        <input class="form-control" asp-for="Location.City" />
-                        <span asp-validation-for="Location.City"></span>
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label asp-for="Location.City"></label>
+                            <input class="form-control" asp-for="Location.City" />
+                            <span asp-validation-for="Location.City"></span>
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label asp-for="Location.Province"></label>
+                            <input class="form-control" asp-for="Location.Province" />
+                            <span asp-validation-for="Location.Province"></span>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="Location.Province"></label>
-                        <input class="form-control" asp-for="Location.Province" />
-                        <span asp-validation-for="Location.Province"></span>
-                    </div>
-                    <div class="mb-3">
+
+                    <div class="mb-3 float-none">
                         <label asp-for="WantedAmountOfParticipants">Required amount of participants</label>
-                        <input class="form-control" asp-for="WantedAmountOfParticipants" min="1" value="1" />
+                        <input class="form-control col-sm-2 col-lg-1" asp-for="WantedAmountOfParticipants" min="1" value="1" />
                         <span asp-validation-for="WantedAmountOfParticipants"></span>
                     </div>
                 </div>
                 <partial name="Partials/_Timeframes" model="Model" />
-                <a class="btn btn-secondary" href="#" id="addTimeframe">Add Timeframe</a>
+                <a class="btn btn-secondary mb-3" href="#" id="addTimeframe">Add Timeframe</a>
                 @if (ViewBag.Page == "EditEvent")
                 {
-                    <h5>Participants:</h5>
                     <partial name="Partials/_Participants" model="Model" />
                 }
             </div>
+            <div class="float-right">
+                <a class="btn-action-sm btn-outline-secondary" asp-action="UpcomingEvents">Cancel</a>
+                @if (ViewBag.Page == "AddEvent")
+                {
+                    <input class="btn-action-sm btn-primary" type="submit" name="Add" value="Add" />
+                }
+                else
+                {
+                    <input class="btn-action-sm btn-primary" type="submit" name="Edit" value="Update" />
+                }
+            </div>
         </div>
-        <div class="float-right">
-            <a class="btn-action-sm btn-outline-secondary" asp-action="UpcomingEvents">Cancel</a>
-            @if (ViewBag.Page == "AddEvent")
-            {
-                <input class="btn-action-sm btn-primary" type="submit" name="Add" value="Add" />
-            }
-            else
-            {
-                <input class="btn-action-sm btn-primary" type="submit" name="Edit" value="Update" />
-            }
-        </div>
+       
     </div>
 
  

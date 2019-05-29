@@ -6,21 +6,13 @@
     background-color: #90EE90;
 }
 
-#addTimeframe {
-    margin-top: 20px;
-}
 
 .participantName {
     margin-right: 10px;
 }
 
-.timeframes{
-    border: 1px solid grey;
-}
-
-@media (min-width: 48em)
-{
-    .timeframes{
-        border: 0;
-    }
+.subheader {
+    color: lightslategrey;
+    border-bottom: 1px solid lightslategrey;
+    font: 12px;
 }

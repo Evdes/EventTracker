@@ -6,11 +6,11 @@
 }
 
 
-<div class="offset-lg-0 offset-md-3">
+<div class="offset-xl-2 offset-lg-1 offset-md-2">
 
     @foreach (var userProfile in Model)
     {
-    <div class="card m-3 pt-4 col-lg-2 col-md-7 col-11 float-left">
+    <div class="card m-3 pt-4 col-xl-3 col-lg-5 col-md-9 col-11 float-lg-left">
         <partial name="Partials/_UserProfileDetails" model="@userProfile" />
         @if (userProfile.Id != UserManager.FindByNameAsync(User.Identity.Name).Result.Id)
         {

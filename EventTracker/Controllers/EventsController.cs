@@ -249,13 +249,13 @@ namespace EventTracker.BLL.Controllers
                     var ueToRemove = eventToModify.UserEvents.FirstOrDefault(ue => ue.UserId == userProfileToRemove.Id);
                     eventToModify.UserEvents.Remove(ueToRemove);
                     await _events.EditEventAsync(eventToModify);
-                    return RedirectToAction(nameof(EditEventAsync), new { id }).WithSuccess("Success", "Participant removed");
+                    return RedirectToAction("EditEvent", new { id }).WithSuccess("Success", "Participant removed");
                 }
                 
             }
             else
             {
-                return View(nameof(EditEventAsync), new { id });
+                return View("EditEvent", new { id });
             }
         }
 

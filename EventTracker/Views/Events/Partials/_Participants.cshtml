@@ -1,25 +1,24 @@
 ﻿@model Event
 
 <div>
-    <h3><u>Participants</u></h3>
+    <h5 class="subheader pt-3 mb-3">Participants</h5>
     <div class="col">
         <input asp-for="UserEvents" type="hidden" />
         @if (Model.UserEvents.Count == 0)
         {
-    <div class="row">
-        <h5>There are currently no participants for this event</h5>
-    </div>
-           
+            <div class="row">
+                <h6 class="pb-5">There are currently no participants for this event</h6>
+            </div>
         }
         else
         {
             <ul class="list-unstyled">
-                @foreach (var userEvent in @Model.UserEvents)
+                @foreach (var userEvent in Model.UserEvents)
                 {
                     <li class="participantRow align-items-center">
 
                         <div class="row">
-                            <h4 class="participantName">@userEvent.UserProfile.FirstName @userEvent.UserProfile.LastName</h4>
+
                             @if (ViewBag.Page == "EditEvent")
                             {
                                 <button asp-action="RemoveParticipantAsync"
@@ -27,12 +26,15 @@
                                         asp-route-id="@Model.Id"
                                         asp-route-userId="@userEvent.UserId"
                                         type="submit"
-                                        class="btn-delete-sm btn btn-danger form-control">
+                                        class="btn-delete-sm btn btn-danger form-control mr-2"
+                                        data-toggle="tooltip"
+                                        title="Remove participant">
                                     <i class="fa fa-remove"></i>
                                 </button>
-                            }
-                        </div>
 
+                            }
+                            <h6 class="participantName">@userEvent.UserProfile.FirstName @userEvent.UserProfile.LastName</h6>
+                        </div>
                     </li>
                 }
             </ul>

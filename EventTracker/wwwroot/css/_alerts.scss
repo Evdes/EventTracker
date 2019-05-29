@@ -2,13 +2,13 @@
     position: fixed;
     width: 95%;
     bottom: 5px;
-    right: 10px;
+    right: 3%;
     border-radius: 1px;
     padding: 10px;
     z-index: 1;
 }
 
-@media (min-width: 48em) {
+@media (min-width: 36em) {
     .alert-dismissible {
         width: 40%;
         bottom: 20px;
@@ -16,6 +16,10 @@
         border-radius: 10px;
         padding: 20px;
     }
+}
+
+.alert-success {
+    background-color: #90EE90;
 }
 
 @media (min-width: 76em) {
