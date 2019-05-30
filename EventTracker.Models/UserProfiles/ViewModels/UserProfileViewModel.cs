@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EventTracker.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models.UserProfiles.ViewModels
 {

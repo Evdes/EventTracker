@@ -18,10 +18,10 @@ namespace EventTracker.BLL.Controllers
         private readonly IEventRepo _events;
         private readonly UserManager<UserProfile> _userManager;
 
-        public EventsController(IEventRepo eventMockRepo,
+        public EventsController(IEventRepo eventRepo,
             UserManager<UserProfile> userManager)
         {
-            _events = eventMockRepo;
+            _events = eventRepo;
             _userManager = userManager;
         }
 
@@ -71,7 +71,6 @@ namespace EventTracker.BLL.Controllers
                     return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty })
                         .WithSuccess("Success", "You have altered your presence for this event");
                 }
-
             }
         }
 

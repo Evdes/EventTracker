@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.BLL.Extensions.Alerts;
+using EventTracker.Models.Enums;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Models.UserProfiles.ViewModels;
 using EventTracker.Services.EmailSender;
@@ -22,7 +23,8 @@ namespace EventTracker.BLL.Controllers
         private readonly IHostingEnvironment _env;
 
         public UserProfilesController(UserManager<UserProfile> userManager,
-                                        IEmailSender emailSender, IHostingEnvironment env)
+                                        IEmailSender emailSender, 
+                                        IHostingEnvironment env)
         {
             _userManager = userManager;
             _emailSender = emailSender;

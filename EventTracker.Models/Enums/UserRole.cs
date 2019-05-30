@@ -1,4 +1,4 @@
-﻿namespace EventTracker.Models.UserProfiles
+﻿namespace EventTracker.Models.Enums
 {
     public enum UserRole
     {

@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
     <Content Remove="appsettings.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="appsettings.Development.json" />
     <None Include="appsettings.json" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
@@ -31,6 +33,9 @@
 
   <ItemGroup>
     <Content Update="Views\Account\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Error\ServerError.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Error\UserProfileNotFound.cshtml">

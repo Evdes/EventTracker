@@ -7,19 +7,26 @@ namespace EventTracker.BLL.Controllers
         [Route("error/404")]
         public IActionResult PageNotFound()
         {
-            Response.StatusCode = 404;
+            Response.StatusCode = NotFound().StatusCode;
+            return View();
+        }
+
+        [Route("error/500")]
+        public IActionResult ServerError()
+        {
+            Response.StatusCode = 500;
             return View();
         }
 
         public IActionResult EventNotFound()
         {
-            Response.StatusCode = 400;
+            Response.StatusCode = BadRequest().StatusCode;
             return View();
         }
 
         public IActionResult UserProfileNotFound()
         {
-            Response.StatusCode = 400;
+            Response.StatusCode = BadRequest().StatusCode;
             return View();
         }
     }

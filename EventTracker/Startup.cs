@@ -1,15 +1,17 @@
-﻿using EventTracker.Services.Repos;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using EventTracker.DAL.SqlData;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Rewrite;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
-using EventTracker.Services.EmailSender;
+using EventTracker.BLL.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
+using System.IO;
+using System.Net;
 
 namespace EventTracker
 {
@@ -24,23 +26,9 @@ namespace EventTracker
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddIdentity<UserProfile, IdentityRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-                options.Password.RequireDigit = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequiredLength = 8;
-                options.SignIn.RequireConfirmedEmail = true;
-            })
-            .AddDefaultTokenProviders()
-            .AddEntityFrameworkStores<EventTrackerDbContext>();
-            services.AddDbContext<EventTrackerDbContext>(
-                options => options.UseSqlServer(_config.GetConnectionString("EventTrackerDevDb")));
-            services.AddScoped<IEventRepo, EventSqlRepo>();
-            services.AddTransient<IEmailSender, EmailSender>();
-
+            services.ConfigureIdentity();
+            services.ConfigureDbContext(_config);
+            services.ConfigureCustomServices();
             services.AddMvc();
         }
 
@@ -53,8 +41,14 @@ namespace EventTracker
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 var Seeder = new Seeder(ctx, userManager);
                 Seeder.Seed();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error/500");
+                app.UseHsts();
             }
             
             app.UseRewriter(new RewriteOptions()

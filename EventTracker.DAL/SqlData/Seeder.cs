@@ -1,4 +1,5 @@
-﻿using EventTracker.Models.Events;
+﻿using EventTracker.Models.Enums;
+using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
 using System;
