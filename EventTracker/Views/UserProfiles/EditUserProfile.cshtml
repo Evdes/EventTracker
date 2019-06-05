@@ -23,6 +23,7 @@
                         <label asp-for="Email"></label>
                         <input class="form-control" asp-for="Email" />
                         <span asp-validation-for="Email"></span>
+                        @Html.ValidationMessage("InvalidEmail")
                     </div>
                     <div class="form-group">
                         <label asp-for="UserRole"></label>

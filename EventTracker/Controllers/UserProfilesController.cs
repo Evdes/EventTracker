@@ -217,9 +217,19 @@ namespace EventTracker.BLL.Controllers
                 {
                     userProfileToEdit.FirstName = postedUserProfileViewModel.FirstName;
                     userProfileToEdit.LastName = postedUserProfileViewModel.LastName;
-                    userProfileToEdit.UserName = postedUserProfileViewModel.Email;
-                    userProfileToEdit.Email = postedUserProfileViewModel.Email;
 
+                    if(postedUserProfileViewModel.Email != userProfileToEdit.Email 
+                        && _userManager.Users.Any(u => u.Email == postedUserProfileViewModel.Email))
+                    {
+                        ModelState.AddModelError("InvalidEmail", "The email is already assigned to another user");
+                        return View().WithDanger("Failed.", "User not updated");
+                    }
+                    else
+                    {
+                        userProfileToEdit.UserName = postedUserProfileViewModel.Email;
+                        userProfileToEdit.Email = postedUserProfileViewModel.Email;
+                    }
+                   
                     switch (userProfileToEdit.UserRole)
                     {
                         case UserRole.Basic:
@@ -272,7 +282,6 @@ namespace EventTracker.BLL.Controllers
                     }
                     userProfileToEdit.UserRole = postedUserProfileViewModel.UserRole;
                     await _userManager.UpdateAsync(userProfileToEdit);
-
 
                     return RedirectToAction(nameof(AllUserProfiles)).WithSuccess("Success", "User account updated");
                 }
