@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EventTracker.Models
 {
-    public class DateIsNotInPast : RangeAttribute
+    public class DateNotInPastAttribute : RangeAttribute
     {
-        public DateIsNotInPast() 
+        public DateNotInPastAttribute() 
             : base(typeof(DateTime), 
                   DateTime.Today.ToShortDateString(), 
                   DateTime.MaxValue.ToShortDateString())

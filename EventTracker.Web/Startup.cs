@@ -7,11 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Rewrite;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
-using EventTracker.BLL.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Diagnostics;
-using System.IO;
-using System.Net;
+using EventTracker.Web.Extensions;
 
 namespace EventTracker
 {

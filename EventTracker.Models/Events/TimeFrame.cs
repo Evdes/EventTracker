@@ -9,7 +9,7 @@ namespace EventTracker.Models.Events
 
         [Required]
         [DataType(DataType.Date, ErrorMessage ="This date is invalid")]
-        [DateIsNotInPast]
+        [DateNotInPast]
         [Display(Name = "Event Date")]
         public DateTime? EventDate { get; set; }
 

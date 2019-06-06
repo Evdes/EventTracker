@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EventTracker.BLL.Controllers
+namespace EventTracker.Web.Controllers
 {
     public class ErrorController : Controller
     {

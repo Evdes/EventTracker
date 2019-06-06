@@ -1,7 +1,7 @@
-﻿using EventTracker.BLL.Controllers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using EventTracker.Web.Controllers;
 
-namespace EventTracker.BLL.Extensions
+namespace EventTracker.Web.Extensions
 {
     public static class UrlHelperExtensions
     {

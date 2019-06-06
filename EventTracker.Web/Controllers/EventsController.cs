@@ -1,6 +1,6 @@
-﻿using EventTracker.BLL.Extensions.Alerts;
-using EventTracker.Models.Events;
+﻿using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
+using EventTracker.Services.Alerts;
 using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventTracker.BLL.Controllers
+namespace EventTracker.Web.Controllers
 {
     [Authorize]
     public class EventsController : Controller
@@ -28,8 +28,7 @@ namespace EventTracker.BLL.Controllers
         [HttpGet]
         public IActionResult UpcomingEvents()
         {
-            var allUpcomingEvents = _events.GetAllUpcomingEvents();
-            return View(allUpcomingEvents);
+            return View(_events.GetAllUpcomingEvents());
         }
 
         [HttpPost]

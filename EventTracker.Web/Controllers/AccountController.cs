@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using EventTracker.BLL.Extensions;
-using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Hosting;
@@ -10,31 +8,32 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using EventTracker.Models.UserProfiles.ViewModels;
+using EventTracker.Services.Alerts;
+using EventTracker.Web.Extensions;
 
-namespace EventTracker.BLL.Controllers
+namespace EventTracker.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly SignInManager<UserProfile> _signInManager;
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly IHostingEnvironment _env;
+
 
         public AccountController(SignInManager<UserProfile> signInManager,
                                     UserManager<UserProfile> userManager,
-                                    IEmailSender emailSender,
-                                    IHostingEnvironment env)
+                                    IEmailSender emailSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
-            _env = env;
+
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            if (this.User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 RedirectToAction(nameof(EventsController.UpcomingEvents), "Events");
             }
@@ -143,12 +142,16 @@ namespace EventTracker.BLL.Controllers
 
                 var email = model.Email;
                 var subject = "EventTracker - Reset Password";
-                //var message = $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>";
-                var pathToFile = _env.WebRootPath
-                            + Path.DirectorySeparatorChar.ToString()
-                            + "templates"
-                            + Path.DirectorySeparatorChar.ToString()
-                            + "_EmailResetTemplate.html";
+
+                string pathToFile = Directory.GetParent(Environment.CurrentDirectory).FullName
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "EventTracker.Services"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "EmailSender"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "Templates"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "_EmailResetTemplate.html";
 
                 var builder = new BodyBuilder();
                 using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))

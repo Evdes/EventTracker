@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EventTracker.BLL.Extensions.Alerts
+namespace EventTracker.Services.Alerts
 {
     public static class AlertExtensions
     {

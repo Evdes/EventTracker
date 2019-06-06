@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventTracker.BLL.Extensions.Alerts
+namespace EventTracker.Services.Alerts
 {
     public class AlertDecoratorResult : IActionResult
     {

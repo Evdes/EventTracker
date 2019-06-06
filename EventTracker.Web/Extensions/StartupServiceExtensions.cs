@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventTracker.BLL.Extensions
+namespace EventTracker.Web.Extensions
 {
-    public static class ServiceExtensions
+    public static class StartupServiceExtensions
     {
         public static void ConfigureIdentity (this IServiceCollection services)
         {

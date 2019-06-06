@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EventTracker.BLL.Extensions.Alerts;
 using EventTracker.Models.Enums;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Models.UserProfiles.ViewModels;
+using EventTracker.Services.Alerts;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 
-namespace EventTracker.BLL.Controllers
+namespace EventTracker.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserProfilesController : Controller
@@ -83,12 +84,16 @@ namespace EventTracker.BLL.Controllers
 
                     var email = userProfileToAdd.Email;
                     var subject = "Welcome to EventTracker! Please confirm your email.";
-                    //var message = $"Welome {userProfileToAdd.FirstName}! <br> <br> Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-                    var pathToFile = _env.WebRootPath
-                           + Path.DirectorySeparatorChar.ToString()
-                           + "templates"
-                           + Path.DirectorySeparatorChar.ToString()
-                           + "_EmailConfirmTemplate.html";
+
+                    string pathToFile = Directory.GetParent(Environment.CurrentDirectory).FullName
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "EventTracker.Services"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "EmailSender"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "Templates"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "_EmailConfirmTemplate.html";
 
                     var builder = new BodyBuilder();
                     using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
