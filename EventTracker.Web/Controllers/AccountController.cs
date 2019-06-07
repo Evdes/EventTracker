@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
@@ -59,19 +58,19 @@ namespace EventTracker.Web.Controllers
                     var attemptedLoginUserProfile = await _userManager.FindByEmailAsync(userProfile.Email);
                     if (attemptedLoginUserProfile == null)
                     {
-                        ModelState.AddModelError(String.Empty, "Unknown Email");
+                        ModelState.AddModelError(string.Empty, "Unknown Email");
                     }
                     else
                     {
                         if (!await _userManager.IsEmailConfirmedAsync(attemptedLoginUserProfile))
                         {
-                            ModelState.AddModelError(String.Empty,
+                            ModelState.AddModelError(string.Empty,
                                 "Account has not been activated. " +
                                 "Please activated your account by following the instructions in the activation mail");
                         }
                         else
                         {
-                            ModelState.AddModelError(String.Empty, "Login failed");
+                            ModelState.AddModelError(string.Empty, "Login failed");
                         }
                     }
                     return View().WithDanger("Failed", "Unable to log in");
@@ -89,7 +88,7 @@ namespace EventTracker.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        public async Task<IActionResult> ConfirmEmailAsync(string userId, string code)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -116,7 +115,7 @@ namespace EventTracker.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -183,7 +182,7 @@ namespace EventTracker.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -204,7 +203,7 @@ namespace EventTracker.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangePassword()
+        public async Task<IActionResult> ChangePasswordAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -223,7 +222,7 @@ namespace EventTracker.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {

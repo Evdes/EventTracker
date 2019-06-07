@@ -8,7 +8,6 @@ using EventTracker.Models.UserProfiles.ViewModels;
 using EventTracker.Services.Alerts;
 using EventTracker.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
@@ -21,15 +20,12 @@ namespace EventTracker.Web.Controllers
 
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly IHostingEnvironment _env;
 
         public UserProfilesController(UserManager<UserProfile> userManager,
-                                        IEmailSender emailSender, 
-                                        IHostingEnvironment env)
+                                        IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
-            _env = env;
         }
 
         [HttpGet]
@@ -77,7 +73,7 @@ namespace EventTracker.Web.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var callbackUrl = Url.Action(
-                        action: nameof(AccountController.ConfirmEmail),
+                        action: nameof(AccountController.ConfirmEmailAsync),
                         controller: "account",
                         values: new { userId = user.Id, code },
                         protocol: Request.Scheme);
