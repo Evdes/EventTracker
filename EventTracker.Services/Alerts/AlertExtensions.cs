@@ -28,7 +28,5 @@ namespace EventTracker.Services.Alerts
         {
             return new AlertDecoratorResult(result, type, title, body);
         }
-
     }
-
 }

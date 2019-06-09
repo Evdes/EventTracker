@@ -5,7 +5,6 @@
 
     //Add empty timeframe
     $("#addTimeframe").click(function () {
-        
         $.get('/Events/TimeFrameEntry', function (template) {
             $("#timeframes").append(template);
             var button = $("#timeframes").children().last().children().find(".btn-delete-timeframe");
@@ -22,7 +21,6 @@
         } else {
             input.attr("type", "password");
         }
-
     });
 
     //Autofade alerts

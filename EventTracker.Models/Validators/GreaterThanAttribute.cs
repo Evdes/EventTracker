@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class GreaterThanAttribute : ValidationAttribute
 {
-
     public GreaterThanAttribute(string otherProperty)
         : base("{0} must be greater than {1}")
     {
@@ -20,10 +19,9 @@ public class GreaterThanAttribute : ValidationAttribute
     protected override ValidationResult
         IsValid(object firstValue, ValidationContext validationContext)
     {
-        var firstComparable = firstValue as IComparable;
         var secondComparable = GetSecondComparable(validationContext);
 
-        if (firstComparable != null && secondComparable != null)
+        if (firstValue is IComparable firstComparable && secondComparable != null)
         {
             if (firstComparable.CompareTo(secondComparable) < 1)
             {
@@ -35,7 +33,6 @@ public class GreaterThanAttribute : ValidationAttribute
                     FormatErrorMessage(validationContext.DisplayName, displayName.GetName()));
             }
         }
-
         return ValidationResult.Success;
     }
 

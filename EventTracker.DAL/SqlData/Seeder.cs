@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.SqlData
 {
-
-    //**Seeder can be used for TEST PURPOSES ONLY!**
-    //**Seeder needs to be instantiated & called from Configure method in startup class (Project EventTracker.BLL)**
-    //**Seeder must only be used in dev env**
-
     public class Seeder
     {
         private readonly EventTrackerDbContext _context;
@@ -44,7 +39,7 @@ namespace EventTracker.DAL.SqlData
                 SeedEvents();
             }
         }
-    
+
         private void SeedRoles()
         {
             _context.Roles.Add(new IdentityRole()
@@ -67,7 +62,6 @@ namespace EventTracker.DAL.SqlData
         }
         private async Task SeedUsers()
         {
-            //start user1
             var user1 = new UserProfile
             {
                 FirstName = "Jack",
@@ -85,7 +79,6 @@ namespace EventTracker.DAL.SqlData
                 await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER", "BASIC" });
             }
 
-            //start user2
             var user2 = new UserProfile
             {
                 FirstName = "Samantha",
@@ -103,7 +96,6 @@ namespace EventTracker.DAL.SqlData
                 await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER" });
             }
 
-            //start user3
             var user3 = new UserProfile
             {
                 FirstName = "Daniel",
@@ -128,7 +120,7 @@ namespace EventTracker.DAL.SqlData
                     Name = "Event1",
                     Description = "Description1",
                     WantedAmountOfParticipants = 1,
-                    Timeframes = 
+                    Timeframes =
                     {
                         new Timeframe { EventDate = new DateTime(2051, 1, 1), Starttime = 10, Endtime = 17 },
                         new Timeframe { EventDate = new DateTime(2051, 1, 2), Starttime = 10, Endtime = 17 }
@@ -150,7 +142,7 @@ namespace EventTracker.DAL.SqlData
                     Name = "Event3",
                     Description = "Description3",
                     WantedAmountOfParticipants = 3,
-                    Timeframes = 
+                    Timeframes =
                         { new Timeframe { EventDate = new DateTime(2053, 3, 1), Starttime = 9, Endtime = 15}
                     },
                     Location = new Location {City="City3", Province="Province3"},

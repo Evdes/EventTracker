@@ -18,7 +18,6 @@ namespace EventTracker.Web.Controllers
         private readonly UserManager<UserProfile> _userManager;
         private readonly IEmailSender _emailSender;
 
-
         public AccountController(SignInManager<UserProfile> signInManager,
                                     UserManager<UserProfile> userManager,
                                     IEmailSender emailSender)
@@ -26,7 +25,6 @@ namespace EventTracker.Web.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
-
         }
 
         [HttpGet]
@@ -155,9 +153,7 @@ namespace EventTracker.Web.Controllers
                 var builder = new BodyBuilder();
                 using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
                 {
-
                     builder.HtmlBody = SourceReader.ReadToEnd();
-
                 }
 
                 string message = string.Format(builder.HtmlBody, user.FirstName, callbackUrl);
@@ -165,7 +161,6 @@ namespace EventTracker.Web.Controllers
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "A link to reset your password has been sent. " +
                     "Please keep in mind that this link is only valid for 24 hours");
             }
-
             return View(model);
         }
 
@@ -188,16 +183,19 @@ namespace EventTracker.Web.Controllers
             {
                 return View(nameof(ResetPassword), model);
             }
+
             var user = await _userManager.FindByIdAsync(model.userId);
             if (user == null)
             {
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
+
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
+
             return View(nameof(ResetPassword));
         }
 

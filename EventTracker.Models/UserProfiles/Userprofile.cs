@@ -8,7 +8,6 @@ namespace EventTracker.Models.UserProfiles
 {
     public class UserProfile : IdentityUser
     {
-
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

@@ -42,18 +42,19 @@
                         <span asp-validation-for="WantedAmountOfParticipants"></span>
                     </div>
                 </div>
+                <h4 class="mb-3 pt-3 subheader">Timing</h4>
                 <ul id="timeframes" class="list-unstyled pl-0">
                     @foreach (Timeframe timeframe in Model.Timeframes)
                     {
                         <partial name="Partials/_Timeframes" model="timeframe" />
                     }
-                    </ul>
-                    <a class="btn btn-secondary mb-3" href="#" id="addTimeframe">Add Timeframe</a>
+                </ul>
+                <a class="btn btn-secondary mb-3" href="#" id="addTimeframe">Add Timeframe</a>
 
-                    @if (ViewBag.Page == "EditEvent")
-                    {
-                        <partial name="Partials/_Participants" model="Model" />
-                    }
+                @if (ViewBag.Page == "EditEvent")
+                {
+                    <partial name="Partials/_Participants" model="Model" />
+                }
             </div>
             <div class="float-right">
                 <a class="btn-action-sm btn-outline-secondary" asp-action="UpcomingEvents">Cancel</a>

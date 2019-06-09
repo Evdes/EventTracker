@@ -1,44 +1,4 @@
-﻿@*@model Event
-
-<div id="TimeFramesToAdd">
-    <h4 class="mb-3 pt-3 subheader">Timing</h4>
-    @for (var i = 0; i < Model.Timeframes.Count; i++)
-    {
-        <div>
-            <div class="timeframes form-row align-items-center mb-3" id="Timeframe_@i">
-                <div class="col-sm-4 col-md-4 col-xl-2">
-                    <label asp-for="Timeframes[i].EventDate">Date</label>
-                    <input class="form-control" asp-for="Timeframes[i].EventDate" />
-
-                </div>
-                <div class="col-sm-3 col-md-3 col-xl-2 mt-sm-0 mt-2">
-                    <label asp-for="Timeframes[i].Starttime">Start</label>
-                    <input class="form-control" asp-for="Timeframes[i].Starttime" min="0" max="24" />
-
-                </div>
-                <div class="col-sm-3 col-md-3 col-xl-2 mt-sm-0 mt-2">
-                    <label asp-for="Timeframes[i].Endtime">End</label>
-                    <input class="form-control" asp-for="Timeframes[i].Endtime" min="0" max="24" />
-
-                </div>
-                <div class="col-sm-1 col-md-1 mt-4 mb-md-0 mb-2">
-                    <button id="DeleteTimeframeButton_@i" type="button" 
-                            class="btn-delete-md btn-delete-timeframe btn-danger form-control" 
-                            data-id="@i"
-                            data-toggle="tooltip"
-                            title="Remove timeframe">
-                                <i class="fa fa-remove"></i>
-                    </button>
-                </div>
-            </div>
-            <div><span asp-validation-for="Timeframes[i].EventDate"></span></div>
-            <div><span asp-validation-for="Timeframes[i].Starttime"></span></div>
-            <div><span asp-validation-for="Timeframes[i].Endtime"></span></div>
-        </div>
-    }
-</div>*@
-
-@model  Timeframe
+﻿@model  Timeframe
     <li class="pb-2">
         @using (Html.BeginCollectionItem("Timeframes"))
         {
