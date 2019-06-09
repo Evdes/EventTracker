@@ -4,10 +4,10 @@ namespace EventTracker.Models.UserProfiles.ViewModels
 {
     public class ResetPasswordViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        //[Required]
+        //[Display(Name = "Email")]
+        //[DataType(DataType.EmailAddress)]
+        //public string Email { get; set; }
 
         [Required]
         [StringLength(int.MaxValue, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
@@ -20,5 +20,6 @@ namespace EventTracker.Models.UserProfiles.ViewModels
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+        public string userId { get; set;}
     }
 }

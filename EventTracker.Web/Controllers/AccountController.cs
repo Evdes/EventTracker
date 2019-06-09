@@ -170,9 +170,9 @@ namespace EventTracker.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string code = null)
+        public IActionResult ResetPassword(string code = null, string userId = null)
         {
-            if (code == null)
+            if (code == null || userId == null)
             {
                 throw new ApplicationException("A code must be supplied for password reset.");
             }
@@ -186,12 +186,11 @@ namespace EventTracker.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(nameof(ResetPassword), model);
             }
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByIdAsync(model.userId);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
@@ -199,10 +198,11 @@ namespace EventTracker.Web.Controllers
             {
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "Password has been reset");
             }
-            return View();
+            return View(nameof(ResetPassword));
         }
 
         [HttpGet]
+        [ActionName("ChangePassword")]
         public async Task<IActionResult> ChangePasswordAsync()
         {
             var user = await _userManager.GetUserAsync(User);

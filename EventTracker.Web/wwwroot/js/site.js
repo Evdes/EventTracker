@@ -3,43 +3,14 @@
     //Delete timeframes from edited event
     $(".btn-delete-timeframe").click(removeTimeframe);
 
-    //Add empty timeframes when adding event
-    $("#addTimeframe").click(function (e) {
-        e.preventDefault();
-
-        //Set counter for dynamical generation of ID attributes for modelbinding
-        var i = $(".timeframes").length;
-
-        //Html element to be added
-        var newTimeframe = `
-            <div class="timeframes form-row align-items-center mb-3" id="Timeframe_` + i + `">
-                <div class="col-sm-4 col-md-4 col-xl-2">
-                    <label for= "Timeframes_` + i + `__EventDate" > Event Date</label >
-                    <input class="form-control" type="date" data-val="true" data-val-required="The Event Date field is required." id="Timeframes_` + i + `__EventDate" name="Timeframes[` + i + `].EventDate" />
-                </div>
-                <div class="col-sm-3 col-md-3 col-xl-2 mt-sm-0 mt-2">
-                    <label for="Timeframes_` + i + `__Starttime">Start</label>
-                    <input class="form-control" min="0" max="24" type="number" data-val="true" data-val-range="Invalid hour" data-val-range-max="24" data-val-range-min="0" data-val-required="The Start field is required." id="Timeframes_` + i + `__Starttime" name="Timeframes[` + i + `].Starttime" value="0" />
-                </div>
-                <div class="col-sm-3 col-md-3 col-xl-2 mt-sm-0 mt-2">
-                    <label for="Timeframes_` + i + `__Endtime">End</label>
-                    <input class="form-control" min="0" max="24" type="number" data-val="true" data-val-range="Invalid hour" data-val-range-max="24" data-val-range-min="0" data-val-required="The End field is required." id="Timeframes_` + i + `__Endtime" name="Timeframes[` + i + `].Endtime" value="0" />
-                    
-                </div>
-                <div class="col-sm-1 col-md-1 mt-4 mb-md-0 mb-2">
-                    <button type="button" id="DeleteTimeframeButton_` + i + `" class="btn-delete-timeframe btn-delete-md btn-danger form-control" data-id=` + i + ` data-toggle="tooltip" title="Remove timeframe"><i class="fa fa-remove"></i></button>
-                </div>
-            </div>
-            <div><span class="field-validation-valid" data-valmsg-for="Timeframes[` + i + `].EventDate" data-valmsg-replace="true"></span></div>
-            <div><span class="field-validation-valid" data-valmsg-for="Timeframes[` + i + `].Starttime" data-valmsg-replace="true"></span></div>
-            <div><span class="field-validation-valid" data-valmsg-for="Timeframes[` + i + `].Endtime" data-valmsg-replace="true"></span></div>`
-
-
-        $("#TimeFramesToAdd").append(newTimeframe);
-
-        //Set click event on generated button
-        var button = $("#DeleteTimeframeButton_" + i);
-        button.click(removeTimeframe);
+    //Add empty timeframe
+    $("#addTimeframe").click(function () {
+        
+        $.get('/Events/TimeFrameEntry', function (template) {
+            $("#timeframes").append(template);
+            var button = $("#timeframes").children().last().children().find(".btn-delete-timeframe");
+            button.click(removeTimeframe);
+        });
     });
 
     //Toggle password visibility input
@@ -65,9 +36,8 @@
     ####################################################
     */
     function removeTimeframe() {
-        if ($(".timeframes").length > 1) {
-            var timeframeToRemove = "#Timeframe_" + $(this).data('id');
-            $(timeframeToRemove).remove();
+        if (document.getElementById("timeframes").getElementsByTagName("li").length > 1) {
+            $(this).parent().parent().parent().parent().remove()
         }
     }
 });

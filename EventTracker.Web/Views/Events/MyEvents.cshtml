@@ -3,11 +3,22 @@
     ViewBag.Title = "My events";
 }
 
-<div class="offset-xl-4 offset-sm-1">
-    @foreach (var e in Model)
-    {
-        <div class="card mb-3 pt-4 pb-4 col-xl-6 col-sm-11">
+@if (Model.Any())
+{
+    <div class="offset-xl-4 offset-sm-1">
+        @foreach (var e in Model)
+        {
+            <div class="card mb-3 pt-4 pb-4 col-xl-6 col-sm-11">
                 <partial name="Partials/_EventDetails" model="e" />
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="offset-xl-4 offset-sm-1 mt-5">
+        <h4>You have not subscribed to any upcoming events</h4>
+    </div>
+
+}
+

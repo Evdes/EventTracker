@@ -132,6 +132,12 @@ namespace EventTracker.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult TimeFrameEntry()
+        {
+            return PartialView("Partials/_Timeframes");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Super")]
