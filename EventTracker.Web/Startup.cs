@@ -32,14 +32,14 @@ namespace EventTracker
         public void Configure(IApplicationBuilder app,
                                 IHostingEnvironment env,
                                 EventTrackerDbContext ctx,
-                                UserManager<UserProfile> userManager)
+                                UserManager<UserProfile> _userManager)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                var Seeder = new Seeder(ctx, userManager);
-                Seeder.Seed();
+                var Seeder = new Seeder();
+                Seeder.Seed(ctx, _userManager);
             }
             else
             {

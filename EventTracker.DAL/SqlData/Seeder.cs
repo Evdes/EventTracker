@@ -2,45 +2,36 @@
 using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EventTracker.DAL.SqlData
 {
     public class Seeder
     {
-        private readonly EventTrackerDbContext _context;
-        private readonly UserManager<UserProfile> _userManager;
-
-        public Seeder(EventTrackerDbContext context, UserManager<UserProfile> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
-
-        public async void Seed()
+        public static void Seed(EventTrackerDbContext _context, UserManager<UserProfile> _userManager)
         {
             _context.Database.EnsureCreated();
 
             if (!_context.Roles.Any())
             {
-                SeedRoles();
+                SeedRoles(_context);
             }
 
             if (!_context.Users.Any())
             {
-                await SeedUsers();
+                SeedUsers(_context, _userManager);
             }
 
             if (!_context.Events.Any())
             {
-                SeedEvents();
+                SeedEvents(_context);
             }
         }
 
-        private void SeedRoles()
+        private static void SeedRoles(EventTrackerDbContext _context)
         {
             _context.Roles.Add(new IdentityRole()
             {
@@ -60,95 +51,121 @@ namespace EventTracker.DAL.SqlData
 
             _context.SaveChanges();
         }
-        private async Task SeedUsers()
+        private static void SeedUsers(EventTrackerDbContext _context, UserManager<UserProfile> _usermanager)
         {
-            var user1 = new UserProfile
+            //user 1
+            var user = new UserProfile
             {
                 FirstName = "Jack",
                 LastName = "O'Neill",
                 UserName = "Jack.ONeill@SG1.com",
+                NormalizedUserName = "JACK.ONEILL@SG1.COM",
                 Email = "Jack.ONeill@SG1.com",
-                UserRole = UserRole.Admin
+                NormalizedEmail = "JACK.ONEILL@SG1.COM",
+                UserRole = UserRole.Admin,
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
             };
 
-            var result = await _userManager.CreateAsync(user1, "Jack-sg1");
-            if (result.Succeeded)
-            {
-                var currentUser = _userManager.FindByIdAsync(user1.Id).Result;
-                currentUser.EmailConfirmed = true;
-                await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER", "BASIC" });
-            }
+            var password = new PasswordHasher<UserProfile>();
+            var hashed = password.HashPassword(user, "Jack-sg1");
+            user.PasswordHash = hashed;
 
-            var user2 = new UserProfile
+            var userStore = new UserStore<UserProfile>(_context);
+            userStore.CreateAsync(user).Wait();
+
+            var currentUser =  userStore.FindByIdAsync(user.Id);
+            currentUser.Wait();
+            _usermanager.AddToRolesAsync(currentUser.Result, new string[] { "ADMIN", "SUPER", "BASIC" }).Wait();
+
+            //user2
+            user = new UserProfile
             {
                 FirstName = "Samantha",
                 LastName = "Carter",
                 UserName = "Samantha.Carter@SG1.com",
+                NormalizedUserName = "SAMANTHA.CARTER@SG1.COM",
                 Email = "Samantha.Carter@SG1.com",
-                UserRole = UserRole.Super
+                NormalizedEmail = "SAMANTHA.CARTER@SG1.COM",
+                UserRole = UserRole.Super,
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
             };
 
-            result = await _userManager.CreateAsync(user2, "Samantha-sg1");
-            if (result.Succeeded)
-            {
-                var currentUser = _userManager.FindByIdAsync(user2.Id).Result;
-                currentUser.EmailConfirmed = true;
-                await _userManager.AddToRolesAsync(currentUser, new string[] { "ADMIN", "SUPER" });
-            }
+            password = new PasswordHasher<UserProfile>();
+            hashed = password.HashPassword(user, "Samantha-sg1");
+            user.PasswordHash = hashed;
 
-            var user3 = new UserProfile
+            userStore = new UserStore<UserProfile>(_context);
+            userStore.CreateAsync(user).Wait();
+
+            currentUser = userStore.FindByIdAsync(user.Id);
+            currentUser.Wait();
+            _usermanager.AddToRolesAsync(currentUser.Result, new string[] { "SUPER", "BASIC" }).Wait();
+
+            //user3
+            user = new UserProfile
             {
                 FirstName = "Daniel",
                 LastName = "Jackson",
                 UserName = "Daniel.Jackson@SG1.com",
+                NormalizedUserName = "DANIEL.JACKSON@SG1.COM",
                 Email = "Daniel.Jackson@SG1.com",
-                UserRole = UserRole.Basic
+                NormalizedEmail = "DANIEL.JACKSON@SG1.COM",
+                UserRole = UserRole.Basic,
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
             };
 
-            result = await _userManager.CreateAsync(user3, "Daniel-sg1");
-            if (result.Succeeded)
-            {
-                var currentUser = _userManager.FindByIdAsync(user3.Id).Result;
-                currentUser.EmailConfirmed = true;
-                await _userManager.AddToRoleAsync(currentUser, user3.UserRole.ToString());
-            }
+            password = new PasswordHasher<UserProfile>();
+            hashed = password.HashPassword(user, "Daniel-sg1");
+            user.PasswordHash = hashed;
+
+            userStore = new UserStore<UserProfile>(_context);
+            userStore.CreateAsync(user).Wait();
+
+            currentUser = userStore.FindByIdAsync(user.Id);
+            currentUser.Wait();
+            _usermanager.AddToRolesAsync(currentUser.Result, new string[] { "BASIC" }).Wait();
         }
-        private void SeedEvents()
+
+        private static void SeedEvents(EventTrackerDbContext _context)
         {
             var events = new List<Event> {
-                new Event { Id = 1,
-                    Name = "Event1",
-                    Description = "Description1",
+                new Event {
+                    Name = "Pukkelpop 2019",
+                    Description = "Merch stand op Pukkelpop 2019",
                     WantedAmountOfParticipants = 1,
                     Timeframes =
                     {
                         new Timeframe { EventDate = new DateTime(2051, 1, 1), Starttime = 10, Endtime = 17 },
                         new Timeframe { EventDate = new DateTime(2051, 1, 2), Starttime = 10, Endtime = 17 }
                     },
-                    Location = new Location {City="City1", Province="Province1"},
-                    IsCancelled=true
+                    Location = new Location {City="Kiewit", Province="Limburg"}
                 },
-                new Event { Id = 2,
-                    Name = "Event2",
-                    Description = "Description2",
+                new Event {
+                    Name = "F.A.C.T.S. 2019",
+                    Description = "Merch stand op F.A.C.T.S. 2019",
                     WantedAmountOfParticipants = 2,
                     Timeframes = {
                         new Timeframe { EventDate = new DateTime(2052, 2, 1), Starttime = 9, Endtime = 18 },
                         new Timeframe { EventDate = new DateTime(2052, 2, 2), Starttime = 9, Endtime = 18 }
                     },
-                    Location = new Location {City="City2", Province="Province2"},
+                    Location = new Location {City="Gent", Province="Oost-Vlaanderen"},
                 },
-                new Event { Id = 3,
-                    Name = "Event3",
-                    Description = "Description3",
+                new Event {
+                    Name = "Ieperfest 2019",
+                    Description = "Merch stand op Ieperfest 2019",
                     WantedAmountOfParticipants = 3,
                     Timeframes =
                         { new Timeframe { EventDate = new DateTime(2053, 3, 1), Starttime = 9, Endtime = 15}
                     },
-                    Location = new Location {City="City3", Province="Province3"},
+                    Location = new Location {City="Ieper", Province="West-Vlaanderen"},
+                    IsCancelled = true
                 }
             };
             _context.Events.AddRange(events);
+            _context.SaveChanges();
         }
     }
 }
