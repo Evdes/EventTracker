@@ -13,5 +13,8 @@ namespace EventTracker.Models.Events
         [Required]
         [MaxLength(50, ErrorMessage = "The city you've entered contains too many characters")]
         public string Province { get; set; }
+
+        public int EventId { get; set; }
+        public Event Event { get; set; }
     }
 }

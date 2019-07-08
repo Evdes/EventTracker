@@ -17,7 +17,7 @@ namespace EventTracker.DAL.SqlData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Event>().HasOne(e => e.Location);
+            modelBuilder.Entity<Event>().HasOne(e => e.Location).WithOne(l => l.Event);
             modelBuilder.Entity<Event>().HasMany(e => e.Timeframes);
 
             modelBuilder.Entity<UserEvents>()
