@@ -1,51 +1,64 @@
 ﻿@model Event
-@{ 
+@{
     var participantsStilNeeded = Model.WantedAmountOfParticipants - Model.UserEvents.Count;
 }
 
 <div class="card-header @(Model.IsCancelled ? "cancelled" : null)
                 @(!Model.IsCancelled && Model.WantedAmountOfParticipants <= Model.UserEvents.Count ? "full" : null)">
-    @if (@Model.IsCancelled)
-    {
-        <h2 class="mb-0">@Model.Name (Cancelled) </h2>
-    }
-    else
-    {
-        <h2 class="mb-0">@Model.Name</h2>
-    }
-</div>
-<div class="card-body">
-    <h5 class="subheader">General info</h5>
-    <h6>Description: @Model.Description</h6>
-    <h6>Location: @Model.Location.City (@Model.Location.Province)</h6>
-    @if (participantsStilNeeded <= 0)
-    {
-        <h6>0 participants still needed</h6>
-    }
-    else
-    {
-        if (participantsStilNeeded == 1)
+    <div class="event-card-header">
+        @foreach (var timeframe in Model.Timeframes)
         {
-            <h6>1 participant still needed</h6>
+            <time datetime="2014-09-20" class="icon d-inline-block mr-2">
+                <strong>@timeframe.EventDate.Value.ToString("MMM")</strong>
+                <span>@timeframe.EventDate.Value.ToString("dd")</span>
+            </time>
+        }
+            <h3 class="mb-0 d-inline-block">@Model.Name</h3>
+    </div>
+    <a role="button" class="float-right" data-toggle="collapse" href="#card-body-@Model.Id" aria-expanded="false" aria-controls="card-body-@Model.Id"><i class="fa fa-chevron-down"></i></a>
+</div>
+
+<div id="card-body-@Model.Id" class="collapse">
+    <div class="card-body">
+        <h5 class="subheader">General info</h5>
+        @if (@Model.IsCancelled)
+        {
+            <h6 class="mb-0 d-inline-block text-danger">Event has been Cancelled </h6>
+        }
+        <h6>Description: @Model.Description</h6>
+        <h6>Location: @Model.Location.City (@Model.Location.Province)</h6>
+        @if (participantsStilNeeded <= 0)
+        {
+            <h6>Wanted amount of participants reached</h6>
         }
         else
         {
-            <h6>@participantsStilNeeded participants still needed</h6>
-        }
-    }
-    <br />
-    <h5 class="subheader">Timing</h5>
-    <ul class="list-unstyled">
-        <li>
-            @foreach (var timeframe in @Model.Timeframes)
+            if (participantsStilNeeded == 1)
             {
-                <h6>
-                    <span>@timeframe.EventDate.Value.Date.ToShortDateString():</span>
-                    <span>@timeframe.Starttime</span>h - <span>@timeframe.Endtime</span>h
-                </h6>
+                <h6>1 participant still needed</h6>
             }
-        </li>
-    </ul>
-    <partial name="Partials/_Participants" model="Model" />
+            else
+            {
+                <h6>@participantsStilNeeded participants still needed</h6>
+            }
+        }
+        <br />
+        <h5 class="subheader">Timing</h5>
+        <ul class="list-unstyled">
+            <li>
+                @foreach (var timeframe in @Model.Timeframes)
+                {
+                    <h6>
+                        <span>@timeframe.EventDate.Value.Date.ToShortDateString():</span>
+                        <span>@timeframe.Starttime</span>h - <span>@timeframe.Endtime</span>h
+                    </h6>
+                }
+            </li>
+        </ul>
+        <partial name="Partials/_Participants" model="Model" />
+    </div>
+
+    <partial name="Partials/_ActionButtons" model="Model" />
 </div>
+
 

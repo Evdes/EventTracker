@@ -9843,7 +9843,7 @@ a, a:hover {
   background-color: #e9ecef; }
 
 .card-header {
-  background-color: #FDF9F9; }
+  background-color: #e6e6e6; }
 
 #loginlink {
   color: #6F93B7; }
@@ -9864,6 +9864,38 @@ a, a:hover {
   color: lightslategrey;
   border-bottom: 1px solid lightslategrey;
   font: 12px; }
+
+.icon {
+  font-size: 1em;
+  display: block;
+  position: relative;
+  width: 3em;
+  height: 3.2em;
+  background-color: #fff;
+  border-radius: 0.6em;
+  overflow: hidden; }
+  .icon * {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center; }
+  .icon strong {
+    position: absolute;
+    top: 0;
+    color: #fff;
+    background-color: #fd9f1b;
+    box-shadow: 0 2px 0 #fd9f1b; }
+  .icon span {
+    font-size: 1em;
+    letter-spacing: -0.08em;
+    padding-top: 50%;
+    color: #2f2f2f; }
+
+.event-card-header {
+  display: inline-flex;
+  align-items: center; }
 
 .btn-undoCancel {
   width: 200px; }

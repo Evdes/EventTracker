@@ -119,37 +119,6 @@ namespace EventTracker.Web.Controllers
             return View(_userManager.Users.OrderBy(u => u.FirstName).ToList());
         }
 
-        [HttpGet]
-        [ActionName("DeleteUserProfile")]
-        public async Task<IActionResult> DeleteUserProfileAsync(string id)
-        {
-            if (ModelState.IsValid)
-            {
-                var userProfileToDelete = await _userManager.FindByIdAsync(id);
-                if (userProfileToDelete == null)
-                {
-                    return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
-                }
-                else
-                {
-                    var userProfileToDeleteViewModel = new UserProfileViewModel
-                    {
-                        Id = userProfileToDelete.Id,
-                        FirstName = userProfileToDelete.FirstName,
-                        LastName = userProfileToDelete.LastName,
-                        Email = userProfileToDelete.Email,
-                        UserRole = userProfileToDelete.UserRole
-                    };
-
-                    return View(userProfileToDeleteViewModel);
-                }
-            }
-            else
-            {
-                return RedirectToAction(nameof(ErrorController.UserProfileNotFound), "error");
-            }
-        }
-
         [HttpPost]
         [ActionName("DeleteUserProfile")]
         public async Task<IActionResult> DeleteUserProfilePostAsync(string id)

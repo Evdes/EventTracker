@@ -224,6 +224,7 @@ namespace EventTracker.Web.Controllers
                                 Endtime = timeframe.Endtime
                             });
                     }
+
                     await _events.EditEventAsync(eventToUpdate);
                     return RedirectToAction(nameof(UpcomingEvents), new { id = string.Empty })
                     .WithSuccess("Success", "Event updated");

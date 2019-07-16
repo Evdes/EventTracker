@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+﻿@inject UserManager<UserProfile> UserManager
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <a class="navbar-brand" asp-controller="Events" asp-action="UpcomingEvents">Event Tracker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -36,7 +38,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         <i class="fa fa-user-circle"></i>
-                        @User.Identity.Name
+                        @UserManager.FindByNameAsync(User.Identity.Name).Result.FullName
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
