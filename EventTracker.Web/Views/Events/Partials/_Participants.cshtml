@@ -3,41 +3,45 @@
 <div>
     <h5 class="subheader pt-3 mb-3">Participants</h5>
     <div class="col">
-        <input asp-for="UserEvents" type="hidden" />
-        @if (Model.UserEvents.Count == 0)
+        @using (Html.BeginCollectionItem("UserEvents"))
         {
-            <div class="row">
-                <h6 class="pb-5">There are currently no participants for this event</h6>
-            </div>
+            <input asp-for="UserEvents" type="hidden" />
+            @if (Model.UserEvents.Count == 0)
+            {
+                <div class="row">
+                    <h6 class="pb-5">There are currently no participants for this event</h6>
+                </div>
+            }
+            else
+            {
+                <ul class="list-unstyled">
+                    @foreach (var userEvent in Model.UserEvents)
+                    {
+                        <li class="participantRow align-items-center">
+
+                            <div class="row">
+
+                                @if (ViewBag.Page == "EditEvent")
+                                {
+                                    <button asp-action="RemoveParticipantAsync"
+                                            asp-controller="Events"
+                                            asp-route-id="@Model.Id"
+                                            asp-route-userId="@userEvent.UserId"
+                                            type="submit"
+                                            class="btn-delete-sm btn btn-danger form-control mr-2"
+                                            data-toggle="tooltip"
+                                            title="Remove participant">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                }
+
+                                <h6 class="participantName">@userEvent.UserProfile.FullName</h6>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
         }
-        else
-        {
-            <ul class="list-unstyled">
-                @foreach (var userEvent in Model.UserEvents)
-                {
-                    <li class="participantRow align-items-center">
-
-                        <div class="row">
-
-                            @if (ViewBag.Page == "EditEvent")
-                            {
-                                <button asp-action="RemoveParticipantAsync"
-                                        asp-controller="Events"
-                                        asp-route-id="@Model.Id"
-                                        asp-route-userId="@userEvent.UserId"
-                                        type="submit"
-                                        class="btn-delete-sm btn btn-danger form-control mr-2"
-                                        data-toggle="tooltip"
-                                        title="Remove participant">
-                                    <i class="fa fa-remove"></i>
-                                </button>
-
-                            }
-                            <h6 class="participantName">@userEvent.UserProfile.FullName</h6>
-                        </div>
-                    </li>
-                }
-            </ul>
-        }
-    </div>
+        </div>
+        
 </div>

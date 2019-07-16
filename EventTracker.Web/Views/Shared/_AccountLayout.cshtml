@@ -8,10 +8,19 @@
 <body>
     <partial name="Partials/_Navbar" />
     <partial name="Partials/_StatusMessages" />
-        <div class="jumbotron pb-5 col-10 offset-1 col-xl-4 offset-xl-4 col-lg-8 offset-lg-2">
-            @RenderBody()
-        </div>
+    <div class="jumbotron pb-5 col-10 offset-1 col-xl-4 offset-xl-4 col-lg-8 offset-lg-2">
+        @RenderBody()
+    </div>
     <script src="~/js/vendor.min.js"></script>
     <script src="~/js/site.min.js"></script>
+    <script>
+        //Warn user when navigating away from page without saving data
+        window.addEventListener('beforeunload', function (e) {
+            // Cancel the event
+            e.preventDefault();
+            // Chrome requires returnValue to be set
+            e.returnValue = '';
+        });
+    </script>
 </body>
 </html>

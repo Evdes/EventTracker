@@ -239,7 +239,7 @@ namespace EventTracker.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Super")]
-        public async Task<IActionResult> RemoveParticipantAsync(int? id, string userId)
+        public async Task<IActionResult> RemoveParticipantAsync(int? id, string userId, Event postedEvent)
         {
             if (ModelState.IsValid)
             {
@@ -253,7 +253,7 @@ namespace EventTracker.Web.Controllers
                     var userProfileToRemove = await _userManager.FindByIdAsync(userId);
                     var ueToRemove = eventToModify.UserEvents.FirstOrDefault(ue => ue.UserId == userProfileToRemove.Id);
                     eventToModify.UserEvents.Remove(ueToRemove);
-                    await _events.EditEventAsync(eventToModify);
+                    await EditEventAsync(postedEvent);
                     return RedirectToAction("EditEvent", new { id }).WithSuccess("Success", "Participant removed");
                 }
                 

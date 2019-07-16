@@ -13,5 +13,24 @@
     </div>
     <script src="~/js/vendor.min.js"></script>
     <script src="~/js/site.min.js"></script>
+    @if (ViewBag.Page == "AddEvent" || ViewBag.Page == "EditEvent" || ViewBag.Page == "AddUser" || ViewBag.Page == "EditUser")
+    {
+        <script>
+            //Warn user when navigating away from page without saving data
+            window.onbeforeunload = function (e) {
+                // Cancel the event
+                e.preventDefault();
+                // Chrome requires returnValue to be set
+                e.returnValue = '';
+            };
+
+            //Disable warning on submit
+            $(document).on("submit", "form", function (event) {
+                window.onbeforeunload = null;
+            });
+
+
+        </script>
+    }
 </body>
 </html>
