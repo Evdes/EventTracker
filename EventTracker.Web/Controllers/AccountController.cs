@@ -39,21 +39,28 @@ namespace EventTracker.Web.Controllers
 
         [HttpPost]
         [ActionName("Login")]
-        public async Task<IActionResult> LoginAsync(UserProfileLoginViewModel userProfile)
+        public async Task<IActionResult> LoginAsync(UserProfileLoginViewModel postedUserProfile)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(userProfile.Email,
-                                                                                 userProfile.Password,
-                                                                                 userProfile.RememberMe,
+                var result = await _signInManager.PasswordSignInAsync(postedUserProfile.Email,
+                                                                                 postedUserProfile.Password,
+                                                                                 postedUserProfile.RememberMe,
                                                                                  false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events").WithSuccess("Success", "Login succesful");
+                    var loggedInUser = await _userManager.FindByEmailAsync(postedUserProfile.Email);
+                    if (loggedInUser.IsFirstLogin)
+                    {
+                        loggedInUser.IsFirstLogin = false;
+                        await _userManager.UpdateAsync(loggedInUser);
+                        return RedirectToAction(nameof(ChangePasswordAsync)).WithSuccess("Success", "Login successful. Since this is your first login, please provide a new password");
+                    }
+                    return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events").WithSuccess("Success", "Login successful");
                 }
                 else
                 {
-                    var attemptedLoginUserProfile = await _userManager.FindByEmailAsync(userProfile.Email);
+                    var attemptedLoginUserProfile = await _userManager.FindByEmailAsync(postedUserProfile.Email);
                     if (attemptedLoginUserProfile == null)
                     {
                         ModelState.AddModelError(string.Empty, "Unknown Email");

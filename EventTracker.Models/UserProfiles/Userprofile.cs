@@ -22,6 +22,8 @@ namespace EventTracker.Models.UserProfiles
             get { return FirstName + " " + LastName; }
         }
 
+        public bool IsFirstLogin { get; set; }
+
         public UserRole UserRole { get; set; }
         public ICollection<UserEvents> UserEvents { get; set; }
     }

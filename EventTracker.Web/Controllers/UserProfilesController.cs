@@ -46,7 +46,8 @@ namespace EventTracker.Web.Controllers
                     LastName = userProfileToAdd.LastName,
                     UserName = userProfileToAdd.Email,
                     Email = userProfileToAdd.Email,
-                    UserRole = userProfileToAdd.UserRole
+                    UserRole = userProfileToAdd.UserRole,
+                    IsFirstLogin = true
                 };
 
                 var result = await _userManager.CreateAsync(user, userProfileToAdd.Password);
