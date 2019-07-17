@@ -54,7 +54,7 @@ namespace EventTracker.Web.Controllers
                     {
                         loggedInUser.IsFirstLogin = false;
                         await _userManager.UpdateAsync(loggedInUser);
-                        return RedirectToAction(nameof(ChangePasswordAsync)).WithSuccess("Success", "Login successful. Since this is your first login, please provide a new password");
+                        return RedirectToAction("ChangePassword").WithSuccess("Success", "Login successful. Since this is your first login, please provide a new password");
                     }
                     return RedirectToAction(nameof(EventsController.UpcomingEvents), "Events").WithSuccess("Success", "Login successful");
                 }
@@ -165,8 +165,7 @@ namespace EventTracker.Web.Controllers
 
                 string message = string.Format(builder.HtmlBody, user.FirstName, callbackUrl);
                 await _emailSender.SendEmailAsync(email, subject, message);
-                return RedirectToAction(nameof(Login)).WithSuccess("Success", "A link to reset your password has been sent. " +
-                    "Please keep in mind that this link is only valid for 24 hours");
+                return RedirectToAction(nameof(Login)).WithSuccess("Success", "A link to reset your password has been sent.");
             }
             return View(model);
         }

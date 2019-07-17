@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventTracker.DAL.Migrations
 {
     [DbContext(typeof(EventTrackerDbContext))]
-    [Migration("20190708143643_FixedLocationOneToOneRel")]
-    partial class FixedLocationOneToOneRel
+    [Migration("20190717132828_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,8 @@ namespace EventTracker.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired();
+
+                    b.Property<bool>("IsFirstLogin");
 
                     b.Property<string>("LastName")
                         .IsRequired();

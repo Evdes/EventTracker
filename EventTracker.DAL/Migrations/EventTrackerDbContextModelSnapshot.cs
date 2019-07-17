@@ -121,6 +121,8 @@ namespace EventTracker.DAL.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired();
 
+                    b.Property<bool>("IsFirstLogin");
+
                     b.Property<string>("LastName")
                         .IsRequired();
 

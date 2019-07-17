@@ -43,6 +43,7 @@ namespace EventTracker.DAL.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
+                    IsFirstLogin = table.Column<bool>(nullable: false),
                     UserRole = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -51,17 +52,19 @@ namespace EventTracker.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    City = table.Column<string>(maxLength: 50, nullable: false),
-                    Province = table.Column<string>(maxLength: 50, nullable: false)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    WantedAmountOfParticipants = table.Column<int>(nullable: false),
+                    IsCancelled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,50 +174,28 @@ namespace EventTracker.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "Location",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 500, nullable: false),
-                    WantedAmountOfParticipants = table.Column<int>(nullable: false),
-                    LocationId = table.Column<int>(nullable: true),
-                    IsCancelled = table.Column<bool>(nullable: false)
+                    City = table.Column<string>(maxLength: 50, nullable: false),
+                    Province = table.Column<string>(maxLength: 50, nullable: false),
+                    EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_Location", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Location_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Participant",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    EventId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Participant", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Participant_Events_EventId",
+                        name: "FK_Location_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimeFrame",
+                name: "Timeframe",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -226,13 +207,37 @@ namespace EventTracker.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimeFrame", x => x.Id);
+                    table.PrimaryKey("PK_Timeframe", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TimeFrame_Events_EventId",
+                        name: "FK_Timeframe_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserEvents",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    EventId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserEvents", x => new { x.UserId, x.EventId });
+                    table.ForeignKey(
+                        name: "FK_UserEvents_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserEvents_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -275,18 +280,19 @@ namespace EventTracker.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_LocationId",
-                table: "Events",
-                column: "LocationId");
+                name: "IX_Location_EventId",
+                table: "Location",
+                column: "EventId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participant_EventId",
-                table: "Participant",
+                name: "IX_Timeframe_EventId",
+                table: "Timeframe",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeFrame_EventId",
-                table: "TimeFrame",
+                name: "IX_UserEvents_EventId",
+                table: "UserEvents",
                 column: "EventId");
         }
 
@@ -308,22 +314,22 @@ namespace EventTracker.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Participant");
+                name: "Location");
 
             migrationBuilder.DropTable(
-                name: "TimeFrame");
+                name: "Timeframe");
+
+            migrationBuilder.DropTable(
+                name: "UserEvents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "AspNetUsers");
         }
     }
 }

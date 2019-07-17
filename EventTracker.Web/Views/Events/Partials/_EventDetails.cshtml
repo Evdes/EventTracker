@@ -4,16 +4,7 @@
 }
 
 <div class="card-header">
-    <div class="event-card-header">
-        @foreach (var timeframe in Model.Timeframes)
-        {
-            <time datetime="2014-09-20" class="icon d-inline-block mr-2">
-                <strong>@timeframe.EventDate.Value.ToString("MMM")</strong>
-                <span>@timeframe.EventDate.Value.ToString("dd")</span>
-            </time>
-        }
-            <h3 class="mb-0 d-inline-block">@Model.Name</h3>
-    </div>
+    <h3 class="mb-0 d-inline-block ml-md-2">@Model.Name</h3>
 </div>
 
 <div>
