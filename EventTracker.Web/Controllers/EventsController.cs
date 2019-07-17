@@ -1,7 +1,7 @@
-﻿using EventTracker.Models.Events;
+﻿using EventTracker.DAL.Repos;
+using EventTracker.Models.Events;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.Alerts;
-using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

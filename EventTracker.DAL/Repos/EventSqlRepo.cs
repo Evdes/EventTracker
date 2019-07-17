@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventTracker.Services.Repos
+namespace EventTracker.DAL.Repos
 {
     public class EventSqlRepo : IEventRepo
     {

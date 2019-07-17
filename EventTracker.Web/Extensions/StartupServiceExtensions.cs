@@ -1,7 +1,7 @@
-﻿using EventTracker.DAL.SqlData;
+﻿using EventTracker.DAL.Repos;
+using EventTracker.DAL.SqlData;
 using EventTracker.Models.UserProfiles;
 using EventTracker.Services.EmailSender;
-using EventTracker.Services.Repos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

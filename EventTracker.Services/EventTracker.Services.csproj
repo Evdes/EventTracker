@@ -20,13 +20,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.8"/>
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.1"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
-    <ProjectReference Include="..\EventTracker.Models\EventTracker.Models.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.1" />
   </ItemGroup>
 </Project>

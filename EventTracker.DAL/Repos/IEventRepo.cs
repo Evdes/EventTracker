@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EventTracker.Services.Repos
+namespace EventTracker.DAL.Repos
 {
     public interface IEventRepo
     {
