@@ -84,7 +84,7 @@ namespace EventTracker.Web.Controllers
 
                     string pathToFile = Directory.GetParent(Environment.CurrentDirectory).FullName
                     + Path.DirectorySeparatorChar.ToString()
-                    + "EventTracker.Services"
+                    + "wwwroot"
                     + Path.DirectorySeparatorChar.ToString()
                     + "EmailSender"
                     + Path.DirectorySeparatorChar.ToString()

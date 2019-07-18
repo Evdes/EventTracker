@@ -128,7 +128,7 @@ namespace EventTracker.Web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Unknown email.");
-                    return View(model).WithDanger("Failed", "Request for reset link denied");
+                    return View(nameof(ForgotPassword), model).WithDanger("Failed", "Request for reset link denied");
                 }
                 else
                 {
@@ -149,7 +149,7 @@ namespace EventTracker.Web.Controllers
 
                 string pathToFile = Directory.GetParent(Environment.CurrentDirectory).FullName
                     + Path.DirectorySeparatorChar.ToString()
-                    + "EventTracker.Services"
+                    + "wwwroot"
                     + Path.DirectorySeparatorChar.ToString()
                     + "EmailSender"
                     + Path.DirectorySeparatorChar.ToString()
@@ -167,7 +167,7 @@ namespace EventTracker.Web.Controllers
                 await _emailSender.SendEmailAsync(email, subject, message);
                 return RedirectToAction(nameof(Login)).WithSuccess("Success", "A link to reset your password has been sent.");
             }
-            return View(model);
+            return View(nameof(ForgotPassword), model);
         }
 
         [HttpGet]
