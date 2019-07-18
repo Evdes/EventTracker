@@ -29,7 +29,7 @@ namespace EventTracker.Web.Extensions
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<EventTrackerDbContext>(
-                options => options.UseSqlServer(config.GetConnectionString("EventTrackerDevDb")));
+                options => options.UseSqlServer(config.GetConnectionString("EventTrackerDb")));
         }
 
         public static void ConfigureCustomServices(this IServiceCollection services)
